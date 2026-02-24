@@ -26,7 +26,7 @@ Use this command order if you are new:
 2. `/class`
 3. `/stats`
 4. `/skills`
-5. `/shop` and `/bal`
+5. `/bal`
 6. `/d` (dungeon finder) and `/p`
 
 ## 5) Rewards and breakpoints
@@ -51,18 +51,13 @@ Use this command order if you are new:
 - `/class` (alias `/c`) - class panel/management
 - `/skills` - profession panel
 - `/stats` - current stat display
-- `/shop` - open shop
 - `/bal` - view gold balance
-- `/bank` - open bank storage
-- `/auction` (alias `/ah`) - auction house
 - `/d` - dungeon finder
 - `/dungeon leave` - leave current dungeon
 - `/p` or `/party` - open party browser
 - `/p create`, `/p invite <player>`, `/p accept`, `/p leave`, `/p info`
 - `/leaderboard` (alias `/lb`) - leaderboard UI
 - `/arena` and `/arena leave` - arena flow
-- `/pet` - pet commands
-- `/craft` - crafting-related actions/UI where permitted
 
 ## FAQ
 
@@ -92,3 +87,4 @@ You may be in a ready-check penalty window, have an invalid party state, or have
 ### Where are patch notes?
 
 Use the official Discord updates: [discord.gg/RiftHaven](https://www.discord.gg/RiftHaven)
+
