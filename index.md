@@ -21,7 +21,6 @@ Latest patch and announcements: [discord.gg/RiftHaven](https://www.discord.gg/Ri
 - [Economy](wiki/economy.md)
 - [Party and PvP](wiki/party-and-pvp.md)
 - [FAQ and Commands](wiki/faq-and-commands.md)
-- [Wiki.gg Migration Guide](wiki/wiki-gg-migration.md)
 
 ## 1) What this system is
 
@@ -77,3 +76,4 @@ Recommended order:
 - Last updated: 2026-02-24
 - Scope: Full player wiki launch on GitHub Pages.
 - Patch source: [discord.gg/RiftHaven](https://www.discord.gg/RiftHaven)
+
