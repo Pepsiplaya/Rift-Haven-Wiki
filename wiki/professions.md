@@ -29,18 +29,23 @@ They feed:
 - Profession perks/talents now exist and are part of long-term progression.
 - The shared top tabs let you move between `Inventory`, `Skills`, `Quests`, `Party`, and `Dungeon Finder` without leaving the menu shell.
 
-Active profession skills:
+Current live skill roster:
 
-- Mining
-- Foraging
-- Fishing
-- Smithing
-- Weaponsmithing
-- Leatherworking
-- Weaving
-- Alchemy
-- Cooking
-- Jewelcrafting
+- Mining - ore, bars, and metal progression
+- Foraging - plants, fruits, mushrooms, sap, and general gatherables
+- Fishing - fish and supporting consumable/economy progression
+- Smithing - armor and metal equipment crafting
+- Weaponsmithing - weapon crafting and weapon-tier progression
+- Leatherworking - hide-based armor/material progression
+- Weaving - cloth/fiber armor and textile progression
+- Alchemy - potions, utility brews, and timed consumables
+- Cooking - food buffs and meat/ingredient progression
+- Jewelcrafting - rings, amulets, gems, and jewelry progression
+
+Simple way to think about it:
+
+- Gathering skills: Mining, Foraging, Fishing
+- Crafting skills: Smithing, Weaponsmithing, Leatherworking, Weaving, Alchemy, Cooking, Jewelcrafting
 
 Legacy note:
 
@@ -59,6 +64,7 @@ Profession panel notes:
 - `/skills` is the main progression page for profession levels and perk choices.
 - Profession perks matter now, not just raw level.
 - Gathering and crafting skills are designed to feed each other, not live as isolated systems.
+- If a player wants to know what skills currently exist, this is the full live list to reference.
 
 ## 4) Progression path
 
