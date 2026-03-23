@@ -7,6 +7,7 @@ Latest patch and announcements: [discord.gg/RiftHaven](https://www.discord.gg/Ri
 ## Quick Navigation
 
 - [Getting Started](wiki/getting-started.md)
+- [Inventory and UI](wiki/inventory-and-ui.md)
 - [Classes Overview](wiki/classes.md)
 - [Fury Fighter](wiki/classes/fury-fighter.md)
 - [Light Paladin](wiki/classes/light-paladin.md)
@@ -14,7 +15,8 @@ Latest patch and announcements: [discord.gg/RiftHaven](https://www.discord.gg/Ri
 - [Shinobi Rogue](wiki/classes/shinobi-rogue.md)
 - [Talents](wiki/talents.md)
 - [Stats and Gear](wiki/stats-and-gear.md)
-- [Professions](wiki/professions.md)
+- [Professions and Skills](wiki/professions.md)
+- [Loot and Drops](wiki/loot-and-drops.md)
 - [Rifts](wiki/rifts.md)
 - [Dungeons](wiki/dungeons.md)
 - [Quests and NPCs](wiki/quests-and-npcs.md)
@@ -24,7 +26,7 @@ Latest patch and announcements: [discord.gg/RiftHaven](https://www.discord.gg/Ri
 
 ## 1) What this system is
 
-Rift Haven is a class-based MMO experience built around quests, talent progression, resource gathering, crafting, rifts, dungeons, party play, and PvP arena support.
+Rift Haven is a class-based MMO experience built around quests, talent progression, resource gathering, professions, crafting, essences, rifts, dungeons, party play, and PvP arena support.
 
 This wiki is written for players, not developers. It focuses on what to do, what matters, and how to progress efficiently.
 
@@ -52,10 +54,11 @@ Recommended order:
 
 1. Finish intro questline and class path choice.
 2. Grab your class weapon quest.
-3. Start town profession and utility quests.
-4. Push class level 10 for your first major class quest.
+3. Learn the beta inventory and shared top-tab menu flow.
+4. Start town profession and utility quests.
 5. Rotate quests, professions, rifts, and dungeons for steady growth.
-6. Push class level 25 and complete devotion part II.
+6. Add food, potions, and jewelry into your normal progression loop.
+7. Push class level 25 and complete devotion part II.
 
 ## 5) Rewards and breakpoints
 
@@ -68,12 +71,12 @@ Recommended order:
 
 - Ignoring class weapon identity early.
 - Delaying profession XP too long.
+- Ignoring the beta inventory and jewelry/profession systems.
 - Joining rifts late and missing contribution thresholds.
 - Queueing dungeons without role/loadout prep.
 
 ## 7) Patch notes for this page
 
-- Last updated: 2026-02-24
-- Scope: Full player wiki launch on GitHub Pages.
+- Last updated: 2026-03-22
+- Scope: Updated for profession expansion, beta inventory UI, and loot-table rework.
 - Patch source: [discord.gg/RiftHaven](https://www.discord.gg/RiftHaven)
-

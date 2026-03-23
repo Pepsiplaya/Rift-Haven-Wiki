@@ -4,7 +4,7 @@ Back: [Home](../index.md)
 
 ## 1) What this system is
 
-Dungeons are instanced PvE runs with queue matchmaking, ready checks, scaling, and loot routing.
+Dungeons are instanced PvE runs with queue matchmaking, ready checks, scaling, and dungeon-specific reward routing.
 
 ## 2) Who should use it
 
@@ -16,15 +16,9 @@ Dungeons are instanced PvE runs with queue matchmaking, ready checks, scaling, a
 
 Queue/ready system:
 
-- Ready check duration: 30 seconds.
-- Ready check failure/decline penalty: 2 minutes.
-- Requeue token window (disconnect-before-first-boss): 2 minutes.
-
-Entry behavior:
-
-- You must meet the dungeon's level band to queue consistently.
-- If party members do not accept ready checks, queue progress fails.
-- Leaving early can lock your queue flow for the penalty window.
+- Ready check duration: 30 seconds
+- Ready check failure/decline penalty: 2 minutes
+- Requeue token window (disconnect-before-first-boss): 2 minutes
 
 General dungeon bands from current config defaults:
 
@@ -34,36 +28,43 @@ General dungeon bands from current config defaults:
 - Dungeon of Fear I (30)
 - Dungeon of Fear II (30)
 
-Scaling model:
+General reward behavior:
 
-- Base NPC health/damage multipliers are per dungeon definition.
-- Optional party scaling per extra player exists per dungeon definition.
+- Dungeon queueing is still handled by the dungeon finder system.
+- Dungeon NPCs now lean more clearly into material/essence drops.
+- Dungeon chest loot was cleaned up through chest asset pools.
+- Shared top tabs now let you jump back and forth between Inventory, Skills, Quests, Party, and Dungeon Finder more cleanly.
 
-Loot behavior:
+Current chest behavior:
 
-- Loot routing is mapped per dungeon and loot-table configuration.
-- Better clear consistency and boss completion improve repeat value over time.
+- Common dungeon chests roll 1-6 items
+- Legendary/gold dungeon chests roll 4-12 items
+- Common chests lean more toward bars and useful gatherables
+- Better chests lean more toward silver/gold bars, gems, and stronger utility materials
 
 ## 4) Progression path
 
-1. Enter with repaired loadout and class-appropriate weapon.
+1. Enter with repaired gear, food, and potions.
 2. Do not ignore ready checks.
-3. Learn each dungeon's pacing before speed-running.
-4. Push higher band dungeons after hitting class talent breakpoints.
+3. Use the dungeon finder tab/menu flow instead of bouncing through unrelated commands.
+4. Learn each dungeon's pacing before trying to speed-run.
+5. Use dungeon farming to support your crafting and profession loops, not just raw gear hope.
 
 ## 5) Rewards and breakpoints
 
-- Level-band upgrades are the main dungeon progression reward breakpoints.
 - Better consistency comes from clean clears, not reckless pulls.
-- Queue reliability directly affects your total runs per hour.
+- Material drops now feed professions more cleanly than before.
+- Chest quality matters more after the loot cleanup.
+- Dungeon runs are now stronger for profession support, not just raw combat farming.
 
 ## 6) Common mistakes
 
-- Queueing underleveled or undergeared.
-- Ignoring role readiness before accept.
+- Queueing undergeared with no food/potion prep.
+- Ignoring class weapon and armor rules before entering.
+- Expecting every dungeon creature to be pure gear loot instead of material progression.
 - Leaving runs early and eating avoidable queue penalties.
 
 ## 7) Patch notes for this page
 
-- Last updated: 2026-02-24
-- Added current queue timings and level-band overview.
+- Last updated: 2026-03-22
+- Added updated dungeon chest reward notes and current dungeon progression guidance.

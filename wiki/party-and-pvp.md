@@ -20,6 +20,7 @@ Party system highlights:
 - Invite mode options include normal, auto-accept, auto-decline.
 - Party HUD/map/marker and ping support exist.
 - XP and group systems integrate with party workflows.
+- Party browser now sits inside the shared top-tab UI flow with Inventory, Skills, Quests, and Dungeon Finder.
 
 Current party config defaults include:
 
@@ -58,5 +59,5 @@ Arena highlights:
 
 ## 7) Patch notes for this page
 
-- Last updated: 2026-02-24
-- Added party defaults and arena respawn/protection details.
+- Last updated: 2026-03-22
+- Added shared menu-flow note and kept the party/arena behavior reference current.

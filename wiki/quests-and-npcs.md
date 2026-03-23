@@ -18,6 +18,7 @@ Quests and NPC dialogue drive most early and mid progression. This page is spoil
 - Main onboarding runs through tavern/trainer/devotion chains.
 - Class path has weapon quest + devotion followups.
 - Quest interactions are NPC and objective driven (talk/kill/area/fishing/crafting style objectives).
+- Quest progress is character-based, not shared across all characters on your account.
 
 ## 4) Progression path
 
@@ -108,8 +109,9 @@ Spoiler-light backbone:
 - Skipping class weapon quest after devotion choice.
 - Not checking quest prerequisites when chain seems blocked.
 - Ignoring side chains that unlock useful progression routes.
+- Assuming quest progress should carry across different characters.
 
 ## 7) Patch notes for this page
 
-- Last updated: 2026-02-24
-- Added spoiler-light full quest index and active NPC list.
+- Last updated: 2026-03-22
+- Clarified character-based quest progress and kept the spoiler-light quest/NPC reference current.

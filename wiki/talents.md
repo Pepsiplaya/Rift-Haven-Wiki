@@ -16,6 +16,8 @@ Talents are your class specialization picks. You unlock one talent tier every 5 
 
 - Talent unlock levels: 5, 10, 15, 20, 25, 30.
 - You choose from the options in that tier.
+- Talent selection can be viewed from both `/class` and the beta inventory UI.
+- Talent reset support now exists directly in the beta inventory talents panel.
 - Current launch subclasses with full active support:
 - Fury (Fighter)
 - Light (Paladin)
@@ -80,5 +82,5 @@ Choose one of these planning styles:
 
 ## 7) Patch notes for this page
 
-- Last updated: 2026-02-24
-- Launch talent tables added for all currently active subclass paths.
+- Last updated: 2026-03-22
+- Added beta inventory talent-panel notes and updated the page for current menu flow.
