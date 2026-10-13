@@ -4,6 +4,9 @@ const metrics={quests:'quests.completed.total',dungeons:'dungeon.clears.total',m
 const validClasses=new Set(['fighter','paladin','elemancer','rogue','druid']);
 const professions=new Set(['MINING','FORAGING','FARMING','FISHING','SMITHING','WEAPONSMITHING','LEATHERWORKING','WEAVING','COOKING','ALCHEMY','JEWELCRAFTING','HUNTER']);
 const catalog=require('../assets/data/items.json');
+const {createHash}=require('node:crypto');
+const appearanceKeys=new Set(['bodyCharacteristic','underwear','face','eyes','ears','mouth','haircut','eyebrows','facialHair','pants','undertop','overtop','shoes','gloves','overpants','cape','faceAccessory','headAccessory','earAccessory']);
+function appearanceHash(raw){const visual={};for(const key of Object.keys(raw||{}).sort())if(appearanceKeys.has(key)&&typeof raw[key]==='string'&&/^[A-Za-z0-9_.-]{1,100}$/.test(raw[key]))visual[key]=raw[key];return Object.keys(visual).length?createHash('sha256').update(JSON.stringify(visual)).digest('hex').slice(0,24):null;}
 const rarities=new Set(['poor','common','uncommon','rare','epic','legendary','set','mythic']);
 function itemDetails(raw={}){
   const result={};for(const key of ['slot','weaponType','armorType','requiredClass','requiredSubclass'])if(raw[key])result[key]=text(raw[key],80);
@@ -22,6 +25,7 @@ const timestamp=value=>{const date=new Date(value);return value&&Number.isFinite
 function profile(raw){
   const result={name:text(raw.name,64),mainClass:validClasses.has(raw.mainClass)?raw.mainClass:null,subclass:text(raw.subclass,64)||null,level:Math.max(0,Number(raw.level)||0),experience:integer(raw.experience),balance:integer(raw.balance),createdAt:timestamp(raw.createdAt),lastPlayed:timestamp(raw.lastPlayed),questsCompleted:Math.max(0,Number(raw.questsCompleted)||0),skills:skillsProjection(raw.skills),metrics:{},guild:raw.guild?{name:text(raw.guild.name,64),rank:text(raw.guild.rank,64)}:null};
   for(const key of Object.values(metrics))if(raw.metrics?.[key]!=null)result.metrics[key]=integer(raw.metrics[key]);
+  result.avatar=appearanceHash(raw.appearance);
   return result;
 }
 function sanitizeSnapshot(raw){
