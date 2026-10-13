@@ -23,3 +23,11 @@ test('older publisher preserves dated gear, explicit unequip clears it, and reus
   const empty={players:[{name:'Player',createdAt:'2026-10-01',equipment:[],talents:{}}]};mergeMissingPublicFields(empty,saved);assert.deepEqual(empty.players[0].equipment,[]);
   const reused={players:[{name:'Player',createdAt:'2026-10-13',equipment:null}]};mergeMissingPublicFields(reused,saved);assert.equal(reused.players[0].equipment,null);
 });
+test('sales history uses committed records, exact unit averages and bound item searches',async()=>{
+  const {DatabaseSync}=require('node:sqlite'),{history}=require('./market-history'),sqlite=new DatabaseSync(':memory:');
+  try{sqlite.exec('CREATE TABLE audit_events(event_id TEXT PRIMARY KEY,kind TEXT,outcome TEXT,created_at INTEGER,details_json TEXT)');const insert=sqlite.prepare('INSERT INTO audit_events VALUES(?,?,?,?,?)'),now=Date.now();
+    insert.run('one','auction.purchase','committed',now,JSON.stringify({itemId:'Food_Wildmeat_Raw',price:'9007199254740993',quantity:3,buyer:'PRIVATE'}));insert.run('two','auction.purchase','committed',now-1000,JSON.stringify({itemId:'Food_Wildmeat_Raw',price:'9',quantity:3}));insert.run('aborted','auction.purchase','aborted',now,JSON.stringify({itemId:'Food_Wildmeat_Raw',price:99,quantity:1}));insert.run('old','auction.purchase','committed',now-31*86400000,JSON.stringify({itemId:'Food_Wildmeat_Raw',price:99,quantity:1}));
+    let maxBindings=0;const db={prepare:sql=>({bind:(...values)=>{maxBindings=Math.max(maxBindings,values.length);const statement=sqlite.prepare(sql);return {first:async()=>statement.get(...values),all:async()=>({results:statement.all(...values)})};}})};
+    const data=await history(db,{item:'Food_Wildmeat_Raw'});assert.equal(data.total,2);assert.equal(data.priceSample.quantity,'6');assert.equal(data.priceSample.averageUnitPrice,((9007199254740993n+9n)/6n).toString());assert.ok(!JSON.stringify(data).includes('PRIVATE'));const search=await history(db,{q:'wild meat'});assert.equal(search.total,2);assert.ok(maxBindings<=3);
+  }finally{sqlite.close();}
+});
