@@ -12,7 +12,9 @@
   <link rel="icon" href="/assets/images/emblem.webp">
   <link rel="preload" href="/assets/images/haven.webp" as="image">
   <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/guide.css">
   <script defer src="/assets/js/config.js"></script>
+  <script defer src="/assets/js/guide-view.js"></script>
   <script defer src="/assets/js/app.js"></script>
 </head>
 <body>
@@ -35,5 +37,7 @@
   </footer>
   <div class="toast" role="status" aria-live="polite" id="toast"></div>
   <dialog id="join-dialog" class="join-dialog" aria-labelledby="join-title"><button class="dialog-close" aria-label="Close join instructions">×</button><p class="eyebrow">Your adventure starts here</p><h2 id="join-title">See you in Haven.</h2><p>Open Hytale, choose a server connection, and enter:</p><div class="server-address"><code id="join-address">Play.Rift-Haven.com</code><button data-copy-only aria-label="Copy server address">⧉</button></div><p class="muted">Need a hand? <a href="https://discord.gg/RiftHaven" target="_blank" rel="noopener noreferrer">Our Discord community can help ↗</a></p></dialog>
+<dialog id="item-dialog" class="item-dialog" aria-labelledby="item-title"><button class="item-dialog-close" aria-label="Close item details" onclick="this.closest('dialog').close()">&#215;</button><div id="item-dialog-content"></div></dialog>
+<div id="item-tooltip" class="item-tooltip" hidden></div>
 </body>
 </html>

@@ -12,9 +12,11 @@
     "node": ">=22"
   },
   "dependencies": {
-    "mysql2": "^3.15.3"
+    "mysql2": "^3.15.3",
+    "three": "^0.186.1"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "playwright": "^1.64.0",
     "wrangler": "^4.149.0"
   }

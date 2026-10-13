@@ -3,7 +3,7 @@ const {policy}=require('./audit-bot'),{project}=require('./audit-store');
 class D1AuditStore{
   constructor(db){this.db=db;}
   async pending(){const {results}=await this.db.prepare('SELECT * FROM audit_events WHERE delivered_at IS NULL ORDER BY created_at,event_id LIMIT 100').all();return results.map(project);}
-  async search(reference){const {results}=await this.db.prepare('SELECT * FROM audit_events WHERE event_id=? OR transaction_id=? ORDER BY created_at LIMIT 10').bind(reference,reference).all();if(results.length)return results.map(project);const preserved=await this.db.prepare('SELECT evidence_json FROM audit_cases WHERE reference=?').bind(reference).first();return preserved?JSON.parse(preserved.evidence_json).slice(0,10).map(project):[];}
+  async search(reference){const {results}=await this.db.prepare('SELECT * FROM audit_events WHERE event_id=? OR transaction_id=? OR actor_name=? ORDER BY created_at DESC LIMIT 10').bind(reference,reference,reference).all();if(results.length)return results.map(project);const preserved=await this.db.prepare('SELECT evidence_json FROM audit_cases WHERE reference=?').bind(reference).first();return preserved?JSON.parse(preserved.evidence_json).slice(0,10).map(project):[];}
   async acknowledge(ids,messageId){if(!ids.length||ids.length>10)throw new Error('Invalid receipt size');await this.db.batch(ids.map(id=>this.db.prepare('UPDATE audit_events SET delivered_at=?,discord_message_id=? WHERE event_id=? AND delivered_at IS NULL').bind(Date.now(),messageId,id)));}
   async prune(now=Date.now()){
     await this.db.prepare('DELETE FROM audit_events WHERE event_id IN (SELECT event_id FROM audit_events WHERE delivered_at IS NOT NULL AND created_at<? LIMIT 500)').bind(now-policy.retention.detailedDays*86400000).run();

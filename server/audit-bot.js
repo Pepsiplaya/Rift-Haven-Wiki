@@ -18,7 +18,7 @@ function verifyInteraction(body,signature,timestamp,publicKey,now=Date.now()){
 }
 function line(event){
   const category=categories.has(event.category)?event.category:'alerts';
-  const outcome=['committed','attempt','aborted','recovered','unknown'].includes(event.outcome)?event.outcome:'unknown';
+  const outcome=['committed','observed','attempt','aborted','recovered','unknown'].includes(event.outcome)?event.outcome:'unknown';
   const time=new Date(Number(event.createdAt));
   return `${Number.isFinite(time.getTime())?time.toISOString():'Unknown time'} | ${category} | ${clean(event.kind)} | ${outcome} | ${clean(event.actorName,64)||'system'} | ${clean(event.summary,320)} | ref ${clean(event.eventId)} | tx ${clean(event.transactionId)}`;
 }

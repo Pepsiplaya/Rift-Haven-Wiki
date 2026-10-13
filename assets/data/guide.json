@@ -366,7 +366,11 @@
         },
         {
           "heading": false,
-          "text": "Character level: 30-60. Up to: 5 players. Enter through /dungeon. Boss health increases for groups using Hytale's native scaling. Enemy damage and drops stay native."
+          "text": "Character level: 30-60. Up to: 5 players. Enter through /dungeon. Difficulty is set by the highest-level entering character and stays fixed for the run. Native boss health also increases for groups."
+        },
+        {
+          "heading": false,
+          "text": "Feastmaster and the final Gobliterator each award a Rift Haven equipment roll. Regular goblins can also award gear; the challenge boss has better rarity odds. Equipment uses party Need/Greed after the final boss. Native drops remain available."
         },
         {
           "heading": false,
@@ -374,7 +378,7 @@
         },
         {
           "heading": false,
-          "text": "Dungeons remain open through level 60. Enemies and loot keep their original tiers; higher levels do not upgrade drops."
+          "text": "Other dungeons keep their original enemy and loot tiers. Deepworks equipment follows its run level, rounded down to a five-level tier (for example, level 47 awards level-45 gear)."
         },
         {
           "heading": true,
@@ -938,7 +942,7 @@
       "title": "Professions",
       "category": "Professions",
       "summary": "Gather resources, make equipment and supplies, and choose perks as your skills grow.",
-      "keywords": "skills gathering mining foraging harvesting regrowth ore brush beech scenery protection smithing weaponsmithing weapon crafting leatherworking weaving alchemy hunter contracts certificates perks reset",
+      "keywords": "skills gathering mining foraging harvesting regrowth ore brush beech scenery protection smithing weaponsmithing weapon crafting leatherworking weaving alchemy hunter contracts certificates perks reset farming planting seeds crops cooking fishing jewelcrafting",
       "blocks": [
         {
           "heading": true,
@@ -967,6 +971,14 @@
         {
           "heading": false,
           "text": "Gather wood and plants."
+        },
+        {
+          "heading": true,
+          "text": "Farming"
+        },
+        {
+          "heading": false,
+          "text": "Gather starter seeds from Small Brush. Hold a seed and interact with an empty tilled farming plot, then harvest when the crop is ready. Check crop entries for Farming requirements and growth times."
         },
         {
           "heading": true,
@@ -1058,8 +1070,19 @@
         }
       ],
       "links": [
-        "crafting",
-        "reference:professions:0"
+        "mining",
+        "foraging",
+        "farming",
+        "fishing",
+        "hunter",
+        "smithing",
+        "weapon-crafting",
+        "leatherworking",
+        "weaving",
+        "alchemy",
+        "cooking",
+        "jewelcrafting",
+        "crafting"
       ],
       "icon": ""
     },
@@ -3253,7 +3276,7 @@
       "blocks": [
         {
           "heading": false,
-          "text": "Tap left click for a weak melee strike, or hold it for at least 0.6 seconds and release to launch a staff orb. Hold right-click to repeat your selected Tide Lash bolt as its cooldown finishes. Your offhand Tide Lash builds up to three of your own Soaked stacks. Tap E to send Breaker Wave, or hold E briefly to ride it straight ahead. Release E to step off; the wave keeps travelling over land or water. You can swim through its water; submerging uses your normal breath. Walls stop your ride. Breaker Wave and damaging offhand control spells consume your stacks once per enemy for added damage. With a staff equipped, press R for Tidal Ascendance: after a short formation, empower Sea spell damage by 35% and reduce Sea mana costs by 30% for 8 seconds. Costs 60 mana with an independent 30-second base cooldown. Hover about 2 blocks above nearby ground or water while moving normally; press Space near hover height for a small upward boost. Steps raise your hover, but cliffs do not grant flight. Keep casting during the form. Tidal Surge gathers water at your target, then hits and pulls enemies inward after a brief windup. With a staff, use Ability 4 (G by default) for Reefwall: a water wall 2 blocks ahead lasting 4 seconds. Shots crossing the wall from either side are blocked unless they belong to you or your party, including NPC and boss shots, thrown weapons and enemy Breaker Waves. Melee attacks are unaffected. Its base cooldown is 28 seconds. Offhand slot 1 holds your Tide Lash choice; slot 2 holds Tidal Surge or Undertow; slot 3 holds Restorative Rain or Water Snare; slot 4 holds Oceanic Ruin or Maelstrom. Water Snare warns briefly, restrains up to 3 enemies for up to 0.75 seconds, then bursts; enemies must stay inside its 3-block area to take the burst. Learn the matching talents and choose one spell per slot. Other offhand spells share a 1-second recovery, with separate cooldowns for each slot."
+          "text": "Tap left click for a weak melee strike, or hold it for at least 0.6 seconds and release to launch a staff orb. Hold right-click to repeat your selected Tide Lash bolt as its cooldown finishes. Your offhand Tide Lash builds up to three of your own Soaked stacks. Tap E to send Breaker Wave, or hold E briefly to ride it straight ahead. Release E to step off; the wave keeps travelling over land or water. You can swim through its water; submerging uses your normal breath. Walls stop your ride. Breaker Wave and damaging offhand control spells consume your stacks once per enemy for added damage. With a staff equipped, press R for Tidal Ascendance: after a short formation, empower Sea spell damage by 35% and reduce Sea mana costs by 30% for 8 seconds. Costs 60 mana with an independent 30-second base cooldown. Hover about 2 blocks above nearby ground or water while moving normally; press Space near hover height for a small upward boost. Steps raise your hover, but cliffs do not grant flight. Keep casting during the form. Tidal Surge gathers water at your target, then hits and pulls enemies inward after a brief windup. With a staff, use Ability 4 (H by default) for Reefwall: a water wall 2 blocks ahead lasting 4 seconds. Shots crossing the wall from either side are blocked unless they belong to you or your party, including NPC and boss shots, thrown weapons and enemy Breaker Waves. Melee attacks are unaffected. Its base cooldown is 28 seconds. Offhand slot 1 holds your Tide Lash choice; slot 2 holds Tidal Surge or Undertow; slot 3 holds Restorative Rain or Water Snare; slot 4 holds Oceanic Ruin or Maelstrom. Water Snare warns briefly, restrains up to 3 enemies for up to 0.75 seconds, then bursts; enemies must stay inside its 3-block area to take the burst. Learn the matching talents and choose one spell per slot. Other offhand spells share a 1-second recovery, with separate cooldowns for each slot."
         }
       ],
       "links": [
@@ -3334,7 +3357,7 @@
         },
         {
           "heading": false,
-          "text": "Small spells generally cost 12–24 mana; large spells cost 30–40. Check each learned spell in Talents for its cost. Large spells retain at least a 10-second cooldown after bonuses. Intercession costs 18 mana, Healing Hymn costs 30, and Daybreak costs 40. Sea Tidal Guard costs 30. Running out of mana is a reason to use free attacks and recover, rather than repeatedly trying the same spell."
+          "text": "Small spells generally cost 12–24 mana; large spells cost 30–40. Check each learned spell in Talents for its cost. Large spells retain at least a 10-second cooldown after bonuses. Intercession costs 18 mana, Healing Hymn costs 30, and Daybreak costs 40. Sea Tidal Ascendance costs 60 mana with a 30-second base cooldown. Running out of mana is a reason to use free attacks and recover, rather than repeatedly trying the same spell."
         }
       ],
       "links": []

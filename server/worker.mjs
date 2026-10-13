@@ -62,7 +62,12 @@ export default{
     let db;try{
       const snapshot=await env.DATA.prepare("SELECT data_json,generated_at FROM public_snapshots WHERE id='world'").first();
       if(!snapshot)return json({error:'Public records are waiting for the first server sync'},503);
-      const payload=await publicApi(url,new SnapshotData({...JSON.parse(snapshot.data_json),generatedAt:snapshot.generated_at}));
+      const publicData=JSON.parse(snapshot.data_json);
+      if(url.pathname==='/api/dungeons'){
+        const {results}=await env.DATA.prepare('SELECT * FROM dungeon_rollups').all();const rollups=new Map(results.map(r=>[r.dungeon_id,r]));
+        publicData.dungeons=publicData.dungeons.map(d=>({...d,bestTimeMs:rollups.get(d.id)?.best_time_ms??null,runsStarted:rollups.get(d.id)?.started??0,runsCompleted:rollups.get(d.id)?.completed??0}));
+      }
+      const payload=await publicApi(url,new SnapshotData({...publicData,generatedAt:snapshot.generated_at}));
       const response=json(payload);response.headers.set('Cache-Control','public, max-age=30');
       if(origin){response.headers.set('Access-Control-Allow-Origin',origin);response.headers.set('Vary','Origin');}
       // Cache responses independently of Origin so an allowed origin never inherits another origin's header.

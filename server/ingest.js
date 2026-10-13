@@ -13,7 +13,7 @@ async function ingest(payload,db){
   for(const e of payload.events){
     if(!/^[a-f0-9-]{36}$/i.test(e.eventId||'')||!/^[a-f0-9-]{36}$/i.test(e.transactionId||'')||!Object.hasOwn(require('./audit-policy.json').channels,e.category)||!Number.isSafeInteger(Number(e.createdAt))||typeof e.details!=='object')throw new Error('Invalid audit event');
     const details=JSON.stringify(e.details);if(details.length>4096)throw new Error('Audit event too large');
-    statements.push(db.prepare('INSERT INTO audit_events(event_id,transaction_id,created_at,category,kind,actor_name,outcome,details_json) VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(event_id) DO NOTHING').bind(e.eventId,e.transactionId,Number(e.createdAt),e.category,String(e.kind).slice(0,64),String(e.actorName||'').slice(0,64),e.outcome==='committed'?'committed':'unknown',details));accepted.push(e.eventId);
+    statements.push(db.prepare('INSERT INTO audit_events(event_id,transaction_id,created_at,category,kind,actor_name,actor_id,outcome,details_json) VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(event_id) DO NOTHING').bind(e.eventId,e.transactionId,Number(e.createdAt),e.category,String(e.kind).slice(0,64),String(e.actorName||'').slice(0,64),String(e.actorId||'').slice(0,64),['committed','observed','attempt','aborted','recovered'].includes(e.outcome)?e.outcome:'unknown',details));accepted.push(e.eventId);
   }
   if(statements.length)await db.batch(statements);
   return {accepted};
