@@ -3,7 +3,7 @@ const {test}=require('node:test'),assert=require('node:assert/strict');
 const {sanitizeSnapshot,SnapshotData}=require('./snapshot-data'),{sale}=require('./market-history'),{embed}=require('./audit-bot');
 test('presence expires instead of presenting stale online players; hidden names never reach the response',async()=>{
   const raw={players:[{name:'Visible',level:12}],listings:[],presence:{observedAt:Date.now(),names:['Visible','Hidden','Visible']}};
-  const live=await new SnapshotData(sanitizeSnapshot(raw)).status();assert.equal(live.state,'live');assert.equal(live.online,1);assert.equal(live.players[0].name,'Visible');assert.ok(!JSON.stringify(live).includes('Hidden'));
+  const live=await new SnapshotData(sanitizeSnapshot(raw)).status();assert.equal(live.state,'live');assert.equal(live.online,null);assert.equal(live.publicOnline,1);assert.equal(live.players[0].name,'Visible');assert.ok(!JSON.stringify(live).includes('Hidden'));
   raw.presence.observedAt-=181000;const stale=await new SnapshotData(sanitizeSnapshot(raw)).status();assert.equal(stale.online,null);assert.deepEqual(stale.players,[]);assert.equal(stale.state,'unknown');
 });
 test('equipment projection preserves inspection fields but excludes private inventory and metadata',async()=>{
@@ -30,4 +30,13 @@ test('sales history uses committed records, exact unit averages and bound item s
     let maxBindings=0;const db={prepare:sql=>({bind:(...values)=>{maxBindings=Math.max(maxBindings,values.length);const statement=sqlite.prepare(sql);return {first:async()=>statement.get(...values),all:async()=>({results:statement.all(...values)})};}})};
     const data=await history(db,{item:'Food_Wildmeat_Raw'});assert.equal(data.total,2);assert.equal(data.priceSample.quantity,'6');assert.equal(data.priceSample.averageUnitPrice,((9007199254740993n+9n)/6n).toString());assert.ok(!JSON.stringify(data).includes('PRIVATE'));const search=await history(db,{q:'wild meat'});assert.equal(search.total,2);assert.ok(maxBindings<=3);
   }finally{sqlite.close();}
+});
+
+test('connected staff count does not depend on public leaderboard profiles',async()=>{
+ const raw={players:[{name:'Visible',level:12}],listings:[],presence:{observedAt:Date.now(),names:['Visible','PrivateStaff'],connectedCount:2}};
+ const live=await new SnapshotData(sanitizeSnapshot(raw)).status();assert.equal(live.online,2);assert.equal(live.publicOnline,1);assert.deepEqual(live.players.map(p=>p.name),['Visible']);assert.ok(!JSON.stringify(live).includes('PrivateStaff'));
+ raw.players=[];raw.presence.names=['PrivateStaff'];const staff=await new SnapshotData(sanitizeSnapshot(raw)).status();assert.equal(staff.online,2);assert.equal(staff.publicOnline,0);assert.deepEqual(staff.players,[]);
+ raw.presence.connectedCount=-1;assert.equal((await new SnapshotData(sanitizeSnapshot(raw)).status()).online,null);
+ raw.presence.connectedCount=0;raw.presence.names=[];assert.equal((await new SnapshotData(sanitizeSnapshot(raw)).status()).online,0);
+ raw.presence.observedAt-=181000;assert.equal((await new SnapshotData(sanitizeSnapshot(raw)).status()).online,null);
 });

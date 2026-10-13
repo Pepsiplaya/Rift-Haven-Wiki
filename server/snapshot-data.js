@@ -43,11 +43,12 @@ function sanitizeSnapshot(raw){
   const dungeons=(raw.dungeons||[]).slice(0,100).map(d=>({id:text(d.id,64),name:text(d.name,128),description:text(d.description,600),minLevel:Number(d.minLevel)||0,maxLevel:Number(d.maxLevel)||60,minPlayers:Number(d.minPlayers)||1,maxPlayers:Number(d.maxPlayers)||5,native:d.native===true,playerClears:integer(d.playerClears),bestTimeMs:null}));
   const knownNames=new Map(players.map(p=>[p.name.toLowerCase(),p.name])),observed=Number(raw.presence?.observedAt);
   const presence=Number.isSafeInteger(observed)&&observed>0?{observedAt:observed,names:[...new Set((Array.isArray(raw.presence.names)?raw.presence.names:[]).map(n=>knownNames.get(String(n).toLowerCase())).filter(Boolean))]}:null;
+  if(presence){const count=raw.presence.connectedCount;presence.connectedCount=typeof count==='number'&&Number.isSafeInteger(count)&&count>=0&&count<=10000?Math.max(count,presence.names.length):null;}
   return {players,guilds,listings,dungeons,presence};
 }
 class SnapshotData{
   constructor(snapshot){Object.assign(this,snapshot);this.records=snapshot.players.map(enrichProfile).map(p=>({...p,equipment:p.equipment?.map(e=>enrichListing(e))??null}));delete this.players;this.guildRecords=snapshot.guilds;delete this.guilds;this.dungeonRecords=snapshot.dungeons;delete this.dungeons;this.listings=snapshot.listings.map(enrichListing);}
-  async status(){const observed=Number(this.presence?.observedAt)||0,fresh=observed>0&&Date.now()-observed>=-30000&&Date.now()-observed<180000;return {state:fresh?'live':'unknown',observedAt:observed?new Date(observed).toISOString():null,updatedAt:this.generatedAt?new Date(this.generatedAt).toISOString():null,players:fresh?this.records.filter(p=>this.presence.names.includes(p.name)).map(({name,mainClass,level,avatar})=>({name,mainClass,level,avatar})):[],online:fresh?this.presence.names.length:null};}
+  async status(){const observed=Number(this.presence?.observedAt)||0,fresh=observed>0&&Date.now()-observed>=-30000&&Date.now()-observed<180000;return {state:fresh?'live':'unknown',observedAt:observed?new Date(observed).toISOString():null,updatedAt:this.generatedAt?new Date(this.generatedAt).toISOString():null,players:fresh?this.records.filter(p=>this.presence.names.includes(p.name)).map(({name,mainClass,level,avatar})=>({name,mainClass,level,avatar})):[],online:fresh?(this.presence.connectedCount??null):null,publicOnline:fresh?this.presence.names.length:null};}
   async players({q='',limit=36,page=1,class:classFilter='',sort='recent'}={}){
     const needle=text(q,64).toLowerCase(),matches=this.records.filter(p=>p.name.toLowerCase().includes(needle));
     const rows=matches.filter(p=>!validClasses.has(classFilter)||p.mainClass===classFilter);
