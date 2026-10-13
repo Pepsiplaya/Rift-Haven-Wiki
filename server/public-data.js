@@ -10,7 +10,7 @@ const integer = value => {try{return BigInt(String(value??0)).toString();}catch{
 const positive = value => {try{return BigInt(integer(value))>0n;}catch{return false;}};
 const like = value => '%'+text(value,64).replace(/[\\%_]/g,'\\$&')+'%';
 function timestamp(value){if(value==null||value==='')return null;const date=new Date(typeof value==='string'&&/^\d+$/.test(value)?Number(value):value);return Number.isFinite(date.getTime())?date.toISOString():null;}
-function skillsProjection(raw){const data=parse(raw),source=data.progress??data;const result={};for(const [key,value]of Object.entries(source)){if(!PROFESSIONS.has(key)||!value||typeof value!=='object')continue;result[key]={level:Math.max(0,Math.min(1000,Number(value.level)||0)),experience:integer(value.experience)};}return result;}
+function skillsProjection(raw){const data=parse(raw),source=data.progress??data;const result={};for(const [key,value]of Object.entries(source)){if(!PROFESSIONS.has(key)||!value||typeof value!=='object')continue;result[key]={level:Math.max(0,Math.min(1000,Number(value.level)||0)),experience:integer(value.experience),xpCurveVersion:[0,1,2].includes(Number(value.xpCurveVersion))&&value.xpCurveVersion!=null?Number(value.xpCurveVersion):null};}return result;}
 function listingProjection(row,now=Date.now(),catalog={}){
   const data=parse(row.data_json);
   if(data.id!==row.id||!data.itemId||(data.state!=null&&data.state!=='ACTIVE')||!positive(data.quantity)||!positive(data.price))return null;

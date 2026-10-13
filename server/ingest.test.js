@@ -24,3 +24,12 @@ test('profession ranks break level ties using saved XP and respect class filters
 test('guide export removes unrelated fields and broken navigation',()=>{
   const guide=require('./guide-data').projectGuide({articles:[{id:'farming',title:'Farming',category:'Professions',private:'secret',blocks:[{text:'Plant your seeds.',link:'missing',receipt:'secret'}],links:['missing']} ]});assert.deepEqual(guide.articles[0].links,[]);assert.equal(guide.articles[0].blocks[0].link,'');assert.ok(!JSON.stringify(guide).includes('secret'));
 });
+test('searching a highscore preserves its ordinal and the actual podium',async()=>{
+  const data=new SnapshotData(sanitizeSnapshot({listings:[],players:Array.from({length:60},(_,i)=>({name:'Player'+i,mainClass:'rogue',level:60-i,experience:1}))}));
+  const result=await data.rankings({metric:'level',q:'Player40'});assert.equal(result.players[0].rank,41);assert.equal(result.topPlayers[0].name,'Player0');assert.equal(result.totalRanked,60);
+  const directory=await data.players({limit:24,page:2,sort:'level'});assert.equal(directory.players[0].name,'Player24');assert.equal(directory.pages,3);
+});
+test('progression XP includes completed levels instead of ranking only leftover XP',async()=>{
+  const data=new SnapshotData(sanitizeSnapshot({listings:[],players:[{name:'Higher',skills:{MINING:{level:2,experience:0,xpCurveVersion:2}}},{name:'Lower',skills:{MINING:{level:1,experience:80,xpCurveVersion:2}}}]}));
+  const result=await data.rankings({metric:'total-skill-xp'});assert.deepEqual(result.players.map(p=>p.name),['Higher','Lower']);assert.ok(BigInt(result.players[0].score)>80n);assert.equal((await data.profile('Higher')).skills.MINING.experienceToNextLevel,require('../assets/data/progression.json').professionCurrent[2]);
+});

@@ -35,3 +35,11 @@ Profiles use native GLB models generated from allowlisted saved cosmetic appeara
 The staged game publisher exports the effective in-game GuideRuntime catalogue every 30 minutes over signed HTTPS. The site uses `/api/guide` once available and falls back to the authored handbook before the first runtime export. The export has a one-MiB bound and does not prevent committed audit forwarding if it fails. Generated guide pages retain only public player instructions and links, with native icons and paginated search results.
 
 The bot sends compact category-colored embeds, with structured economy/item fields and investigation references. Search results are private embeds. `/audit` accepts an event/transaction reference or an exact player name; `/audit-case` takes an event/transaction reference and a reason. A completed system test confirmed Discord delivery and the revised card format.
+
+## Player browsing tools
+
+The player directory has server-side paging, class filters and name/level/gold/recent sorting. Highscores have paging and player search that retains the actual ordinal, with a separate unchanged podium. Saved players are stored only in that browser (up to 20 names). Global search covers the guide, public players and news, with / or Ctrl/Cmd+K shortcuts.
+
+Profile XP is XP within the current level. Progression XP totals are reconstructed using XP requirement tables exported from the accepted server artifact; these are progression totals, not an all-time post-cap or reset history. Unknown profession curve versions do not produce invented totals. Regenerate assets/data/progression.json when the game progression curves change.
+
+The additional website Druid guide is based on current Druid form, spellbook and healing source. It augments the live catalogue without replacing an existing authoritative Druid article. Website-only changes in this pass do not alter gameplay or require another game JAR.

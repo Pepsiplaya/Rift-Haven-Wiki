@@ -5,6 +5,9 @@ const validClasses=new Set(['fighter','paladin','elemancer','rogue','druid']);
 const professions=new Set(['MINING','FORAGING','FARMING','FISHING','SMITHING','WEAPONSMITHING','LEATHERWORKING','WEAVING','COOKING','ALCHEMY','JEWELCRAFTING','HUNTER']);
 const catalog=require('../assets/data/items.json');
 const dungeonCatalog=require('../assets/data/dungeons.json');
+const curves=require('../assets/data/progression.json');
+function totalProgression(level,experience,curve){const at=Math.min(60,Math.max(1,Number(level)||1));return (BigInt(experience||0)+curve.slice(1,at).reduce((n,x)=>n+BigInt(x),0n)).toString();}
+function enrichProfile(player){const p={...player,skills:Object.fromEntries(Object.entries(player.skills).map(([key,s])=>{const curve=s.xpCurveVersion===2?curves.professionCurrent:s.xpCurveVersion===0||s.xpCurveVersion===1?curves.professionLegacy:null;return [key,{...s,totalExperience:curve?totalProgression(s.level,s.experience,curve):null,experienceToNextLevel:curve?.[s.level]??null}];}))};p.totalExperience=totalProgression(p.level,p.experience,curves.classes);p.experienceToNextLevel=curves.classes[p.level]??null;return p;}
 const {createHash}=require('node:crypto');
 const appearanceKeys=new Set(['bodyCharacteristic','underwear','face','eyes','ears','mouth','haircut','eyebrows','facialHair','pants','undertop','overtop','shoes','gloves','overpants','cape','faceAccessory','headAccessory','earAccessory']);
 function appearanceHash(raw){const visual={};for(const key of Object.keys(raw||{}).sort())if(appearanceKeys.has(key)&&typeof raw[key]==='string'&&/^[A-Za-z0-9_.-]{1,100}$/.test(raw[key]))visual[key]=raw[key];return Object.keys(visual).length?createHash('sha256').update(JSON.stringify(visual)).digest('hex').slice(0,24):null;}
@@ -12,7 +15,7 @@ const rarities=new Set(['poor','common','uncommon','rare','epic','legendary','se
 function itemDetails(raw={}){
   const result={};for(const key of ['slot','weaponType','armorType','requiredClass','requiredSubclass'])if(raw[key])result[key]=text(raw[key],80);
   for(const key of ['requiredLevel','durability','maxDurability'])if(Number.isFinite(Number(raw[key]))&&raw[key]!=null)result[key]=Number(raw[key]);
-  if(raw.description)result.description=text(raw.description,4000).replace(/^\[TMP\]\s*/,'');
+  if(raw.description)result.description=String(raw.description).replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g,'').slice(0,4000).replace(/^\[TMP\]\s*/,'');
   const allowedStats=new Set(['strength','constitution','dexterity','agility','intelligence','wisdom','spirit','armor','physicalResistance','projectileResistance','spellPower','maxHealth','maxStamina','damage','attackSpeed']);
   result.stats={};for(const [key,value]of Object.entries(raw.stats||{}))if(allowedStats.has(key)&&Number.isFinite(Number(value)))result.stats[key]=Number(value);
   return result;
@@ -38,8 +41,14 @@ function sanitizeSnapshot(raw){
   return {players,guilds,listings,dungeons};
 }
 class SnapshotData{
-  constructor(snapshot){Object.assign(this,snapshot);this.records=snapshot.players;delete this.players;this.guildRecords=snapshot.guilds;delete this.guilds;this.dungeonRecords=snapshot.dungeons;delete this.dungeons;this.listings=snapshot.listings.map(enrichListing);}
-  async players({q='',limit=36}={}){const needle=text(q,64).toLowerCase(),rows=this.records.filter(p=>p.name.toLowerCase().includes(needle));return {players:rows.slice(0,Math.min(100,Math.max(1,Number(limit)||36))),total:rows.length};}
+  constructor(snapshot){Object.assign(this,snapshot);this.records=snapshot.players.map(enrichProfile);delete this.players;this.guildRecords=snapshot.guilds;delete this.guilds;this.dungeonRecords=snapshot.dungeons;delete this.dungeons;this.listings=snapshot.listings.map(enrichListing);}
+  async players({q='',limit=36,page=1,class:classFilter='',sort='recent'}={}){
+    const needle=text(q,64).toLowerCase(),matches=this.records.filter(p=>p.name.toLowerCase().includes(needle));
+    const rows=matches.filter(p=>!validClasses.has(classFilter)||p.mainClass===classFilter);
+    rows.sort((a,b)=>sort==='name'?a.name.localeCompare(b.name):sort==='level'?b.level-a.level||a.name.localeCompare(b.name):sort==='wealth'?(BigInt(a.balance)>BigInt(b.balance)?-1:BigInt(a.balance)<BigInt(b.balance)?1:a.name.localeCompare(b.name)):new Date(b.lastPlayed||0)-new Date(a.lastPlayed||0)||a.name.localeCompare(b.name));
+    const size=Math.min(100,Math.max(1,Math.floor(Number(limit)||36))),pages=Math.max(1,Math.ceil(rows.length/size)),current=Math.min(pages,Math.max(1,Math.floor(Number(page)||1)));
+    return {players:rows.slice((current-1)*size,current*size),total:rows.length,page:current,pages,classCounts:Object.fromEntries([...validClasses].map(key=>[key,matches.filter(p=>p.mainClass===key).length])),updatedAt:new Date(this.generatedAt||Date.now()).toISOString()};
+  }
   async profile(name){const matches=this.records.filter(p=>p.name.toLowerCase()===String(name).toLowerCase());return matches.length===1?matches[0]:null;}
   async guilds({q=''}={}){return {guilds:this.guildRecords.filter(g=>g.name.toLowerCase().includes(text(q,64).toLowerCase())).sort((a,b)=>b.memberCount-a.memberCount)};}
   async dungeons(){return {dungeons:this.dungeonRecords.length?this.dungeonRecords:dungeonCatalog.map(d=>({...d,native:d.preserveNativeEncounters===true,playerClears:null,bestTimeMs:null}))};}
@@ -48,12 +57,14 @@ class SnapshotData{
     rows.sort((a,b)=>sort==='name'?a.name.localeCompare(b.name):sort.startsWith('price-')?(BigInt(a.price)<BigInt(b.price)?-1:BigInt(a.price)>BigInt(b.price)?1:0)*(sort==='price-desc'?-1:1):b.createdAt-a.createdAt);
     const size=Math.min(100,Math.max(1,Number(limit)||20)),current=Math.min(500,Math.max(1,Number(page)||1));return {listings:rows.slice((current-1)*size,current*size),total:rows.length,page:current,updatedAt:new Date(this.generatedAt||now).toISOString()};
   }
-  async rankings({metric='level',class:classFilter=''}={}){
-    const profession=metric.startsWith('skill-')?metric.slice(6).toUpperCase():null;
-    if(!['wealth','level','class-xp','total-skills','total-skill-xp',...Object.keys(metrics)].includes(metric)&&!professions.has(profession))metric='level';
-    const score=p=>profession?p.skills[profession]?.level||0:metric==='wealth'?p.balance:metric==='level'?p.level:metric==='class-xp'?p.experience:metric==='total-skills'?Object.values(p.skills).reduce((n,s)=>n+s.level,0):metric==='total-skill-xp'?Object.values(p.skills).reduce((n,s)=>n+BigInt(s.experience),0n).toString():p.metrics[metrics[metric]]||0;
+  async rankings({metric='level',class:classFilter='',q='',page=1,limit=25}={}){
+    let profession=metric.startsWith('skill-')?metric.slice(6).toUpperCase():null;
+    if(!['wealth','level','class-xp','total-skills','total-skill-xp',...Object.keys(metrics)].includes(metric)&&!professions.has(profession)){metric='level';profession=null;}
+    const score=p=>profession?p.skills[profession]?.level||0:metric==='wealth'?p.balance:metric==='level'?p.level:metric==='class-xp'?p.totalExperience:metric==='total-skills'?Object.values(p.skills).reduce((n,s)=>n+s.level,0):metric==='total-skill-xp'?Object.values(p.skills).every(s=>s.totalExperience!=null)?Object.values(p.skills).reduce((n,s)=>n+BigInt(s.totalExperience),0n).toString():0:p.metrics[metrics[metric]]||0;
     const xp=p=>profession?p.skills[profession]?.experience||'0':metric==='level'?p.experience:'0';
-    return {metric,players:this.records.filter(p=>!validClasses.has(classFilter)||p.mainClass===classFilter).map(p=>({name:p.name,mainClass:p.mainClass,avatar:p.avatar,score:integer(score(p)),experience:integer(xp(p))})).filter(p=>BigInt(p.score)>0n).sort((a,b)=>BigInt(a.score)>BigInt(b.score)?-1:BigInt(a.score)<BigInt(b.score)?1:BigInt(a.experience)>BigInt(b.experience)?-1:BigInt(a.experience)<BigInt(b.experience)?1:a.name.localeCompare(b.name)).slice(0,100)};
+    const ranked=this.records.filter(p=>!validClasses.has(classFilter)||p.mainClass===classFilter).map(p=>({name:p.name,mainClass:p.mainClass,avatar:p.avatar,score:integer(score(p)),experience:integer(xp(p))})).filter(p=>BigInt(p.score)>0n).sort((a,b)=>BigInt(a.score)>BigInt(b.score)?-1:BigInt(a.score)<BigInt(b.score)?1:BigInt(a.experience)>BigInt(b.experience)?-1:BigInt(a.experience)<BigInt(b.experience)?1:a.name.localeCompare(b.name)).map((p,i)=>({...p,rank:i+1}));
+    const rows=ranked.filter(p=>p.name.toLowerCase().includes(text(q,64).toLowerCase())),size=Math.min(100,Math.max(1,Math.floor(Number(limit)||25))),pages=Math.max(1,Math.ceil(rows.length/size)),current=Math.min(pages,Math.max(1,Math.floor(Number(page)||1)));
+    return {metric,players:rows.slice((current-1)*size,current*size),topPlayers:ranked.slice(0,3),total:rows.length,totalRanked:ranked.length,page:current,pages};
   }
   async overview(){return {characters:this.records.length,guilds:this.guildRecords.length,listings:(await this.market({limit:1})).total,playerClears:this.records.reduce((n,p)=>n+BigInt(p.metrics['dungeon.clears.total']||0),0n).toString()};}
 }

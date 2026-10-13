@@ -13,8 +13,13 @@
   <link rel="preload" href="/assets/images/haven.webp" as="image">
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/guide.css">
+  <link rel="stylesheet" href="/assets/css/player-tools.css">
+  <link rel="stylesheet" href="/assets/css/site-search.css">
   <script defer src="/assets/js/config.js"></script>
+  <script defer src="/assets/js/guide-data.js"></script>
   <script defer src="/assets/js/guide-view.js"></script>
+  <script defer src="/assets/js/player-tools.js"></script>
+  <script defer src="/assets/js/site-search.js"></script>
   <script defer src="/assets/js/app.js"></script>
 </head>
 <body>
@@ -28,6 +33,7 @@
       <a href="/market" data-route>Market</a><a href="/news" data-route>News</a>
       <a href="https://discord.gg/RiftHaven" target="_blank" rel="noopener noreferrer" class="nav-discord">Discord <span aria-hidden="true">↗</span></a>
     </nav>
+    <button class="nav-search" data-open-search aria-label="Search guides, players and news">Search <kbd>/</kbd></button>
     <button class="button button-gold nav-play" data-copy-server><span aria-hidden="true">◇</span> Play now</button>
   </header>
   <main id="main" tabindex="-1"></main>
