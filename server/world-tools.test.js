@@ -17,3 +17,9 @@ test('wallet embed shows the known reward source and detail; older entries say s
   const event={kind:'wallet.change',category:'economy',actorName:'Player',createdAt:Date.now(),details:{before:'10',after:'20',delta:'10',source:'Quest reward',questName:'A beginning'}};
   const fields=embed(event).fields;assert.equal(fields.find(f=>f.name==='Source').value,'Quest reward');assert.equal(fields.find(f=>f.name==='Quest').value,'A beginning');event.details={before:'1',after:'2',delta:'1'};assert.match(embed(event).fields.find(f=>f.name==='Source').value,/not recorded/);
 });
+test('older publisher preserves dated gear, explicit unequip clears it, and reused names never inherit it',()=>{
+  const {mergeMissingPublicFields}=require('./ingest'),saved={players:[{name:'Player',createdAt:'2026-10-01',equipment:[{itemId:'Old_Gear'}],equipmentUpdatedAt:'2026-10-12',talents:{talent:1}}]};
+  const older={players:[{name:'Player',createdAt:'2026-10-01',equipment:null,talents:null}]};mergeMissingPublicFields(older,saved);assert.equal(older.players[0].equipment[0].itemId,'Old_Gear');
+  const empty={players:[{name:'Player',createdAt:'2026-10-01',equipment:[],talents:{}}]};mergeMissingPublicFields(empty,saved);assert.deepEqual(empty.players[0].equipment,[]);
+  const reused={players:[{name:'Player',createdAt:'2026-10-13',equipment:null}]};mergeMissingPublicFields(reused,saved);assert.equal(reused.players[0].equipment,null);
+});

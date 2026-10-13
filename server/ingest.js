@@ -4,6 +4,15 @@ function verify(body,time,signature,secret,now=Date.now()){
   if(!secret||!/^\d{13}$/.test(time||'')||Math.abs(now-Number(time))>300000||!/^[a-f0-9]{64}$/i.test(signature||''))return false;
   const expected=crypto.createHmac('sha256',secret).update(time+'.').update(body).digest();return crypto.timingSafeEqual(expected,Buffer.from(signature,'hex'));
 }
+function mergeMissingPublicFields(snapshot,previous){
+  const byIdentity=new Map((previous.players||[]).map(p=>[p.name+'|'+p.createdAt,p]));
+  for(const player of snapshot.players){const saved=player.createdAt?byIdentity.get(player.name+'|'+player.createdAt):null;if(!saved)continue;
+    if(player.equipment==null&&saved.equipment!=null){player.equipment=saved.equipment;player.equipmentUpdatedAt=saved.equipmentUpdatedAt;}
+    if(player.talents==null&&saved.talents!=null)player.talents=saved.talents;
+  }
+  if(!snapshot.presence&&previous.presence)snapshot.presence=previous.presence;
+  return snapshot;
+}
 async function ingest(payload,db){
   const statements=[];const accepted=[];
   if(payload.guide){const guide=require('./guide-data').projectGuide(payload.guide),generatedAt=Number(payload.generatedAt);if(!Number.isSafeInteger(generatedAt))throw new Error('Missing guide time');statements.push(db.prepare("INSERT INTO public_snapshots(id,data_json,generated_at) VALUES('guide',?,?) ON CONFLICT(id) DO UPDATE SET data_json=excluded.data_json,generated_at=excluded.generated_at WHERE excluded.generated_at>public_snapshots.generated_at").bind(JSON.stringify(guide),generatedAt));}
@@ -11,7 +20,7 @@ async function ingest(payload,db){
     // Older publishers have no equipment/presence fields. Keep explicitly dated saved
     // equipment instead of interpreting a missing field as a player unequipping it.
     const previous=await db.prepare("SELECT data_json FROM public_snapshots WHERE id='world'").first();
-    if(previous){const old=JSON.parse(previous.data_json),byName=new Map((old.players||[]).map(p=>[p.name,p]));for(const player of snapshot.players){const saved=byName.get(player.name);if(!saved)continue;if(player.equipment==null&&saved.equipment!=null){player.equipment=saved.equipment;player.equipmentUpdatedAt=saved.equipmentUpdatedAt;}if(player.talents==null&&saved.talents!=null)player.talents=saved.talents;}if(!snapshot.presence&&old.presence)snapshot.presence=old.presence;}
+    if(previous)mergeMissingPublicFields(snapshot,JSON.parse(previous.data_json));
     statements.push(db.prepare("INSERT INTO public_snapshots(id,data_json,generated_at) VALUES('world',?,?) ON CONFLICT(id) DO UPDATE SET data_json=excluded.data_json,generated_at=excluded.generated_at WHERE excluded.generated_at>public_snapshots.generated_at").bind(JSON.stringify(snapshot),generatedAt));
   }
   if(!Array.isArray(payload.events)||payload.events.length>100)throw new Error('Invalid event batch');
@@ -23,4 +32,4 @@ async function ingest(payload,db){
   if(statements.length)await db.batch(statements);
   return {accepted};
 }
-module.exports={verify,ingest};
+module.exports={verify,ingest,mergeMissingPublicFields};
