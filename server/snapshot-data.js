@@ -30,6 +30,9 @@ function profile(raw){
   const result={name:text(raw.name,64),mainClass:validClasses.has(raw.mainClass)?raw.mainClass:null,subclass:text(raw.subclass,64)||null,level:Math.max(0,Number(raw.level)||0),experience:integer(raw.experience),balance:integer(raw.balance),createdAt:timestamp(raw.createdAt),lastPlayed:timestamp(raw.lastPlayed),questsCompleted:Math.max(0,Number(raw.questsCompleted)||0),skills:skillsProjection(raw.skills),metrics:{},guild:raw.guild?{name:text(raw.guild.name,64),rank:text(raw.guild.rank,64)}:null};
   for(const key of Object.values(metrics))if(raw.metrics?.[key]!=null)result.metrics[key]=integer(raw.metrics[key]);
   result.avatar=appearanceHash(raw.appearance);
+  result.equipment=Array.isArray(raw.equipment)?raw.equipment.slice(0,9).filter(e=>['head','chest','hands','legs','mainHand','offHand','ringOne','ringTwo','amulet'].includes(e.position)&&/^[A-Za-z0-9_.-]{1,128}$/.test(e.itemId||'')).map(e=>({position:e.position,itemId:e.itemId,name:text(e.name,160)||null,quantity:integer(e.quantity),rarity:rarities.has(e.rarity)?e.rarity:null,details:itemDetails(e.details),gems:(Array.isArray(e.gems)?e.gems:[]).filter(id=>/^[A-Za-z0-9_.-]{1,128}$/.test(id)).slice(0,6)})):null;
+  result.equipmentUpdatedAt=timestamp(raw.equipmentUpdatedAt);
+  result.talents=raw.talents&&typeof raw.talents==='object'?Object.fromEntries(Object.entries(raw.talents).filter(([id,rank])=>/^[A-Za-z0-9_.-]{1,100}$/.test(id)&&Number.isInteger(rank)&&rank>0&&rank<=10).slice(0,100)):null;
   return result;
 }
 function sanitizeSnapshot(raw){
@@ -38,10 +41,13 @@ function sanitizeSnapshot(raw){
   const guilds=(raw.guilds||[]).slice(0,1000).map(g=>({name:text(g.name,64),info:text(g.info,600),createdAt:timestamp(g.createdAt),memberCount:Math.max(0,Number(g.memberCount)||0)}));
   const listings=raw.listings.map(l=>({id:text(l.id,64),itemId:text(l.itemId,128),name:text(l.name,160),seller:text(l.seller,64),sellerProfile:text(l.sellerProfile,64)||null,quantity:integer(l.quantity),price:integer(l.price),createdAt:Number(l.createdAt)||0,expiresAt:Number(l.expiresAt)||0,rarity:rarities.has(l.rarity)?l.rarity:null,details:itemDetails(l.details)})).filter(l=>BigInt(l.quantity)>0n&&BigInt(l.price)>0n);
   const dungeons=(raw.dungeons||[]).slice(0,100).map(d=>({id:text(d.id,64),name:text(d.name,128),description:text(d.description,600),minLevel:Number(d.minLevel)||0,maxLevel:Number(d.maxLevel)||60,minPlayers:Number(d.minPlayers)||1,maxPlayers:Number(d.maxPlayers)||5,native:d.native===true,playerClears:integer(d.playerClears),bestTimeMs:null}));
-  return {players,guilds,listings,dungeons};
+  const knownNames=new Map(players.map(p=>[p.name.toLowerCase(),p.name])),observed=Number(raw.presence?.observedAt);
+  const presence=Number.isSafeInteger(observed)&&observed>0?{observedAt:observed,names:[...new Set((Array.isArray(raw.presence.names)?raw.presence.names:[]).map(n=>knownNames.get(String(n).toLowerCase())).filter(Boolean))]}:null;
+  return {players,guilds,listings,dungeons,presence};
 }
 class SnapshotData{
-  constructor(snapshot){Object.assign(this,snapshot);this.records=snapshot.players.map(enrichProfile);delete this.players;this.guildRecords=snapshot.guilds;delete this.guilds;this.dungeonRecords=snapshot.dungeons;delete this.dungeons;this.listings=snapshot.listings.map(enrichListing);}
+  constructor(snapshot){Object.assign(this,snapshot);this.records=snapshot.players.map(enrichProfile).map(p=>({...p,equipment:p.equipment?.map(e=>enrichListing(e))??null}));delete this.players;this.guildRecords=snapshot.guilds;delete this.guilds;this.dungeonRecords=snapshot.dungeons;delete this.dungeons;this.listings=snapshot.listings.map(enrichListing);}
+  async status(){const observed=Number(this.presence?.observedAt)||0,fresh=observed>0&&Date.now()-observed>=-30000&&Date.now()-observed<180000;return {state:fresh?'live':'unknown',observedAt:observed?new Date(observed).toISOString():null,updatedAt:this.generatedAt?new Date(this.generatedAt).toISOString():null,players:fresh?this.records.filter(p=>this.presence.names.includes(p.name)).map(({name,mainClass,level,avatar})=>({name,mainClass,level,avatar})):[],online:fresh?this.presence.names.length:null};}
   async players({q='',limit=36,page=1,class:classFilter='',sort='recent'}={}){
     const needle=text(q,64).toLowerCase(),matches=this.records.filter(p=>p.name.toLowerCase().includes(needle));
     const rows=matches.filter(p=>!validClasses.has(classFilter)||p.mainClass===classFilter);

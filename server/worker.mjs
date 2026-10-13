@@ -3,6 +3,9 @@ import botModule from './audit-bot.js';
 import snapshotModule from './snapshot-data.js';
 import d1Module from './d1-audit-store.js';
 import ingestModule from './ingest.js';
+import replyModule from './audit-interaction-reply.js';
+import historyModule from './market-history.js';
+import dungeonCatalog from '../assets/data/dungeons.json';
 const {publicApi}=routeModule,{verifyInteraction,interactionReply,deliver}=botModule;
 const {SnapshotData}=snapshotModule,{D1AuditStore}=d1Module;
 const json=(body,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
@@ -13,16 +16,12 @@ async function discord(request,env,ctx){
   if(!verifyInteraction(body,request.headers.get('x-signature-ed25519'),request.headers.get('x-signature-timestamp'),env.DISCORD_PUBLIC_KEY))return json({error:'Invalid signature'},401);
   let interaction;try{interaction=JSON.parse(body);}catch{return json({error:'Invalid JSON'},400);}
   if(interaction.type===1)return json({type:1});
-  // Defer only after the role check; a DB connection cannot delay Discord's 3-second acknowledgement.
+  // Reply directly within Discord's deadline; no deferred message can remain "thinking".
   if(!botModule.authorized(interaction))return json(await interactionReply(interaction,()=>[]));
-  ctx.waitUntil((async()=>{let db;try{
+  return json(await replyModule.boundedReply(async()=>{
     const store=new D1AuditStore(env.DATA);const reply=await interactionReply(interaction,(ref)=>store.search(ref),(ref,reason)=>store.flag(ref,interaction.member.user.id,reason));
-    await fetch(`https://discord.com/api/v10/webhooks/${botModule.policy.applicationId}/${interaction.token}/messages/@original`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(reply.data),signal:AbortSignal.timeout(10000)});
-  }catch{
-    console.error('Private audit search failed');
-    await fetch(`https://discord.com/api/v10/webhooks/${botModule.policy.applicationId}/${interaction.token}/messages/@original`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:'Audit records are temporarily unavailable. Please try again shortly.',allowed_mentions:{parse:[]}}),signal:AbortSignal.timeout(10000)}).catch(()=>{});
-  }finally{if(db)await db.end();}})());
-  return json({type:5,data:{flags:64}});
+    return reply;
+  },ctx));
 }
 export default{
   async fetch(request,env,ctx){
@@ -64,6 +63,9 @@ export default{
     if(request.method!=='GET')return json({error:'Read-only endpoint'},405);
     const origin=request.headers.get('origin');
     if(origin&&origin!=='https://rift-haven.com'&&origin!=='https://www.rift-haven.com')return json({error:'Origin not allowed'},403);
+    if(url.pathname==='/api/status'&&typeof env.RIFT_PUBLIC_MAINTENANCE==='string'&&env.RIFT_PUBLIC_MAINTENANCE.trim()){
+      const response=json({state:'maintenance',message:env.RIFT_PUBLIC_MAINTENANCE.slice(0,240),online:null,players:[],observedAt:null,updatedAt:null});if(origin){response.headers.set('Access-Control-Allow-Origin',origin);response.headers.set('Vary','Origin');}return response;
+    }
     if(url.pathname==='/api/guide'){
       const row=await env.DATA.prepare("SELECT data_json FROM public_snapshots WHERE id='guide'").first();const response=json(row?JSON.parse(row.data_json):{error:'Guide sync pending'},row?200:404);if(origin)response.headers.set('Access-Control-Allow-Origin',origin);response.headers.set('Cache-Control','public, max-age=300');return response;
     }
@@ -73,9 +75,12 @@ export default{
       const snapshot=await env.DATA.prepare("SELECT data_json,generated_at FROM public_snapshots WHERE id='world'").first();
       if(!snapshot)return json({error:'Public records are waiting for the first server sync'},503);
       const publicData=JSON.parse(snapshot.data_json);
+      if(url.pathname==='/api/market/history'){
+        const payload=await historyModule.history(env.DATA,Object.fromEntries(url.searchParams));const response=json(payload);response.headers.set('Cache-Control','public, max-age=30');if(origin){response.headers.set('Access-Control-Allow-Origin',origin);response.headers.set('Vary','Origin');}return response;
+      }
       if(url.pathname==='/api/dungeons'){
         const {results}=await env.DATA.prepare('SELECT * FROM dungeon_rollups').all();const rollups=new Map(results.map(r=>[r.dungeon_id,r]));
-        publicData.dungeons=publicData.dungeons.map(d=>({...d,bestTimeMs:rollups.get(d.id)?.best_time_ms??null,runsStarted:rollups.get(d.id)?.started??0,runsCompleted:rollups.get(d.id)?.completed??0}));
+        publicData.dungeons=(publicData.dungeons?.length?publicData.dungeons:dungeonCatalog.map(d=>({...d,native:d.preserveNativeEncounters===true,playerClears:null}))).map(d=>({...d,bestTimeMs:rollups.get(d.id)?.best_time_ms??null,runsStarted:rollups.get(d.id)?.started??0,runsCompleted:rollups.get(d.id)?.completed??0}));
       }
       const payload=await publicApi(url,new SnapshotData({...publicData,generatedAt:snapshot.generated_at}));
       const response=json(payload);response.headers.set('Cache-Control','public, max-age=30');

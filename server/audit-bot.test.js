@@ -1,6 +1,16 @@
 'use strict';
 const {test}=require('node:test');const assert=require('node:assert/strict');const crypto=require('node:crypto');
 const {policy,authorized,verifyInteraction,batches,deliver,interactionReply}=require('./audit-bot');
+const {embed}=require('./audit-bot');
+test('native give cards show requested details without claiming delivery or leaking mentions',()=>{
+  const panel=embed({eventId:'give-1',transactionId:'tx-1',category:'staff',kind:'staff.item.give.requested',outcome:'attempt',actorName:'Lyq',createdAt:Date.now(),details:{recipient:'@everyone',itemId:'Wood_Oak_Trunk',quantity:'3',quality:'Rare'}});
+  assert.equal(panel.title,'Staff /give requested');
+  assert.ok(panel.fields.some(f=>f.name==='Quantity requested'&&f.value==='3'));
+  assert.ok(panel.fields.some(f=>f.name==='Status'&&f.value.includes('not confirmed')));
+  assert.ok(panel.fields.some(f=>f.name==='Item'&&f.value.length>0));
+  assert.ok(!JSON.stringify(panel).includes('@everyone'));
+  assert.equal(panel.fields.length,6);
+});
 const event=i=>({eventId:'event-'+i,category:'economy',kind:'wallet.change',outcome:'committed',actorName:'@everyone',summary:'gold moved',createdAt:Date.now()});
 test('staff roles are restricted to the configured guild',()=>{
   for(const role of policy.allowedRoleIds)assert.equal(authorized({guild_id:policy.guildId,member:{roles:[role]}}),true);

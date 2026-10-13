@@ -30,7 +30,7 @@ The initial guide contains the authored in-game handbook. Runtime-generated reci
 
 Item icons resolve from the installed native assets and the accepted RiftCore artifact. `python scripts/build-item-catalog.py` regenerates the catalogue. Auction inspection projects saved attributes and requirements without publishing raw metadata.
 
-Profiles use native GLB models generated from allowlisted saved cosmetic appearance. The current cache covers 71 characters with 66 unique appearances. The viewer uses Three.js (MIT; notice in assets/js/THREE-LICENSE.txt), native idle animation, visibility pauses, reduced-motion support and drag rotation. Equipped armor is not yet layered into these cosmetic models. Uncached or unavailable appearances keep a neutral fallback. New skin combinations require a cache render; no always-on avatar renderer is claimed.
+Profiles use native GLB models generated from allowlisted saved cosmetic appearance. The current cache covers 71 characters with 66 unique appearances. The viewer uses Three.js (MIT; notice in assets/js/THREE-LICENSE.txt), native idle animation, visibility pauses, reduced-motion support and drag rotation. Equipment-aware cache variants now layer native equipped armor and supported main-hand models onto the saved cosmetic rig. Offhand and unavailable model parts are omitted rather than guessed, with coverage recorded in equipped-avatar-map.json. Uncached or unavailable appearances keep a neutral fallback. New skin combinations require a cache render; no always-on avatar renderer is claimed.
 
 The staged game publisher exports the effective in-game GuideRuntime catalogue every 30 minutes over signed HTTPS. The site uses `/api/guide` once available and falls back to the authored handbook before the first runtime export. The export has a one-MiB bound and does not prevent committed audit forwarding if it fails. Generated guide pages retain only public player instructions and links, with native icons and paginated search results.
 
@@ -38,8 +38,21 @@ The bot sends compact category-colored embeds, with structured economy/item fiel
 
 ## Player browsing tools
 
-The player directory has server-side paging, class filters and name/level/gold/recent sorting. Highscores have paging and player search that retains the actual ordinal, with a separate unchanged podium. Saved players are stored only in that browser (up to 20 names). Global search covers the guide, public players and news, with / or Ctrl/Cmd+K shortcuts.
+The player directory has server-side paging, class filters and name/level/gold/recent sorting. Highscores have paging and player search that retains the actual ordinal, with a separate unchanged podium. Saved players are stored only in that browser (up to 20 names). Global search covers the guide, public players, obtainable items and news, with / or Ctrl/Cmd+K shortcuts.
 
 Profile XP is XP within the current level. Progression XP totals are reconstructed using XP requirement tables exported from the accepted server artifact; these are progression totals, not an all-time post-cap or reset history. Unknown profession curve versions do not produce invented totals. Regenerate assets/data/progression.json when the game progression curves change.
 
 The additional website Druid guide is based on current Druid form, spellbook and healing source. It augments the live catalogue without replacing an existing authoritative Druid article. Website-only changes in this pass do not alter gameplay or require another game JAR.
+
+
+## Compendium, equipment and live world tools
+
+`/items` contains272 items anchored to accepted merchant/gathering/drop/crafting sources, with147 craftable output IDs and ingredient alternatives. Run `python scripts/build-discovery-catalog.py` against the current accepted artifact to regenerate; it verifies inventory hashes and executes pure accepted catalog helpers offline, without starting the game. Native asset existence alone is not an obtainability source. Dynamic generated gear, metadata variants and customized live recipes can differ; this is a bounded compendium, not an exhaustive loot dump.
+
+`/dungeons/:id` uses accepted public definitions and reward tables via `python scripts/build-dungeon-details.py`, overlaid with recorded unique-run rollups. Run times include instance preparation/loading. `/market/history` projects only committed auction.purchase events from the retained30-day audit window; no buyer UUIDs, claim receipts or investigation references are public. Item charts summarize up to1,000 purchases and cannot value individual generated stat rolls.
+
+The next game publisher sends saved equipment, selected talent ranks and actual currently connected public characters, with no inventory dump or coordinates. Presence expires after180 seconds and is never inferred from lastPlayed. `/status` refreshes everyminute while visible; unknown presence is distinct from zero players or an offline server. An optional Worker variable `RIFT_PUBLIC_MAINTENANCE` provides an operator-authored public maintenance message; remove it to resume live status. Missing equipment fields from an older publisher preserve explicitly dated saved gear, while an explicit empty equipment array clears it.
+
+`python scripts/build-equipped-avatars.py` regenerates equipment cache variants from the allowlisted private bootstrap snapshot. `python scripts/build-selected-talents.py` exports canonical labels for selected public talent IDs. Both need regeneration when new equipment appearances or new selected talent IDs appear. Neither raw inventory nor private appearance selectors are shipped to browsers. `/start` is a local-browser first-session checklist; no account registration or staff activity is public.
+
+Gold audit cards now include the server-provided source and context (shop item/quantity, quest, contract, staff action, guild or auction reference when captured). Old records explicitly indicate that their source was not recorded; no cause is reconstructed from a balance delta alone.
