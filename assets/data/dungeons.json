@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "khaos_15_20",
+    "name": "Khaos Dungeon (15-60)",
+    "description": "A brutal proving ground for rising adventurers.",
+    "minLevel": 15,
+    "maxLevel": 60,
+    "minPlayers": 1,
+    "maxPlayers": 5,
+    "preserveNativeEncounters": null
+  },
+  {
+    "id": "khaos_20_25",
+    "name": "Khaos Dungeon (20-60)",
+    "description": "Harder foes stalk the Khaos halls.",
+    "minLevel": 20,
+    "maxLevel": 60,
+    "minPlayers": 1,
+    "maxPlayers": 5,
+    "preserveNativeEncounters": null
+  },
+  {
+    "id": "the_deepworks_30",
+    "name": "The Deepworks (30-60)",
+    "description": "Goblin factory with native puzzles and checkpoints. Difficulty and Rift Haven gear follow the entering group average; extra members add a small enemy-health bonus.",
+    "minLevel": 30,
+    "maxLevel": 60,
+    "minPlayers": 1,
+    "maxPlayers": 5,
+    "preserveNativeEncounters": true
+  },
+  {
+    "id": "dungeon_of_fear_25_d01",
+    "name": "Dungeon of Fear I (45-60)",
+    "description": "A cursed werewolf village marks the first true step into the Dungeon of Fear.",
+    "minLevel": 45,
+    "maxLevel": 60,
+    "minPlayers": 1,
+    "maxPlayers": 5,
+    "preserveNativeEncounters": null
+  },
+  {
+    "id": "dungeon_of_fear_30_d02",
+    "name": "Dungeon of Fear II (50-60)",
+    "description": "The Main Gates of Baal's Kingdom await the strongest.",
+    "minLevel": 50,
+    "maxLevel": 60,
+    "minPlayers": 1,
+    "maxPlayers": 5,
+    "preserveNativeEncounters": null
+  },
+  {
+    "id": "dungeon_of_fear_30_d03",
+    "name": "Dungeon of Fear III (55-60)",
+    "description": "The Blood Castle stands between Haven and Baal.",
+    "minLevel": 55,
+    "maxLevel": 60,
+    "minPlayers": 1,
+    "maxPlayers": 6,
+    "preserveNativeEncounters": null
+  }
+]

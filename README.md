@@ -25,3 +25,13 @@ The optional Node/MySQL adapter requires trusted TLS and remains available for e
 ## Guide and news
 
 The initial guide contains the authored in-game handbook. Runtime-generated recipe, item, and profession pages require the live catalog export. News contains ten deduplicated user-supplied updates, with no invented dates. Historical posts do not define current gameplay mechanics.
+
+## Native graphics and guide synchronization
+
+Item icons resolve from the installed native assets and the accepted RiftCore artifact. `python scripts/build-item-catalog.py` regenerates the catalogue. Auction inspection projects saved attributes and requirements without publishing raw metadata.
+
+Profiles use native GLB models generated from allowlisted saved cosmetic appearance. The current cache covers 71 characters with 66 unique appearances. The viewer uses Three.js (MIT; notice in assets/js/THREE-LICENSE.txt), native idle animation, visibility pauses, reduced-motion support and drag rotation. Equipped armor is not yet layered into these cosmetic models. Uncached or unavailable appearances keep a neutral fallback. New skin combinations require a cache render; no always-on avatar renderer is claimed.
+
+The staged game publisher exports the effective in-game GuideRuntime catalogue every 30 minutes over signed HTTPS. The site uses `/api/guide` once available and falls back to the authored handbook before the first runtime export. The export has a one-MiB bound and does not prevent committed audit forwarding if it fails. Generated guide pages retain only public player instructions and links, with native icons and paginated search results.
+
+The bot sends compact category-colored embeds, with structured economy/item fields and investigation references. Search results are private embeds. `/audit` accepts an event/transaction reference or an exact player name; `/audit-case` takes an event/transaction reference and a reason. A completed system test confirmed Discord delivery and the revised card format.

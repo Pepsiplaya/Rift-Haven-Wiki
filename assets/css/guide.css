@@ -4,3 +4,5 @@
 @media(max-width:420px){.guide-document-header{display:block}.guide-header-icon{margin-bottom:15px}.profession-guide-card h3{font-size:12px}.profession-guide-card p{font-size:11px}.profession-guide-card>span{font-size:9px}.guide-callout{padding:18px;font-size:12px}.guide-breadcrumb{font-size:10px;gap:7px}}
 @media(prefers-reduced-motion:reduce){.profession-guide-card,.guide-topic-card{transition:none}.profession-guide-card:hover,.guide-topic-card:hover{transform:none}}
 .guide-sidebar{min-width:0;max-width:100%}.guide-sidebar nav{max-width:100%}.guide-index-layout>*,.guide-article-layout>*{min-width:0}
+
+.guide-resource-row{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #ffffff0a}.guide-resource-row img{width:38px;height:38px;object-fit:contain}.guide-resource-row a{color:var(--gold-light)}.guide-resource-row p{margin:0}.guide-resource-row a:hover{color:#8fd6d1}

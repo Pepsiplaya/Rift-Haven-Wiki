@@ -5,8 +5,9 @@ function project(row){
   let summary='';
   if(row.kind==='wallet.change')summary=`gold ${details.before} → ${details.after} (delta ${details.delta})`;
   if(row.kind==='auction.purchase')summary=`${details.itemId} x${details.quantity}; price ${details.price}; seller ${details.sellerName}; listing ${details.listingId}; claims ${details.itemClaimId}/${details.goldClaimId}`;
+  if(row.kind==='bank.items.changed')summary=`${(details.changes||[]).map(i=>`${i.itemId} ${Number(i.delta)>0?'+':''}${i.delta}`).join('; ')}; receipt ${details.receipt}`;
   if(!summary)summary=Object.entries(details).filter(([key])=>!key.endsWith('Id')).map(([key,value])=>`${key}: ${String(value).slice(0,100)}`).join('; ');
-  return {eventId:row.event_id,transactionId:row.transaction_id,createdAt:Number(row.created_at),category:row.category,kind:row.kind,outcome:row.outcome,actorName:row.actor_name,summary};
+  return {eventId:row.event_id,transactionId:row.transaction_id,createdAt:Number(row.created_at),category:row.category,kind:row.kind,outcome:row.outcome,actorName:row.actor_name,summary,details};
 }
 class AuditStore{
   constructor(db,group='mmo'){if(!/^[a-z0-9_]{1,32}$/.test(group))throw new Error('Invalid audit group');this.db=db;this.table='`audit_outbox_'+group+'`';}

@@ -27,6 +27,13 @@ async function discord(request,env,ctx){
 export default{
   async fetch(request,env,ctx){
     const url=new URL(request.url);
+    if(url.pathname==='/internal/test-preview'){
+      if(request.method!=='POST')return json({error:'Method not allowed'},405);const body=await request.text();
+      if(body.length>512||!ingestModule.verify(body,request.headers.get('x-rift-time'),request.headers.get('x-rift-signature'),env.RIFT_SYNC_SECRET))return json({error:'Invalid signature'},401);
+      let reference;try{reference=JSON.parse(body).reference;}catch{return json({error:'Invalid reference'},400);}
+      const row=await env.DATA.prepare("SELECT * FROM audit_events WHERE event_id=? AND kind='integration.test' AND discord_message_id IS NOT NULL").bind(String(reference)).first();if(!row)return json({error:'Delivered system test not found'},404);
+      const event=(await new D1AuditStore(env.DATA).search(reference))[0];const response=await fetch(`https://discord.com/api/v10/channels/${botModule.policy.channels.alerts}/messages/${row.discord_message_id}`,{method:'PATCH',headers:{Authorization:`Bot ${env.DISCORD_BOT_TOKEN}`,'Content-Type':'application/json'},body:JSON.stringify({content:'',embeds:[botModule.embed(event)],allowed_mentions:{parse:[]}}),signal:AbortSignal.timeout(10000)});return json({updated:response.ok,status:response.status},response.ok?200:502);
+    }
     if(url.pathname==='/internal/setup'){
       if(request.method!=='POST'||!ingestModule.verify('',request.headers.get('x-rift-time'),request.headers.get('x-rift-signature'),env.RIFT_SYNC_SECRET))return json({error:'Invalid signature'},401);
       return env.AUDIT_DISPATCHER.get(env.AUDIT_DISPATCHER.idFromName('rift-haven-audit')).fetch('https://dispatcher/setup');
@@ -57,6 +64,9 @@ export default{
     if(request.method!=='GET')return json({error:'Read-only endpoint'},405);
     const origin=request.headers.get('origin');
     if(origin&&origin!=='https://rift-haven.com'&&origin!=='https://www.rift-haven.com')return json({error:'Origin not allowed'},403);
+    if(url.pathname==='/api/guide'){
+      const row=await env.DATA.prepare("SELECT data_json FROM public_snapshots WHERE id='guide'").first();const response=json(row?JSON.parse(row.data_json):{error:'Guide sync pending'},row?200:404);if(origin)response.headers.set('Access-Control-Allow-Origin',origin);response.headers.set('Cache-Control','public, max-age=300');return response;
+    }
     const cacheKey=new Request(url.toString(),{method:'GET'}),cache=caches.default;
     let cached=origin?null:await cache.match(cacheKey);if(cached)return cached;
     let db;try{
@@ -88,8 +98,8 @@ export class AuditDispatcher{
   async fetch(request){
     if(new URL(request.url).pathname==='/setup'){
       return this.state.blockConcurrencyWhile(async()=>{
-        if(await this.state.storage.get('commandsVersion')===2)return json({registered:true});
-        try{await botModule.registerCommands(this.env.DISCORD_BOT_TOKEN);await this.state.storage.put('commandsVersion',2);return json({registered:true});}
+        if(await this.state.storage.get('commandsVersion')===3)return json({registered:true});
+        try{await botModule.registerCommands(this.env.DISCORD_BOT_TOKEN);await this.state.storage.put('commandsVersion',3);return json({registered:true});}
         catch{return json({error:'Bot installation or token is not ready'},503);}
       });
     }

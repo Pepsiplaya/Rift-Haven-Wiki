@@ -6,6 +6,7 @@ function verify(body,time,signature,secret,now=Date.now()){
 }
 async function ingest(payload,db){
   const statements=[];const accepted=[];
+  if(payload.guide){const guide=require('./guide-data').projectGuide(payload.guide),generatedAt=Number(payload.generatedAt);if(!Number.isSafeInteger(generatedAt))throw new Error('Missing guide time');statements.push(db.prepare("INSERT INTO public_snapshots(id,data_json,generated_at) VALUES('guide',?,?) ON CONFLICT(id) DO UPDATE SET data_json=excluded.data_json,generated_at=excluded.generated_at WHERE excluded.generated_at>public_snapshots.generated_at").bind(JSON.stringify(guide),generatedAt));}
   if(payload.snapshot){const snapshot=sanitizeSnapshot(payload.snapshot);const generatedAt=Number(payload.generatedAt);if(!Number.isSafeInteger(generatedAt))throw new Error('Missing snapshot time');
     statements.push(db.prepare("INSERT INTO public_snapshots(id,data_json,generated_at) VALUES('world',?,?) ON CONFLICT(id) DO UPDATE SET data_json=excluded.data_json,generated_at=excluded.generated_at WHERE excluded.generated_at>public_snapshots.generated_at").bind(JSON.stringify(snapshot),generatedAt));
   }

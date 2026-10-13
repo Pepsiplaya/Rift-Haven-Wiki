@@ -18,7 +18,7 @@ test('interaction signatures cover raw bytes and timestamp',()=>{
 test('messages are bounded and user text cannot mention staff',()=>{
   const messages=batches(Array.from({length:110},(_,i)=>event(i)));
   assert.equal(messages.reduce((n,m)=>n+m.events.length,0),100);
-  for(const message of messages){assert.ok(message.events.length<=10);assert.ok(message.content.length<=1800);assert.ok(!message.content.includes('@everyone'));}
+  for(const message of messages){assert.ok(message.events.length<=5);const content=JSON.stringify(message.embeds);assert.ok(!content.includes('@everyone'));assert.ok(message.embeds.reduce((n,e)=>n+e.title.length+e.description.length+e.footer.text.length+e.fields.reduce((n,f)=>n+f.name.length+f.value.length,0),0)<=5500);}
 });
 test('429 stops delivery without acknowledgement',async()=>{
   let ack=0;const result=await deliver([event(1)],{token:'test',fetch:async()=>new Response(JSON.stringify({retry_after:2.5}),{status:429}),acknowledge:async()=>ack++});

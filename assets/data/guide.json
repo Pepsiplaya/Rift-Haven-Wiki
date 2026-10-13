@@ -314,7 +314,7 @@
       "title": "Dungeons",
       "category": "Quests & Adventure",
       "summary": "Take on instanced encounters alone or with a group, starting at level 15.",
-      "keywords": "dungeon finder queue group tank healer damage loot goblin deepworks feastmaster gobliterator checkpoints challenge",
+      "keywords": "dungeon finder queue group tank healer damage loot goblin deepworks feastmaster gobliterator checkpoints challenge average level party health scaling",
       "blocks": [
         {
           "heading": true,
@@ -366,7 +366,11 @@
         },
         {
           "heading": false,
-          "text": "Character level: 30-60. Up to: 5 players. Enter through /dungeon. Difficulty is set by the highest-level entering character and stays fixed for the run. Native boss health also increases for groups."
+          "text": "Character level: 30-60. Up to: 5 players. Enter through /dungeon. Difficulty and loot use the entering group average, rounded to the nearest whole level (60 + 30 makes a level-45 run). The run level stays fixed when members leave or reconnect."
+        },
+        {
+          "heading": false,
+          "text": "Each extra entering player adds 10% enemy durability, up to +40% for five players, on top of native boss group-health scaling. Party size does not increase enemy damage."
         },
         {
           "heading": false,
@@ -461,7 +465,7 @@
         },
         {
           "heading": false,
-          "text": "Some abilities shed your threat: Smoke Veil and Void Cloak drop 50%, Healing Hymn 30%, Tidal Guard 25%, and Backflip Kick 15%. A common mistake is opening with big damage before your tank has hit the enemy. Let the tank start the fight, then build up."
+          "text": "Some abilities shed your threat: Smoke Veil and Void Cloak drop 50%, Healing Hymn 30%, and Backflip Kick 15%. A common mistake is opening with big damage before your tank has hit the enemy. Let the tank start the fight, then build up."
         }
       ],
       "links": [],
@@ -3357,10 +3361,9 @@
         },
         {
           "heading": false,
-          "text": "Small spells generally cost 12–24 mana; large spells cost 30–40. Check each learned spell in Talents for its cost. Large spells retain at least a 10-second cooldown after bonuses. Intercession costs 18 mana, Healing Hymn costs 30, and Daybreak costs 40. Sea Tidal Ascendance costs 60 mana with a 30-second base cooldown. Running out of mana is a reason to use free attacks and recover, rather than repeatedly trying the same spell."
+          "text": "Small spells generally cost 12–24 mana; large spells cost 30–40. Check each learned spell in Talents for its cost. Large spells retain at least a 10-second cooldown after bonuses. Intercession costs 18 mana, Healing Hymn costs 30, and Daybreak costs 40. Sea Tidal Ascendance costs 60 mana and has a 30-second base cooldown. Running out of mana is a reason to use free attacks and recover, rather than repeatedly trying the same spell."
         }
-      ],
-      "links": []
+      ]
     }
   ]
 }

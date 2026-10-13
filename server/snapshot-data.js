@@ -4,6 +4,7 @@ const metrics={quests:'quests.completed.total',dungeons:'dungeon.clears.total',m
 const validClasses=new Set(['fighter','paladin','elemancer','rogue','druid']);
 const professions=new Set(['MINING','FORAGING','FARMING','FISHING','SMITHING','WEAPONSMITHING','LEATHERWORKING','WEAVING','COOKING','ALCHEMY','JEWELCRAFTING','HUNTER']);
 const catalog=require('../assets/data/items.json');
+const dungeonCatalog=require('../assets/data/dungeons.json');
 const {createHash}=require('node:crypto');
 const appearanceKeys=new Set(['bodyCharacteristic','underwear','face','eyes','ears','mouth','haircut','eyebrows','facialHair','pants','undertop','overtop','shoes','gloves','overpants','cape','faceAccessory','headAccessory','earAccessory']);
 function appearanceHash(raw){const visual={};for(const key of Object.keys(raw||{}).sort())if(appearanceKeys.has(key)&&typeof raw[key]==='string'&&/^[A-Za-z0-9_.-]{1,100}$/.test(raw[key]))visual[key]=raw[key];return Object.keys(visual).length?createHash('sha256').update(JSON.stringify(visual)).digest('hex').slice(0,24):null;}
@@ -33,7 +34,7 @@ function sanitizeSnapshot(raw){
   const players=raw.players.map(profile).filter(p=>p.name);
   const guilds=(raw.guilds||[]).slice(0,1000).map(g=>({name:text(g.name,64),info:text(g.info,600),createdAt:timestamp(g.createdAt),memberCount:Math.max(0,Number(g.memberCount)||0)}));
   const listings=raw.listings.map(l=>({id:text(l.id,64),itemId:text(l.itemId,128),name:text(l.name,160),seller:text(l.seller,64),sellerProfile:text(l.sellerProfile,64)||null,quantity:integer(l.quantity),price:integer(l.price),createdAt:Number(l.createdAt)||0,expiresAt:Number(l.expiresAt)||0,rarity:rarities.has(l.rarity)?l.rarity:null,details:itemDetails(l.details)})).filter(l=>BigInt(l.quantity)>0n&&BigInt(l.price)>0n);
-  const dungeons=(raw.dungeons||[]).slice(0,100).map(d=>({id:text(d.id,64),name:text(d.name,128),minLevel:Number(d.minLevel)||0,maxLevel:Number(d.maxLevel)||60,playerClears:integer(d.playerClears),bestTimeMs:null}));
+  const dungeons=(raw.dungeons||[]).slice(0,100).map(d=>({id:text(d.id,64),name:text(d.name,128),description:text(d.description,600),minLevel:Number(d.minLevel)||0,maxLevel:Number(d.maxLevel)||60,minPlayers:Number(d.minPlayers)||1,maxPlayers:Number(d.maxPlayers)||5,native:d.native===true,playerClears:integer(d.playerClears),bestTimeMs:null}));
   return {players,guilds,listings,dungeons};
 }
 class SnapshotData{
@@ -41,7 +42,7 @@ class SnapshotData{
   async players({q='',limit=36}={}){const needle=text(q,64).toLowerCase(),rows=this.records.filter(p=>p.name.toLowerCase().includes(needle));return {players:rows.slice(0,Math.min(100,Math.max(1,Number(limit)||36))),total:rows.length};}
   async profile(name){const matches=this.records.filter(p=>p.name.toLowerCase()===String(name).toLowerCase());return matches.length===1?matches[0]:null;}
   async guilds({q=''}={}){return {guilds:this.guildRecords.filter(g=>g.name.toLowerCase().includes(text(q,64).toLowerCase())).sort((a,b)=>b.memberCount-a.memberCount)};}
-  async dungeons(){return {dungeons:this.dungeonRecords};}
+  async dungeons(){return {dungeons:this.dungeonRecords.length?this.dungeonRecords:dungeonCatalog.map(d=>({...d,native:d.preserveNativeEncounters===true,playerClears:null,bestTimeMs:null}))};}
   async market({q='',rarity='',sort='newest',page=1,limit=20}={}){
     const now=Date.now(),needle=text(q,64).toLowerCase();const rows=this.listings.filter(l=>(!l.expiresAt||l.expiresAt>now)&&(!rarity||l.rarity===rarity)&&(!needle||(l.name+' '+l.seller).toLowerCase().includes(needle)));
     rows.sort((a,b)=>sort==='name'?a.name.localeCompare(b.name):sort.startsWith('price-')?(BigInt(a.price)<BigInt(b.price)?-1:BigInt(a.price)>BigInt(b.price)?1:0)*(sort==='price-desc'?-1:1):b.createdAt-a.createdAt);
@@ -52,7 +53,7 @@ class SnapshotData{
     if(!['wealth','level','class-xp','total-skills','total-skill-xp',...Object.keys(metrics)].includes(metric)&&!professions.has(profession))metric='level';
     const score=p=>profession?p.skills[profession]?.level||0:metric==='wealth'?p.balance:metric==='level'?p.level:metric==='class-xp'?p.experience:metric==='total-skills'?Object.values(p.skills).reduce((n,s)=>n+s.level,0):metric==='total-skill-xp'?Object.values(p.skills).reduce((n,s)=>n+BigInt(s.experience),0n).toString():p.metrics[metrics[metric]]||0;
     const xp=p=>profession?p.skills[profession]?.experience||'0':metric==='level'?p.experience:'0';
-    return {metric,players:this.records.filter(p=>!validClasses.has(classFilter)||p.mainClass===classFilter).map(p=>({name:p.name,mainClass:p.mainClass,score:integer(score(p)),experience:integer(xp(p))})).filter(p=>BigInt(p.score)>0n).sort((a,b)=>BigInt(a.score)>BigInt(b.score)?-1:BigInt(a.score)<BigInt(b.score)?1:BigInt(a.experience)>BigInt(b.experience)?-1:BigInt(a.experience)<BigInt(b.experience)?1:a.name.localeCompare(b.name)).slice(0,100)};
+    return {metric,players:this.records.filter(p=>!validClasses.has(classFilter)||p.mainClass===classFilter).map(p=>({name:p.name,mainClass:p.mainClass,avatar:p.avatar,score:integer(score(p)),experience:integer(xp(p))})).filter(p=>BigInt(p.score)>0n).sort((a,b)=>BigInt(a.score)>BigInt(b.score)?-1:BigInt(a.score)<BigInt(b.score)?1:BigInt(a.experience)>BigInt(b.experience)?-1:BigInt(a.experience)<BigInt(b.experience)?1:a.name.localeCompare(b.name)).slice(0,100)};
   }
   async overview(){return {characters:this.records.length,guilds:this.guildRecords.length,listings:(await this.market({limit:1})).total,playerClears:this.records.reduce((n,p)=>n+BigInt(p.metrics['dungeon.clears.total']||0),0n).toString()};}
 }
