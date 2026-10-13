@@ -1,0 +1,3343 @@
+{
+  "categories": [
+    "Getting Started",
+    "Professions",
+    "Items & Materials",
+    "Quests & Adventure",
+    "Classes & Combat",
+    "Town & Trading",
+    "Collections & Controls"
+  ],
+  "articles": [
+    {
+      "id": "characters",
+      "title": "Characters and leveling",
+      "category": "Getting Started",
+      "summary": "Understand character slots, separate progress, and the two kinds of levels.",
+      "keywords": "slots alt account xp cap progression",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Choose your character"
+        },
+        {
+          "heading": false,
+          "text": "You have four character slots . When you connect, choose a name from Your Characters to preview that character, then press Enter World . Each card shows the character's class and level. To start another character, select an empty slot and press Create New Character ."
+        },
+        {
+          "heading": false,
+          "text": "The details beside your character show level progress, recent activity, and equipment when any is equipped. Equipment is grouped into armor, weapons, and jewelry, with each slot labeled. Hover an equipped item to see its stats. To play a different character, log out and reconnect, then select another slot."
+        },
+        {
+          "heading": false,
+          "text": "Each character has its own class, quests, equipment, gold, bank, professions, and collections. Switching slots is not a way to share your main character's belongings."
+        },
+        {
+          "heading": false,
+          "text": "To remove a character, select their slot and choose Delete Character at the bottom left. Check the class and level, then type the displayed class name exactly, including capitalization, to enable Confirm Delete . Deletion removes that character and their progress, frees the slot, and has no Undo button. Choose Cancel to keep the character."
+        },
+        {
+          "heading": false,
+          "text": "If your character cannot be loaded, wait and try selecting it again. A temporary loading error does not mean your character is gone; you do not need to create a replacement."
+        },
+        {
+          "heading": true,
+          "text": "Grow in two ways"
+        },
+        {
+          "heading": false,
+          "text": "Class level reaches 60. Questing and fighting earn class XP. At the cap, your XP bar reads MAX LEVEL . Check /class for your level, spellbook, and available talent choices."
+        },
+        {
+          "heading": false,
+          "text": "Each profession reaches 60. Gathering and crafting improve the matching profession, independently of your class. Open /skills to see your progress."
+        },
+        {
+          "heading": false,
+          "text": "As you level, try dungeons , train riding , and improve your equipment . You do not need to work on every profession at once."
+        }
+      ],
+      "links": [
+        "dungeons",
+        "mounts",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "commands",
+      "title": "Player commands",
+      "category": "Collections & Controls",
+      "summary": "Shortcuts to the menus and a few useful ways to get unstuck.",
+      "keywords": "help shortcuts stuck hud menu commands settings discord",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Everyday shortcuts"
+        },
+        {
+          "heading": true,
+          "text": "/guide or /rhhelp"
+        },
+        {
+          "heading": false,
+          "text": "Search the player handbook. Add a topic, such as /guide copper . Use the location toggle to mark the nearest known destination in your world; toggle it off or use Clear Marker to stop. Creature markers point to hunting areas."
+        },
+        {
+          "heading": true,
+          "text": "/settings"
+        },
+        {
+          "heading": false,
+          "text": "Save your HUD, combat display, and party preferences."
+        },
+        {
+          "heading": true,
+          "text": "/discord"
+        },
+        {
+          "heading": false,
+          "text": "Get a clickable invite to the Rift Haven Discord ."
+        },
+        {
+          "heading": true,
+          "text": "/i or /inventory"
+        },
+        {
+          "heading": false,
+          "text": "Manage equipment and bags."
+        },
+        {
+          "heading": true,
+          "text": "/class or /c"
+        },
+        {
+          "heading": false,
+          "text": "View your character, talents, and spellbook."
+        },
+        {
+          "heading": true,
+          "text": "/skills"
+        },
+        {
+          "heading": false,
+          "text": "View profession levels and choose perks."
+        },
+        {
+          "heading": true,
+          "text": "/quests or /q"
+        },
+        {
+          "heading": false,
+          "text": "Open your quest journal."
+        },
+        {
+          "heading": true,
+          "text": "/p or /party"
+        },
+        {
+          "heading": false,
+          "text": "Create or manage a party."
+        },
+        {
+          "heading": true,
+          "text": "/friends"
+        },
+        {
+          "heading": false,
+          "text": "Open your friends list ."
+        },
+        {
+          "heading": true,
+          "text": "/w"
+        },
+        {
+          "heading": false,
+          "text": "Whisper someone online. Reply with /r ."
+        },
+        {
+          "heading": true,
+          "text": "/guild"
+        },
+        {
+          "heading": false,
+          "text": "Open your guild . Talk with /g ."
+        },
+        {
+          "heading": true,
+          "text": "/contracts"
+        },
+        {
+          "heading": false,
+          "text": "Check your daily and weekly contracts ."
+        },
+        {
+          "heading": true,
+          "text": "/dungeon or /d"
+        },
+        {
+          "heading": false,
+          "text": "Open the Dungeon Finder."
+        },
+        {
+          "heading": true,
+          "text": "/shop"
+        },
+        {
+          "heading": false,
+          "text": "Buy supplies or sell items."
+        },
+        {
+          "heading": true,
+          "text": "/bal"
+        },
+        {
+          "heading": false,
+          "text": "Check your gold."
+        },
+        {
+          "heading": true,
+          "text": "/mounts"
+        },
+        {
+          "heading": false,
+          "text": "Open your stable and riding training."
+        },
+        {
+          "heading": true,
+          "text": "/pet"
+        },
+        {
+          "heading": false,
+          "text": "Open your pet collection."
+        },
+        {
+          "heading": true,
+          "text": "/achievements"
+        },
+        {
+          "heading": false,
+          "text": "Check achievement progress and rewards."
+        },
+        {
+          "heading": true,
+          "text": "/titles"
+        },
+        {
+          "heading": false,
+          "text": "Choose an unlocked title."
+        },
+        {
+          "heading": true,
+          "text": "/leaderboard"
+        },
+        {
+          "heading": false,
+          "text": "Browse leaderboards."
+        },
+        {
+          "heading": true,
+          "text": "Help and other actions"
+        },
+        {
+          "heading": true,
+          "text": "/stuck"
+        },
+        {
+          "heading": false,
+          "text": "Request recovery if terrain leaves you trapped."
+        },
+        {
+          "heading": true,
+          "text": "/hud on"
+        },
+        {
+          "heading": false,
+          "text": "Show the Rift Haven HUD when using the Rift Haven interface. Use /hud off to hide it; your choice is remembered."
+        },
+        {
+          "heading": true,
+          "text": "/q tracker on"
+        },
+        {
+          "heading": false,
+          "text": "Restore the quest tracker."
+        },
+        {
+          "heading": true,
+          "text": "/hunter status"
+        },
+        {
+          "heading": false,
+          "text": "Check your Hunter level, certificates, and active contract."
+        },
+        {
+          "heading": true,
+          "text": "/duel"
+        },
+        {
+          "heading": false,
+          "text": "Challenge someone nearby to a duel."
+        },
+        {
+          "heading": true,
+          "text": "/ignore"
+        },
+        {
+          "heading": false,
+          "text": "Hide a player's chat, whispers and invites. Undo with /unignore ."
+        },
+        {
+          "heading": true,
+          "text": "/arena leave"
+        },
+        {
+          "heading": false,
+          "text": "Leave the PvP arena."
+        },
+        {
+          "heading": false,
+          "text": "The bank and Auction House are town services: visit their NPCs to use them."
+        }
+      ],
+      "links": [
+        "friends",
+        "guilds",
+        "contracts",
+        "bank",
+        "auction"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "dungeons",
+      "title": "Dungeons",
+      "category": "Quests & Adventure",
+      "summary": "Take on instanced encounters alone or with a group, starting at level 15.",
+      "keywords": "dungeon finder queue group tank healer damage loot goblin deepworks feastmaster gobliterator checkpoints challenge",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Choose a dungeon"
+        },
+        {
+          "heading": true,
+          "text": "Khaos Dungeon"
+        },
+        {
+          "heading": false,
+          "text": "Character level: 15-60. Up to: 5 players"
+        },
+        {
+          "heading": true,
+          "text": "Khaos Dungeon"
+        },
+        {
+          "heading": false,
+          "text": "Character level: 20-60. Up to: 5 players"
+        },
+        {
+          "heading": true,
+          "text": "Dungeon of Fear I"
+        },
+        {
+          "heading": false,
+          "text": "Character level: 25-60. Up to: 5 players"
+        },
+        {
+          "heading": true,
+          "text": "Dungeon of Fear II"
+        },
+        {
+          "heading": false,
+          "text": "Character level: 30-60. Up to: 5 players"
+        },
+        {
+          "heading": true,
+          "text": "Dungeon of Fear III"
+        },
+        {
+          "heading": false,
+          "text": "Character level: 30-60. Up to: 6 players"
+        },
+        {
+          "heading": true,
+          "text": "The Deepworks"
+        },
+        {
+          "heading": false,
+          "text": "Character level: 30-60. Up to: 5 players. Enter through /dungeon. Boss health increases for groups using Hytale's native scaling. Enemy damage and drops stay native."
+        },
+        {
+          "heading": false,
+          "text": "Advance through the dungeon to activate shared respawn checkpoints. The challenge button near the Gobliterator entrance enables its harder encounter. After defeating the final boss, let its ending play, collect your drops, then use /dungeon leave to return."
+        },
+        {
+          "heading": false,
+          "text": "Dungeons remain open through level 60. Enemies and loot keep their original tiers; higher levels do not upgrade drops."
+        },
+        {
+          "heading": true,
+          "text": "Enter through the finder"
+        },
+        {
+          "heading": false,
+          "text": "Open /dungeon and select an unlocked dungeon that matches your level."
+        },
+        {
+          "heading": false,
+          "text": "Choose Find Group to look for teammates, or Enter Solo to start alone. With friends, form a party first; the leader can choose Enter with Party to enter with only that party."
+        },
+        {
+          "heading": false,
+          "text": "For Find Group , pick a role and confirm: Hope Paladins can queue as Tank, Light Paladins can queue as Healer, and anyone can queue as DPS. Every member must meet the encounter's requirements."
+        },
+        {
+          "heading": false,
+          "text": "Keep adventuring while Find Group searches. It waits for three eligible players (Tank, Healer and DPS), or the encounter's higher minimum; a dungeon group takes one Tank and one Healer. Solo and party entry ignore roles. While queued, Enter Solo or Enter with Party stops searching and enters privately if your group meets the requirements."
+        },
+        {
+          "heading": false,
+          "text": "Random Dungeon searches across eligible dungeons. Switching that queue to private entry chooses an eligible dungeon."
+        },
+        {
+          "heading": true,
+          "text": "Prepare for the run"
+        },
+        {
+          "heading": false,
+          "text": "Equip class weapons, choose talents and pack supplies. In level-15 Khaos, bring a tank and healer; teammates don't increase enemy damage. Boss fights favor a party; solo attempts demand supplies and defenses."
+        },
+        {
+          "heading": false,
+          "text": "A locked finder card explains what you still need. Dungeon enemies can also drop pet collectibles; mounts do not drop in dungeons."
+        },
+        {
+          "heading": true,
+          "text": "Dungeon loot"
+        },
+        {
+          "heading": false,
+          "text": "Most ordinary enemies drop materials; bosses offer better equipment. Gear pools give every playable class an equal share, including weapons and shields. Drops are shared, not tailored to your character."
+        }
+      ],
+      "links": [
+        "party",
+        "pets",
+        "reference:dungeons:0"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "threat",
+      "title": "Threat and tanking",
+      "category": "Quests & Adventure",
+      "summary": "Learn who enemies attack, how tanks hold them, and how to shed threat.",
+      "keywords": "threat aggro taunt tank hope fury goading pull",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Who enemies attack"
+        },
+        {
+          "heading": false,
+          "text": "Every enemy attacks the player with the most threat on it, in dungeons and in the open world. Damage builds threat. Healing and shields build half as much, split across every enemy fighting your party or the player you healed. Hope builds four times as much threat from everything it does. Learn the single-rank Righteous Fury passive in the first Paladin talent row (available at level 1) to raise threat from damage, effective healing, shields and tank ability bonuses to ten times normal while using a sword and shield as Hope. It is always active once learned; it adds no damage or healing and does not stop area attacks. Fury with the Goading Fury talent builds two and a half times as much and can off-tank. When a tank dies, its threat is gone and enemies turn to whoever has the most left."
+        },
+        {
+          "heading": true,
+          "text": "Taking and taunting"
+        },
+        {
+          "heading": false,
+          "text": "To pull an enemy off its current target, you need 110% of that player's threat while within 5 blocks of the enemy, or 130% from farther away. Hope's abilities and Goading Fury's axe throw add bonus threat to every enemy they hit, so open each pull with them. A taunt, such as Hope's Radiant Judgment or Goading Fury's axe throw, raises your threat to match the top attacker and makes the enemy attack you for 3 seconds."
+        },
+        {
+          "heading": true,
+          "text": "Shedding threat"
+        },
+        {
+          "heading": false,
+          "text": "Some abilities shed your threat: Smoke Veil and Void Cloak drop 50%, Healing Hymn 30%, Tidal Guard 25%, and Backflip Kick 15%. A common mistake is opening with big damage before your tank has hit the enemy. Let the tank start the fight, then build up."
+        }
+      ],
+      "links": [],
+      "icon": ""
+    },
+    {
+      "id": "party",
+      "title": "Playing with friends",
+      "category": "Quests & Adventure",
+      "summary": "Invite friends, choose a leader, and stay together during your adventures.",
+      "keywords": "friends party invite group leader multiplayer chat ping",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Form a party"
+        },
+        {
+          "heading": false,
+          "text": "Open /p . If you are playing alone, choose Create Party , Browse Parties , or View Invites . After creating a party, open Players to invite someone online. A party holds up to eight players ."
+        },
+        {
+          "heading": true,
+          "text": "Invite a friend"
+        },
+        {
+          "heading": false,
+          "text": "/p invite"
+        },
+        {
+          "heading": true,
+          "text": "Leave your party"
+        },
+        {
+          "heading": false,
+          "text": "/p leave"
+        },
+        {
+          "heading": true,
+          "text": "Send party chat"
+        },
+        {
+          "heading": false,
+          "text": "/p chat"
+        },
+        {
+          "heading": false,
+          "text": "The leader manages membership and starts group dungeon entry. If you want to find other players, browse available parties in the party menu. To keep in touch between sessions, add people to your friends list or join a guild ."
+        },
+        {
+          "heading": true,
+          "text": "Travel and fight together"
+        },
+        {
+          "heading": false,
+          "text": "Use the party panel to watch your teammates and pings to point out a destination or danger. Stay nearby when sharing combat XP; being in a party does not make distant kills count everywhere."
+        },
+        {
+          "heading": false,
+          "text": "For dungeon runs, check the instance's player limit before inviting everyone. For a trip through the world, the Antelope and Hyena wagons have passenger seats ."
+        }
+      ],
+      "links": [
+        "friends",
+        "guilds",
+        "dungeons"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "friends",
+      "title": "Friends, whispers and ignore",
+      "category": "Quests & Adventure",
+      "summary": "Keep a friends list, send private messages, and hide players you do not want to hear from.",
+      "keywords": "friends friend list whisper tell msg reply private message ignore block unignore online",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Add a friend"
+        },
+        {
+          "heading": false,
+          "text": "Open /friends , type a player's name and choose Send Request , or type /friend add <player> . They accept from Requests or with /friend accept <player> . If you both send a request, you become friends straight away."
+        },
+        {
+          "heading": false,
+          "text": "Your list is shared by every character on your account and holds up to 100 friends . You see a message when a friend comes online or goes offline, and online friends can be invited to your party from the list. /friend remove <player> removes a friend, declines a request, or cancels one you sent."
+        },
+        {
+          "heading": true,
+          "text": "Whisper"
+        },
+        {
+          "heading": true,
+          "text": "/w"
+        },
+        {
+          "heading": false,
+          "text": "Send a private message. /msg and /tell also work."
+        },
+        {
+          "heading": true,
+          "text": "/r"
+        },
+        {
+          "heading": false,
+          "text": "Reply to the last player who whispered you."
+        },
+        {
+          "heading": false,
+          "text": "The other player must be online. You do not need to be friends to whisper."
+        },
+        {
+          "heading": true,
+          "text": "Ignore someone"
+        },
+        {
+          "heading": false,
+          "text": "/ignore <player> hides their chat, whispers and guild chat from you, and blocks their friend requests, party invites, guild invites and duel challenges. Ignoring someone also removes them from your friends. Use /unignore <player> or the Ignored list in /friends to undo it."
+        }
+      ],
+      "links": [],
+      "icon": ""
+    },
+    {
+      "id": "guilds",
+      "title": "Guilds",
+      "category": "Quests & Adventure",
+      "summary": "Found or join a guild to share a chat channel, ranks, and a guild bank.",
+      "keywords": "guild clan create found invite join leave rank officer guild master bank motd chat roster",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Found or join a guild"
+        },
+        {
+          "heading": false,
+          "text": "Type /guild create <name> to found a guild for 10,000 gold . Names use 3-24 letters, numbers, spaces or apostrophes, and no two guilds can share one."
+        },
+        {
+          "heading": false,
+          "text": "To join, ask a member whose rank can invite to use /guild invite <player> , then type /guild accept within two minutes . Membership belongs to the character you are playing, and each character can be in one guild. A guild holds up to 250 members ."
+        },
+        {
+          "heading": false,
+          "text": "Type /guild to open the guild window with its roster, bank, ranks and log."
+        },
+        {
+          "heading": true,
+          "text": "Talk to your guild"
+        },
+        {
+          "heading": false,
+          "text": "Use /g <message> for guild chat and /o <message> for officer chat. The message of the day appears when you log in; ranks that are allowed can change it with /guild motd <text> ."
+        },
+        {
+          "heading": true,
+          "text": "Ranks"
+        },
+        {
+          "heading": false,
+          "text": "A new guild has five ranks: Guild Master, Officer, Veteran, Member and Initiate . New members join as Initiate. Officers can invite, promote, demote and remove members ranked below them. The Guild Master can rename and add ranks (up to eight ), choose what each rank may do, and pass leadership with /guild leader <member> ."
+        },
+        {
+          "heading": true,
+          "text": "The guild bank"
+        },
+        {
+          "heading": false,
+          "text": "Any member can deposit gold. Click a stack in your bags to deposit it into the open tab, or click an item in the bank to take it. Each rank has a daily limit on gold and on item stacks per tab; limits reset at midnight UTC. If your bags are full, a withdrawn item waits in Claims at the Auction House."
+        },
+        {
+          "heading": false,
+          "text": "The bank starts with one 27-slot tab. The Guild Master can buy up to six tabs with guild gold."
+        },
+        {
+          "heading": false,
+          "text": "Pass leadership with /guild leader <member> before leaving. Only staff can disband a guild; its bank gold and items then go to the Guild Master."
+        }
+      ],
+      "links": [
+        "auction",
+        "reference:guilds:0"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "contracts",
+      "title": "Daily and weekly contracts",
+      "category": "Quests & Adventure",
+      "summary": "Finish daily and weekly contracts as you play, then claim gold and class XP at a Contracts Board.",
+      "keywords": "contracts daily weekly dailies board quests reset rewards gold xp bounty",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "How contracts work"
+        },
+        {
+          "heading": false,
+          "text": "Every character has three daily and three weekly contracts, such as defeating monsters, mining ore, catching fish, crafting, or clearing dungeons. You do not need to accept them: progress counts automatically while you play. Dungeon contracts appear from level 15."
+        },
+        {
+          "heading": false,
+          "text": "Daily contracts reset at midnight UTC , and weekly contracts reset on Monday at midnight UTC . A finished contract you have not claimed stays on the board until the following reset, then it is gone."
+        },
+        {
+          "heading": true,
+          "text": "Claim your rewards"
+        },
+        {
+          "heading": false,
+          "text": "Walk up to a Contracts Board in town and press F . Finished contracts show Claim . Each pays gold and class XP based on your level when the contract was posted, and weekly contracts pay far more than dailies. At the level cap, contracts pay gold only."
+        },
+        {
+          "heading": false,
+          "text": "Check your progress anywhere with /contracts . You still need a board to claim."
+        }
+      ],
+      "links": [],
+      "icon": ""
+    },
+    {
+      "id": "pvp",
+      "title": "Duels and arena",
+      "category": "Classes & Combat",
+      "summary": "Challenge another player or join arena combat.",
+      "keywords": "pvp duel arena player combat",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Friendly duels"
+        },
+        {
+          "heading": false,
+          "text": "Stand near the player you want to challenge and use /duel <player> . They can respond with /duel accept or /duel decline . Use /duel cancel to cancel."
+        },
+        {
+          "heading": false,
+          "text": "An accepted duel begins after a short countdown. Stay within the duel area: leaving its boundary forfeits the fight. The losing hit leaves the defeated player at 1 HP instead of killing them."
+        },
+        {
+          "heading": true,
+          "text": "Arena combat"
+        },
+        {
+          "heading": false,
+          "text": "The arena is a separate PvP activity, not a friendly duel. Use /arena leave to leave it. The normal downed-state rescue window does not apply inside the arena."
+        },
+        {
+          "heading": false,
+          "text": "A duel requires an accepted challenge. Do not mistake its nonlethal ending for protection during arena combat."
+        }
+      ],
+      "links": [],
+      "icon": ""
+    },
+    {
+      "id": "classes",
+      "title": "Classes and paths",
+      "category": "Classes & Combat",
+      "summary": "Choose the fighting style you want to play, then shape it with talents.",
+      "keywords": "fighter rogue elemancer paladin fury perfection shinobi void steam sea light hope weapon armor",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Choose a path below to learn its controls and fighting style. Open Character to see your abilities and talents."
+        }
+      ],
+      "links": [
+        "talents",
+        "combat-gear",
+        "class:fury",
+        "class:perfection",
+        "class:shinobi",
+        "class:void",
+        "class:sol",
+        "class:sea",
+        "class:light",
+        "class:hope"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "talents",
+      "title": "Talents",
+      "category": "Classes & Combat",
+      "summary": "Compare your path’s choices and change your build when you want to experiment.",
+      "keywords": "talents respec reset build trees",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Build across two trees"
+        },
+        {
+          "heading": false,
+          "text": "Open /class , then Talents . You earn one point every level from level 1: odd levels give a class point, even levels give a subclass point. At level 60 you have 30 points in each tree . Points cannot move between trees."
+        },
+        {
+          "heading": false,
+          "text": "Each tree has six rows. Unlock successive rows by spending 5, 10, 15, 20, then 25 points in earlier rows of that tree. You can spread that investment across any earlier rows. The final row has no separate level-60 requirement."
+        },
+        {
+          "heading": false,
+          "text": "Left-click to buy one rank. A five-rank talent can take five points; a one-rank talent is complete after one. Where a talent requires another talent, that prerequisite must be fully ranked. An ability replacement changes its existing action; choose only one replacement for that action. Some upgrades are also grouped as a choice, and you can learn only one talent from each group."
+        },
+        {
+          "heading": false,
+          "text": "Changing a talent is free. Right-click a chosen talent to refund one rank. If this breaks a later row or prerequisite, affected ranks are refunded too. Review your unspent points afterward."
+        },
+        {
+          "heading": false,
+          "text": "Not sure where to start? Press Suggested Build to spend your points on a ready-made build for your subclass. It only uses the points you have, so press it again after you level up. You can also keep two builds of your own: Save Build stores your current talents, and Load Build swaps back to them. Loading or applying a build replaces your current talents, so save first if you want to keep them."
+        },
+        {
+          "heading": false,
+          "text": "The fifth rank of a five-rank talent gives a larger bonus than the ranks before it."
+        },
+        {
+          "heading": false,
+          "text": "During a class lesson, your trainer's Open your talents response opens this screen. Any legal build counts toward the required total investment; a build already selected counts after the lesson's opening conversation. Practice with attacks, blocks or class skills in combat."
+        }
+      ],
+      "links": [],
+      "icon": ""
+    },
+    {
+      "id": "combat-gear",
+      "title": "Stats and equipment",
+      "category": "Classes & Combat",
+      "summary": "Pick upgrades that suit your build—not just the rarest color.",
+      "keywords": "strength agility dexterity intelligence constitution wisdom spirit gear armor rings amulet durability rarity",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "What each stat does"
+        },
+        {
+          "heading": true,
+          "text": "Strength"
+        },
+        {
+          "heading": false,
+          "text": "Physical damage."
+        },
+        {
+          "heading": true,
+          "text": "Agility"
+        },
+        {
+          "heading": false,
+          "text": "Critical chance and dodge."
+        },
+        {
+          "heading": true,
+          "text": "Dexterity"
+        },
+        {
+          "heading": false,
+          "text": "Movement speed."
+        },
+        {
+          "heading": true,
+          "text": "Intelligence"
+        },
+        {
+          "heading": false,
+          "text": "Spell power."
+        },
+        {
+          "heading": true,
+          "text": "Constitution"
+        },
+        {
+          "heading": false,
+          "text": "Maximum health and health regeneration."
+        },
+        {
+          "heading": true,
+          "text": "Wisdom"
+        },
+        {
+          "heading": false,
+          "text": "Healing power."
+        },
+        {
+          "heading": true,
+          "text": "Spirit"
+        },
+        {
+          "heading": false,
+          "text": "Magic resistance. Also improves mana recovery for Elementalist and Light Paladin; it does not shorten crowd control."
+        },
+        {
+          "heading": false,
+          "text": "Open /c (or /class ) and hover over a primary attribute in Character Stats to see the bonuses your current points provide. Each hover shows that attribute's contribution; the Combat and Utility sections show your combined totals. Gear can also provide bonuses such as armor, lifesteal, and damage reduction. Attribute points above 600 give smaller gains. Gear and attribute bonuses cap critical chance at 75%, dodge at 50%, movement speed at +50%, and control reduction at 60%. Combined movement bonuses on foot, including temporary boosts, cap at +60%. Charging and channeling can still reduce your speed; mount speeds follow Riding training."
+        },
+        {
+          "heading": true,
+          "text": "Choosing an upgrade"
+        },
+        {
+          "heading": false,
+          "text": "Compare the stats that support your build. A higher rarity alone does not guarantee a better item. Keep your weapon close to your class level: weapon progression matters for offensive abilities as well as basic attacks. The item's details show whether you can equip it."
+        },
+        {
+          "heading": false,
+          "text": "You can equip two rings and one amulet alongside your weapon and armor. Manage them in Inventory , not the character overview."
+        },
+        {
+          "heading": false,
+          "text": "Only Hope Paladins can equip shields. Select the shield in your utility slots with a compatible main-hand item to gain its equipment stats. Carrying spare shields adds no stats."
+        },
+        {
+          "heading": true,
+          "text": "Armor weights"
+        },
+        {
+          "heading": false,
+          "text": "You can wear your class’s armor weight and every lighter weight: cloth, leather, mail, then plate. Druids can wear cloth and leather; plate wearers can wear all four."
+        },
+        {
+          "heading": true,
+          "text": "Combat wear"
+        },
+        {
+          "heading": false,
+          "text": "Weapons do not lose durability from attacks, spellcasting, or death. Ordinary combat hits do not reduce armor durability either. Gathering tools do not wear out from use or death."
+        }
+      ],
+      "links": [
+        "reference:combat-gear:0",
+        "inventory"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "death",
+      "title": "Downed and rescue",
+      "category": "Classes & Combat",
+      "summary": "Know when a teammate can still save you.",
+      "keywords": "death dying downed revive rescue frozen time bleedout",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "The rescue window"
+        },
+        {
+          "heading": false,
+          "text": "When you are downed, an ally has 30 seconds to rescue you before you bleed out."
+        },
+        {
+          "heading": false,
+          "text": "You cannot move, attack, cast abilities, or use items while downed. Wait for rescue, or choose Give Up to end the rescue window."
+        },
+        {
+          "heading": false,
+          "text": "A nearby ally can use Frozen Time to revive you. It restores part of your health, not a full heal, so recover before rushing straight back into danger. The matching Alchemy perk improves the rescue."
+        },
+        {
+          "heading": true,
+          "text": "When this does not apply"
+        },
+        {
+          "heading": false,
+          "text": "A friendly duel ends before a lethal hit. Arena combat does not use the normal downed rescue window."
+        },
+        {
+          "heading": false,
+          "text": "If you plan to tackle difficult encounters together, bring rescue supplies and decide who will use them."
+        }
+      ],
+      "links": [
+        "pvp"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "professions",
+      "title": "Professions",
+      "category": "Professions",
+      "summary": "Gather resources, make equipment and supplies, and choose perks as your skills grow.",
+      "keywords": "skills gathering mining foraging harvesting regrowth ore brush beech scenery protection smithing weaponsmithing weapon crafting leatherworking weaving alchemy hunter contracts certificates perks reset",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Start with a useful pair"
+        },
+        {
+          "heading": false,
+          "text": "Each profession levels independently to 60 . Open /skills to see your levels, available perk choices, and next milestone. You can read locked perks before unlocking them; hover for the full effect. Your class does not lock you into one profession."
+        },
+        {
+          "heading": false,
+          "text": "Druids: select Human Form in your offhand wheel and right-click before using gathering tools or planting seeds."
+        },
+        {
+          "heading": true,
+          "text": "Mining"
+        },
+        {
+          "heading": false,
+          "text": "Gather ore for metalworking."
+        },
+        {
+          "heading": true,
+          "text": "Foraging"
+        },
+        {
+          "heading": false,
+          "text": "Gather wood and plants."
+        },
+        {
+          "heading": true,
+          "text": "Fishing"
+        },
+        {
+          "heading": false,
+          "text": "Catch fish for food and other uses."
+        },
+        {
+          "heading": true,
+          "text": "Smithing"
+        },
+        {
+          "heading": false,
+          "text": "Craft metal armor. Smelting iron requires Smithing 12. For Mulfiar’s iron-bar delivery, you can also buy bars from Vox."
+        },
+        {
+          "heading": true,
+          "text": "Weapon Crafting"
+        },
+        {
+          "heading": false,
+          "text": "Make weapons."
+        },
+        {
+          "heading": true,
+          "text": "Leatherworking"
+        },
+        {
+          "heading": false,
+          "text": "Process hides and make leather equipment."
+        },
+        {
+          "heading": true,
+          "text": "Weaving"
+        },
+        {
+          "heading": false,
+          "text": "Process fibers and make cloth equipment."
+        },
+        {
+          "heading": true,
+          "text": "Alchemy"
+        },
+        {
+          "heading": false,
+          "text": "Make potions, rescue supplies, and other consumables."
+        },
+        {
+          "heading": true,
+          "text": "Cooking"
+        },
+        {
+          "heading": false,
+          "text": "Prepare ingredients and combine meals."
+        },
+        {
+          "heading": true,
+          "text": "Jewelcrafting"
+        },
+        {
+          "heading": false,
+          "text": "Craft rings and amulets, then set their gems."
+        },
+        {
+          "heading": true,
+          "text": "Hunter"
+        },
+        {
+          "heading": false,
+          "text": "Varrin assigns your first five-boar contract automatically. Track Hunter Introduction to locate boars on your map and compass. Hunt five boars, then speak to him and choose Open contracts > Turn In Contract. The three certificates you receive pay for his cancellation lesson."
+        },
+        {
+          "heading": false,
+          "text": "For early leather, hunt boars for Soft Hides and tan them at the Tannery. Chickens, rabbits, small birds and rats do not drop hides or leather."
+        },
+        {
+          "heading": false,
+          "text": "Fishing supplies Cooking. Pick a profession you will use, gather its starter materials, and visit the matching crafting station ."
+        },
+        {
+          "heading": true,
+          "text": "Choose profession perks"
+        },
+        {
+          "heading": false,
+          "text": "At profession levels 10, 30, and 50 , choose one perk for that tier in /skills . Right-click a selected perk to remove it for free. Replace it at that milestone; level and XP stay unchanged."
+        }
+      ],
+      "links": [
+        "crafting",
+        "reference:professions:0"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "crafting",
+      "title": "Crafting",
+      "category": "Professions",
+      "summary": "Turn gathered materials into useful equipment and supplies.",
+      "keywords": "craft recipes station bench furnace tannery materials bars leather cloth",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Use the right station"
+        },
+        {
+          "heading": true,
+          "text": "Weapon Bench"
+        },
+        {
+          "heading": false,
+          "text": "Weapons and shields."
+        },
+        {
+          "heading": true,
+          "text": "Armor Bench"
+        },
+        {
+          "heading": false,
+          "text": "Armor for Smithing, Leatherworking, and Weaving; cloth bolts for Weaving."
+        },
+        {
+          "heading": true,
+          "text": "Furnace"
+        },
+        {
+          "heading": false,
+          "text": "Smelt ore into bars."
+        },
+        {
+          "heading": true,
+          "text": "Tannery"
+        },
+        {
+          "heading": false,
+          "text": "Process hides into leather."
+        },
+        {
+          "heading": true,
+          "text": "Alchemy Bench"
+        },
+        {
+          "heading": false,
+          "text": "Potions and alchemical supplies."
+        },
+        {
+          "heading": true,
+          "text": "Cooking station"
+        },
+        {
+          "heading": false,
+          "text": "Ingredients and meals ."
+        },
+        {
+          "heading": true,
+          "text": "Jewelcrafting station"
+        },
+        {
+          "heading": false,
+          "text": "Rings, amulets, and gem setting ."
+        },
+        {
+          "heading": false,
+          "text": "Armor and weapon professions offer three perk paths: better Epic odds, faster work, or material refunds. At levels 10, 30 and 50 , the quality ranks raise total Epic odds to at least 5%, 10% and 15% for eligible gear. Better natural odds and Legendary odds stay unchanged. Each craft is still random. Speed ranks reduce processing and crafting time by 10%, 25% and 50% ."
+        },
+        {
+          "heading": false,
+          "text": "Material Saver gives a 5% chance to return one main material, a 10% chance to return half of each material consumed (rounded down), or a 15% chance to return all materials. Only the highest selected rank applies. Pay the full recipe cost first; refunds happen after a completed gear craft."
+        },
+        {
+          "heading": false,
+          "text": "Choose Daggers, Swords, Battleaxes, Clubs, Staffs, Nature Staffs, Fists, or Shields at the Weapon Bench. The class hint in both forges lists what you can equip. Nature staffs require Druid; fists require Perfection Fighter. Druid healing grows with your character level and equipped staff level, so upgrade your staff as you level. Nature Staffs favour Human Form healing."
+        },
+        {
+          "heading": false,
+          "text": "Wood ingredients in crafting recipes accept any type of wood trunk/log . Choose Shields at the Weapon Bench. Wooden shields and wooden staves cost six wood logs and two fibre . Metal shields use two matching bars, two wood logs, and the binding materials shown in the recipe. Maces can no longer be crafted; existing items remain yours."
+        },
+        {
+          "heading": false,
+          "text": "Being able to make an item does not always mean your character can wear it. Check both requirements, especially when crafting jewelry or equipment for another build."
+        }
+      ],
+      "links": [
+        "cooking",
+        "jewelcrafting",
+        "professions",
+        "reference:crafting:0"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "cooking",
+      "title": "Cooking",
+      "category": "Professions",
+      "summary": "Prepare ingredients, build meals, and bring useful food on your adventures.",
+      "keywords": "cooking food meal ingredient fish buffs legendary",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "From ingredients to meals"
+        },
+        {
+          "heading": true,
+          "text": "1"
+        },
+        {
+          "heading": false,
+          "text": "Use Fish Prep at a cooking bench to turn caught fish into raw fish cuts. Deliveries asking for raw fish need these cuts, rather than whole fish. Keep quest supplies instead of cooking them into meals."
+        },
+        {
+          "heading": true,
+          "text": "10"
+        },
+        {
+          "heading": false,
+          "text": "Combine two raw or cooked foods into a meal."
+        },
+        {
+          "heading": true,
+          "text": "30"
+        },
+        {
+          "heading": false,
+          "text": "Add an optional third ingredient to combined meals."
+        },
+        {
+          "heading": true,
+          "text": "50"
+        },
+        {
+          "heading": false,
+          "text": "Make legendary dishes from their recipes."
+        },
+        {
+          "heading": false,
+          "text": "At the cooking station, use Cook Ingredient to prepare food or Build Meal to combine ingredients. Select ingredients you own and review the resulting effects before crafting."
+        },
+        {
+          "heading": false,
+          "text": "Quick Prep reduces cooking time by 10%, 30%, or 50% and increases Cooking XP by 5%, 15%, or 25%. Enduring Feast makes all dishes you cook last 10%, 20%, or 30% longer; that bonus stays with the food when traded. Hearty Bite restores 5, 7, or 10 stamina when you eat cooked food and reduces eating time by 10%, 15%, or 20%."
+        },
+        {
+          "heading": true,
+          "text": "Choose food for your plans"
+        },
+        {
+          "heading": false,
+          "text": "Ingredients contribute different effects. A meal for a long trip may be different from one for a difficult fight. Use the meal preview to compare what your chosen combination will provide, including its duration."
+        },
+        {
+          "heading": false,
+          "text": "Fishing is a source of cooking ingredients, and profession perks can improve your food. The Cooking reference lists the milestones and choices."
+        },
+        {
+          "heading": false,
+          "text": "Preparing one ingredient and combining a finished meal are different steps. Use Build Meal when you want the combined effects."
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "fishing",
+        "professions",
+        "foraging",
+        "crafting"
+      ],
+      "icon": "RiftCore_ProfessionIcon_Cooking"
+    },
+    {
+      "id": "jewelcrafting",
+      "title": "Jewelcrafting",
+      "category": "Professions",
+      "summary": "Make a ring or amulet and choose the gems that give it its stats.",
+      "keywords": "jewelry ring amulet socket gems copper silver gold",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Make the empty band"
+        },
+        {
+          "heading": false,
+          "text": "At the Jewelcrafting station, choose Create Jewelry , then select a metal and either Ring or Amulet."
+        },
+        {
+          "heading": true,
+          "text": "Copper Ring"
+        },
+        {
+          "heading": false,
+          "text": "Jewelcrafting level to make: 1. Character level to wear: 1"
+        },
+        {
+          "heading": true,
+          "text": "Copper Amulet"
+        },
+        {
+          "heading": false,
+          "text": "Jewelcrafting level to make: 10. Character level to wear: 1"
+        },
+        {
+          "heading": true,
+          "text": "Silver jewelry"
+        },
+        {
+          "heading": false,
+          "text": "Jewelcrafting level to make: 20. Character level to wear: 10"
+        },
+        {
+          "heading": true,
+          "text": "Gold jewelry"
+        },
+        {
+          "heading": false,
+          "text": "Jewelcrafting level to make: 30. Character level to wear: 20"
+        },
+        {
+          "heading": false,
+          "text": "Master Jeweler raises total Epic odds for finished jewelry to at least 5%, 10% or 15% , preserving better natural odds and Legendary odds. Fast Setting reduces crafting time by 10%, 25% or 50% . Material Saver gives a 5% chance to return one main material, a 10% chance to return half of each consumed material (rounded down), or a 15% chance to return all consumed materials. Band crafting can return bars; gem setting can return only the band and gems actually consumed."
+        },
+        {
+          "heading": false,
+          "text": "At Jewelcrafting 50 , refining converts 10 Copper Bars into 1 Silver Bar , or 10 Silver Bars into 1 Gold Bar . Refining does not require a perk choice."
+        },
+        {
+          "heading": true,
+          "text": "Set its gems"
+        },
+        {
+          "heading": false,
+          "text": "Choose Set Gems and place an empty band you own in the band slot. Select your gems, check the preview and material cost, then craft the finished piece."
+        },
+        {
+          "heading": false,
+          "text": "You can set one gem at Jewelcrafting 1, two at 40, and three at 50 . Extra unlocked sockets are optional, but you must select at least one gem."
+        },
+        {
+          "heading": false,
+          "text": "A Lesser gem contributes +6 to its attribute; a normal gem contributes +9 ; a Greater gem contributes +12 . Select the exact gem you want to consume. Ruby gives Strength, Emerald Constitution, Sapphire Intelligence, Topaz Agility, Diamond Wisdom, Zephyr Dexterity, and Voidstone Spirit. These values stay the same across band metals and jewelry rarities. Voidstone follows the same +6/+9/+12 tier values."
+        },
+        {
+          "heading": false,
+          "text": "The Gilded Maw can drop normal and Greater gems: when a gem reward rolls, it is 80% normal and 20% Greater."
+        },
+        {
+          "heading": false,
+          "text": "Gem setting is final. A finished piece cannot go back on the setting table to add, remove, or replace gems. To make a different combination, start with another empty band."
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "foraging",
+        "crafting"
+      ],
+      "icon": "RiftCore_ProfessionIcon_Jewelcrafting"
+    },
+    {
+      "id": "fishing",
+      "title": "Fishing",
+      "category": "Professions",
+      "summary": "Cast, land your catch, and improve your tackle as you learn the waters.",
+      "keywords": "fishing rod bait lure tackle journal water fish treasure right click catch",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Land your first fish"
+        },
+        {
+          "heading": false,
+          "text": "Buy a rod from Rak Kantor or the Fishing section of /shop, equip it, and face nearby water."
+        },
+        {
+          "heading": false,
+          "text": "Use secondary action (right-click by default) to cast. Wait for the bite, then use it again to hook the fish."
+        },
+        {
+          "heading": false,
+          "text": "During the fight, hold the action to raise your catch bar and release it to lower the bar. Follow the fish until you land it."
+        },
+        {
+          "heading": false,
+          "text": "While holding a rod, use R to open the fishing journal. It records species and helps you choose where and when to fish."
+        },
+        {
+          "heading": true,
+          "text": "Fish rarity"
+        },
+        {
+          "heading": false,
+          "text": "All 30 fish use their item rarity for catch pools, journal labels and rarity-based rewards. Catfish joins Minnow and Bluegill as Common; the four Tangs are Uncommon. Clownfish, Pufferfish, Salmon, Rainbow Trout, Pike and Trilobite are Rare. Blue, Cyan, Green, Red and Yellow Jellyfish are Epic. The remaining twelve species, including Humpback Whale, are Legendary."
+        },
+        {
+          "heading": true,
+          "text": "Common"
+        },
+        {
+          "heading": false,
+          "text": "Fishing 1: 60%. Fishing 60: 35%"
+        },
+        {
+          "heading": true,
+          "text": "Uncommon"
+        },
+        {
+          "heading": false,
+          "text": "Fishing 1: 30%. Fishing 60: 35%"
+        },
+        {
+          "heading": true,
+          "text": "Rare"
+        },
+        {
+          "heading": false,
+          "text": "Fishing 1: 8.5%. Fishing 60: 22%"
+        },
+        {
+          "heading": true,
+          "text": "Epic"
+        },
+        {
+          "heading": false,
+          "text": "Fishing 1: 1%. Fishing 60: 6%"
+        },
+        {
+          "heading": true,
+          "text": "Legendary"
+        },
+        {
+          "heading": false,
+          "text": "Fishing 1: 0.5%. Fishing 60: 2%"
+        },
+        {
+          "heading": false,
+          "text": "These are the base chances before bait. They improve gradually with Fishing level. Water, climate and time of day favor different species within each rarity. Legendary fish are not equally common: whales have a lower selection weight, especially outside open water."
+        },
+        {
+          "heading": true,
+          "text": "Bait and lures"
+        },
+        {
+          "heading": false,
+          "text": "Use the fishing interface to select your tackle. Keep bait in your inventory-not your offhand. Bait is consumed, while lures have durability and eventually need replacing."
+        },
+        {
+          "heading": false,
+          "text": "Better tackle can help with catches and treasure, but you still need to play the catch meter. Choose an effect that suits your goal rather than buying on rarity alone."
+        },
+        {
+          "heading": true,
+          "text": "Treasure and your catch"
+        },
+        {
+          "heading": false,
+          "text": "During some fights, a treasure marker appears. Keep your bar over it to collect it, then finish landing the fish. Losing the fish also loses that treasure opportunity."
+        },
+        {
+          "heading": false,
+          "text": "Fish can be cooking ingredients , sold, or used for special recipes and collection rewards. Check an unfamiliar catch before selling it."
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "reference:fishing:0",
+        "cooking",
+        "foraging",
+        "crafting"
+      ],
+      "icon": "RiftCore_ProfessionIcon_Fishing"
+    },
+    {
+      "id": "essences",
+      "title": "Essences",
+      "category": "Items & Materials",
+      "summary": "Convert elemental essences into permanent stat upgrades.",
+      "keywords": "essence concentrated greater permanent stats void heart alchemy",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Concentrate and use"
+        },
+        {
+          "heading": false,
+          "text": "Hold a normal elemental essence and use it to convert 100 matching essences into one concentrated essence ."
+        },
+        {
+          "heading": false,
+          "text": "Use concentrated essences for a permanent +2 to the matching stat per upgrade, up to +60 per stat . Later upgrades consume more concentrated essences; the use message tells you the next cost."
+        },
+        {
+          "heading": true,
+          "text": "Fire"
+        },
+        {
+          "heading": false,
+          "text": "Strength"
+        },
+        {
+          "heading": true,
+          "text": "Ice"
+        },
+        {
+          "heading": false,
+          "text": "Intelligence"
+        },
+        {
+          "heading": true,
+          "text": "Life"
+        },
+        {
+          "heading": false,
+          "text": "Constitution"
+        },
+        {
+          "heading": true,
+          "text": "Lightning"
+        },
+        {
+          "heading": false,
+          "text": "Dexterity"
+        },
+        {
+          "heading": true,
+          "text": "Water"
+        },
+        {
+          "heading": false,
+          "text": "Agility"
+        },
+        {
+          "heading": true,
+          "text": "Void essence"
+        },
+        {
+          "heading": false,
+          "text": "100 Void Essence makes one Void Heart, a crafting material. It is not another permanent-stat upgrade."
+        },
+        {
+          "heading": false,
+          "text": "The first use creates concentrated essence. Use the concentrated item afterward when you want to spend it on your character."
+        }
+      ],
+      "links": [],
+      "icon": ""
+    },
+    {
+      "id": "gold-shops",
+      "title": "Gold and shops",
+      "category": "Town & Trading",
+      "summary": "Buy supplies, sell unwanted items, and keep enough gold for training and storage.",
+      "keywords": "gold money shop sell buyback buy supplies balance",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Buy supplies"
+        },
+        {
+          "heading": false,
+          "text": "Open /shop and browse its categories. Select an item, check the quantity and total cost, and confirm the purchase. Keep room in your inventory for what you buy."
+        },
+        {
+          "heading": false,
+          "text": "Rin Akiba sells tools and basic supplies. Visit Sera Flint for Foraging Supplies and Vera Nettle for Cooking Supplies, including food and ingredients. Roland Quail sells Leatherworking Supplies. Igor Valentine offers Mounts & Pets and riding lessons. Tallia sells linen scraps and bolts for cloth work. Profession merchants offer their own supplies through Browse the shop , available in their dialogue regardless of quest progress. Merchants who run two shops show a separate choice for each."
+        },
+        {
+          "heading": true,
+          "text": "General Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Rin Akiba"
+        },
+        {
+          "heading": true,
+          "text": "Fishing Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Rak Kantor"
+        },
+        {
+          "heading": true,
+          "text": "Cooking Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Vera Nettle"
+        },
+        {
+          "heading": true,
+          "text": "Alchemy Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Barnabus Fink"
+        },
+        {
+          "heading": true,
+          "text": "Jewelcrafting Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Mary Flint"
+        },
+        {
+          "heading": true,
+          "text": "Leatherworking Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Roland Quail"
+        },
+        {
+          "heading": true,
+          "text": "Weaving Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Tallia Tibbles"
+        },
+        {
+          "heading": true,
+          "text": "Mining Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Vox Rora"
+        },
+        {
+          "heading": true,
+          "text": "Foraging Supplies"
+        },
+        {
+          "heading": false,
+          "text": "Sera Flint"
+        },
+        {
+          "heading": true,
+          "text": "Mounts & Pets"
+        },
+        {
+          "heading": false,
+          "text": "Igor Valentine"
+        },
+        {
+          "heading": false,
+          "text": "Copper pickaxes and hatchets cost 750g ; iron upgrades cost 2,200g . Shops stop at iron tools. Check profession requirements before buying."
+        },
+        {
+          "heading": false,
+          "text": "Limited stock is shared by everyone on the server. Each item shows its remaining quantity and refill timing; use Refresh stock to update the display. Items marked Unlimited stock do not run out. Selling an item does not refill the shop."
+        },
+        {
+          "heading": false,
+          "text": "Use /bal to check your gold. Your balance belongs to the active character."
+        },
+        {
+          "heading": true,
+          "text": "Sell carefully"
+        },
+        {
+          "heading": false,
+          "text": "The shop's sell interface accepts supported items. Review the sale value before confirming; selling something back does not return its purchase price."
+        },
+        {
+          "heading": false,
+          "text": "If you sell something by mistake, check Buyback promptly. It is a limited list, not permanent storage."
+        },
+        {
+          "heading": true,
+          "text": "Spend with a plan"
+        },
+        {
+          "heading": false,
+          "text": "Early gold is useful for supplies and riding training . Later, you can buy bank space , improve your equipment, and collect companions."
+        },
+        {
+          "heading": false,
+          "text": "For player-listed goods, visit the Auction House . Mount crates and pet tokens from the shop must be used before their companions are unlocked."
+        }
+      ],
+      "links": [
+        "mounts",
+        "bank",
+        "auction"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "bank",
+      "title": "Bank storage",
+      "category": "Town & Trading",
+      "summary": "Store items with the banker and expand your character’s storage when you need more room.",
+      "keywords": "bank storage deposit withdraw tabs quick stack inventory",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Deposit and withdraw"
+        },
+        {
+          "heading": false,
+          "text": "Visit the banker to open your bank. You begin with one free tab of 63 slots , and can expand to eight tabs . Each character has separate bank storage."
+        },
+        {
+          "heading": false,
+          "text": "Speak to Donnie Hawthorn and choose Open the bank ."
+        },
+        {
+          "heading": false,
+          "text": "Finish combat before moving items. During a transfer, wait for the save confirmation before using your inventory. If storage is unavailable or a transfer was not confirmed, reopen the bank on the same character to retry. If it still asks for administrator help, contact staff."
+        },
+        {
+          "heading": false,
+          "text": "Move items between your inventory and bank. Quick Stack deposits items that match what is already stored; Deposit All moves what the available space can hold. Anything that does not fit stays with you."
+        },
+        {
+          "heading": true,
+          "text": "Buy more space"
+        },
+        {
+          "heading": false,
+          "text": "Bank expansions are bought in order. Check which tab you are buying before confirming. The gold payment and unlocked tab are saved together."
+        },
+        {
+          "heading": false,
+          "text": "Items in the bank are stored, not ready in your inventory. Withdraw the materials or consumables you need before leaving town."
+        }
+      ],
+      "links": [
+        "reference:bank:0"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "auction",
+      "title": "Auction House",
+      "category": "Town & Trading",
+      "summary": "Buy from other players or list your own items for gold.",
+      "keywords": "auction house buy sell listing claims trade tax cut fee",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Buy an item"
+        },
+        {
+          "heading": false,
+          "text": "Speak to Einar Masters or Matias Erikson and choose Open the auction house . You can use this choice during their quest conversations too."
+        },
+        {
+          "heading": false,
+          "text": "Visit the Auction House NPC and browse listings."
+        },
+        {
+          "heading": false,
+          "text": "Check the item, quantity, requirements, and total listing price ."
+        },
+        {
+          "heading": false,
+          "text": "Confirm the purchase, then open Claims to collect your item."
+        },
+        {
+          "heading": true,
+          "text": "Sell an item"
+        },
+        {
+          "heading": false,
+          "text": "Choose an item you own, set its total price, and select a duration of 12, 24, or 48 hours . The base allowance is three active listings . When a listing sells, the market keeps 2% of the price and you collect the rest from Claims. The sell screen shows the current cut before you list."
+        },
+        {
+          "heading": true,
+          "text": "Collect from Claims"
+        },
+        {
+          "heading": false,
+          "text": "Quest items go to your inventory when delivery is possible; overflow waits in Claims. Claims also hold replacement quest supplies. They remain available from the Auction House NPC if trading is temporarily closed. Finish combat before claiming items, leave enough inventory space, and wait for the save confirmation. Your inventory is briefly held while an item transfer saves."
+        },
+        {
+          "heading": false,
+          "text": "If a purchase or claim was not confirmed, reopen the Auction House and check Claims before trying again. After a disconnect, collect on the same character; retrying a saved delivery does not grant another copy. Reopening My Listings also recovers a listing whose item transfer was interrupted."
+        },
+        {
+          "heading": true,
+          "text": "You bought a listing"
+        },
+        {
+          "heading": false,
+          "text": "The purchased item."
+        },
+        {
+          "heading": true,
+          "text": "Your listing sold"
+        },
+        {
+          "heading": false,
+          "text": "The sale gold, minus the market cut."
+        },
+        {
+          "heading": true,
+          "text": "Your listing expired or you cancelled it"
+        },
+        {
+          "heading": false,
+          "text": "Your unsold item."
+        },
+        {
+          "heading": false,
+          "text": "Auction purchases and sale proceeds are collected manually. Leave inventory space and visit Claims after buying, selling, or cancelling a listing."
+        }
+      ],
+      "links": [],
+      "icon": ""
+    },
+    {
+      "id": "mounts",
+      "title": "Mounts and riding",
+      "category": "Collections & Controls",
+      "summary": "Unlock a mount, train riding, and summon it from your stable.",
+      "keywords": "mount riding horse crate wagon passenger flight summon stable",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Get riding"
+        },
+        {
+          "heading": false,
+          "text": "Every character starts with the Brown Horse unlock . You still need Apprentice Riding before riding it."
+        },
+        {
+          "heading": false,
+          "text": "Open /mounts for your stable and riding training. Train the tiers in order:"
+        },
+        {
+          "heading": true,
+          "text": "Apprentice Riding"
+        },
+        {
+          "heading": false,
+          "text": "Level: 10. Cost: 25,000g. Ground speed: 1.6×"
+        },
+        {
+          "heading": true,
+          "text": "Journeyman Riding"
+        },
+        {
+          "heading": false,
+          "text": "Level: 15. Cost: 100,000g. Ground speed: 2.0×"
+        },
+        {
+          "heading": true,
+          "text": "Expert Riding"
+        },
+        {
+          "heading": false,
+          "text": "Level: 20. Cost: 300,000g. Ground speed: 3.0×"
+        },
+        {
+          "heading": true,
+          "text": "Master Riding (Flight)"
+        },
+        {
+          "heading": false,
+          "text": "Level: 30. Cost: 1,500,000g. Ground speed: 3.0×"
+        },
+        {
+          "heading": false,
+          "text": "Riding training sets speed-not the mount's rarity. Master Riding enables flight on mounts that can fly."
+        },
+        {
+          "heading": true,
+          "text": "Collect and summon"
+        },
+        {
+          "heading": false,
+          "text": "Use a mount crate from your inventory to permanently unlock that mount for your character, then select it in /mounts and choose Summon. Buy mount crates from Igor Valentine: choose Browse Mounts & Pets in his dialogue. Choose Learn riding for training."
+        },
+        {
+          "heading": false,
+          "text": "Previewing an unowned mount does not unlock it. Mounts do not drop in dungeons."
+        },
+        {
+          "heading": true,
+          "text": "Bring friends"
+        },
+        {
+          "heading": false,
+          "text": "The Antelope Wagon and Hyena Wagon each carry the driver and up to two passengers . Join the driver's party, then interact with an empty passenger seat. The owner steers."
+        },
+        {
+          "heading": true,
+          "text": "While mounted"
+        },
+        {
+          "heading": false,
+          "text": "Mounts despawn when their owner dismounts; they do not follow you. Dismissing a wagon also removes its passengers. Mounts are for travel, not item storage, and can only be summoned in mount-enabled areas. Enemy combat can force you to dismount."
+        }
+      ],
+      "links": [
+        "reference:mounts:0",
+        "reference:mounts:1"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "pets",
+      "title": "Pets",
+      "category": "Collections & Controls",
+      "summary": "Collect a companion, give it a name, and bring it along.",
+      "keywords": "pets companion name token summon dismiss collection",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Unlock a pet"
+        },
+        {
+          "heading": false,
+          "text": "Obtain a pet collection token from its dungeon-drop source, then use it to unlock the pet for your current character. Igor Valentine also sells the Chicken Chick pet through Browse Mounts & Pets . Buying it unlocks the pet directly; you do not receive a token. Pets you already unlocked remain in your collection."
+        },
+        {
+          "heading": true,
+          "text": "Bring it with you"
+        },
+        {
+          "heading": false,
+          "text": "Open /pet , select a pet you own, and use its summon action. You can dismiss it without losing the unlock."
+        },
+        {
+          "heading": false,
+          "text": "Use /pet name <name> to name your companion, or /pet dismiss to put it away."
+        },
+        {
+          "heading": false,
+          "text": "The collection lets you inspect pets you do not own. Unlock a pet by purchasing it from Igor or by using its collection token before summoning it."
+        }
+      ],
+      "links": [
+        "reference:pets:0"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "achievements",
+      "title": "Achievements and titles",
+      "category": "Collections & Controls",
+      "summary": "Set yourself extra goals and show off what you have earned.",
+      "keywords": "achievements titles leaderboard rewards collection server first",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Find a goal"
+        },
+        {
+          "heading": false,
+          "text": "Open /achievements to browse requirements, track your progress, and collect available rewards. Goals include gathering, crafting, fishing, combat, and collecting companions."
+        },
+        {
+          "heading": false,
+          "text": "Rewards can include gold or titles. Server-first achievements recognize the first player to complete their requirement; ordinary progress goals are still there to work toward afterward."
+        },
+        {
+          "heading": true,
+          "text": "Wear a title"
+        },
+        {
+          "heading": false,
+          "text": "Use /titles to select a title you have unlocked. Earning a title and choosing which one to display are separate steps."
+        },
+        {
+          "heading": true,
+          "text": "Compare your progress"
+        },
+        {
+          "heading": false,
+          "text": "Open /leaderboard to browse the rankings. Pick a goal you enjoy rather than feeling you need to chase every category."
+        }
+      ],
+      "links": [],
+      "icon": ""
+    },
+    {
+      "id": "inventory",
+      "title": "Inventory and controls",
+      "category": "Collections & Controls",
+      "summary": "Equip your character, organize your bags, and find the menus you need.",
+      "keywords": "inventory controls hotbar equip interface hud help map bags",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Equip and organize"
+        },
+        {
+          "heading": false,
+          "text": "Sort Inventory groups similar items in your pack without moving hotbar items. Free space counts pack and hotbar slots."
+        },
+        {
+          "heading": false,
+          "text": "In Adventure mode, press Tab or O , or use /i , to open Inventory. Press either key again to close it. Drag items between bags, hotbar, and equipment slots. Shift-click or double-click gear to equip it quickly."
+        },
+        {
+          "heading": false,
+          "text": "Hover a stored item and press 1-9 to move or swap it with that hotbar slot. Hover a pack or hotbar item and press G to drop one item."
+        },
+        {
+          "heading": false,
+          "text": "Hover gear in your inventory, bank, auction, shop, or reward choices to compare it with matching equipped gear. Under If equipped , green numbers show attribute gains and red numbers show losses. Rings compare against both equipped rings. No extra key is needed."
+        },
+        {
+          "heading": false,
+          "text": "Change equipment in Inventory, not the Character overview. Leave bag space when removing gear."
+        },
+        {
+          "heading": true,
+          "text": "Find the right menu"
+        },
+        {
+          "heading": false,
+          "text": "Use the left menu to switch pages, Settings for personal preferences, or Close to return. Open /guide for help."
+        },
+        {
+          "heading": true,
+          "text": "Abilities and talents"
+        },
+        {
+          "heading": false,
+          "text": "/class → Spellbook or Talents."
+        },
+        {
+          "heading": true,
+          "text": "Profession progress and perks"
+        },
+        {
+          "heading": false,
+          "text": "/skills ."
+        },
+        {
+          "heading": true,
+          "text": "Your next objective"
+        },
+        {
+          "heading": false,
+          "text": "/quests ."
+        },
+        {
+          "heading": true,
+          "text": "Group controls"
+        },
+        {
+          "heading": false,
+          "text": "/p ."
+        },
+        {
+          "heading": true,
+          "text": "Help in game"
+        },
+        {
+          "heading": false,
+          "text": "/guide ."
+        },
+        {
+          "heading": true,
+          "text": "Make it yours"
+        },
+        {
+          "heading": false,
+          "text": "In /settings , Interface ? Hotbar style changes the hotbar and health/energy bars. Both styles keep Rift Haven abilities, cooldowns, and inventory. Checkboxes control individual displays; Combat contains cooldown, status-effect, and ability-message options. Choices save automatically. In Keybinds, edit the labels beneath ability, hotbar and off-hand icons. These labels do not change your controls; change actual bindings in Hytale Settings. Creative keeps its standard inventory and HUD."
+        },
+        {
+          "heading": false,
+          "text": "Quests & Map controls your quest tracker, quest categories, and town icons. Party controls the party HUD, its position and size, middle mouse ping, and how invitations are handled. Changes save automatically; quest preferences follow your character. Choose Ask me for invitations if you want to decide each time."
+        },
+        {
+          "heading": true,
+          "text": "Find your way"
+        },
+        {
+          "heading": false,
+          "text": "Track a quest to show its objective on the map and compass. A gold question mark means it is ready to hand in; a diamond marks an active objective. See Quests for the full marker guide."
+        },
+        {
+          "heading": false,
+          "text": "If the Rift Haven HUD is missing, turn on Show server HUD in /settings or use /hud on . This works with either hotbar style. If only the quest tracker is missing, use /q tracker on . For terrain traps, use /stuck ."
+        }
+      ],
+      "links": [
+        "reference:inventory:0",
+        "reference:inventory:1",
+        "quests"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:dungeons:0",
+      "title": "Dungeon drop chances",
+      "category": "Quests & Adventure",
+      "summary": "More about dungeon drop chances.",
+      "keywords": "Dungeon drop chances",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Normal enemy"
+        },
+        {
+          "heading": false,
+          "text": "Uncommon: 1.5%. Rare: 0.45%. Epic: 0.05%. Legendary: -. Materials: 98%"
+        },
+        {
+          "heading": true,
+          "text": "Elite"
+        },
+        {
+          "heading": false,
+          "text": "Uncommon: -. Rare: 6%. Epic: 2%. Legendary: -. Materials: 92%"
+        },
+        {
+          "heading": true,
+          "text": "Khaos (level 15) boss / final"
+        },
+        {
+          "heading": false,
+          "text": "Uncommon: -. Rare: 24.75% / 34.5%. Epic: 10% / 15%. Legendary: 0.25% / 0.5%. Materials: 65% / 50%"
+        },
+        {
+          "heading": true,
+          "text": "Khaos (level 20) boss / final"
+        },
+        {
+          "heading": false,
+          "text": "Uncommon: -. Rare: 27.5% / 36%. Epic: 12% / 18%. Legendary: 0.5% / 1%. Materials: 60% / 45%"
+        },
+        {
+          "heading": true,
+          "text": "Fear I boss / final"
+        },
+        {
+          "heading": false,
+          "text": "Uncommon: -. Rare: 30.5% / 39%. Epic: 14% / 20%. Legendary: 0.5% / 1%. Materials: 55% / 40%"
+        },
+        {
+          "heading": true,
+          "text": "Fear II and III boss / final"
+        },
+        {
+          "heading": false,
+          "text": "Uncommon: -. Rare: 33% / 40%. Epic: 16% / 23%. Legendary: 1% / 2%. Materials: 50% / 35%"
+        },
+        {
+          "heading": false,
+          "text": "These are the main loot roll chances; pet collectibles are separate. Material chances include Void Hearts where available. Ordinary dungeons do not drop Set or Mythic gear."
+        }
+      ],
+      "links": [
+        "dungeons"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:guilds:0",
+      "title": "Guild bank tabs",
+      "category": "Quests & Adventure",
+      "summary": "More about guild bank tabs.",
+      "keywords": "Guild bank tabs",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Tab 2"
+        },
+        {
+          "heading": false,
+          "text": "10,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 3"
+        },
+        {
+          "heading": false,
+          "text": "50,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 4"
+        },
+        {
+          "heading": false,
+          "text": "150,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 5"
+        },
+        {
+          "heading": false,
+          "text": "400,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 6"
+        },
+        {
+          "heading": false,
+          "text": "1,000,000g"
+        }
+      ],
+      "links": [
+        "guilds"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:combat-gear:0",
+      "title": "Rarity, level 30 and matching sets",
+      "category": "Classes & Combat",
+      "summary": "More about rarity, level 30 and matching sets.",
+      "keywords": "Rarity, level 30 and matching sets",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Rarity and level 30"
+        },
+        {
+          "heading": false,
+          "text": "Rarity makes a substantial difference to equipment attributes. Keep a useful Epic piece while levelling instead of replacing it just because a Common drop requires a slightly higher level. Compare its actual stats and armor protection before switching."
+        },
+        {
+          "heading": false,
+          "text": "At level 30, Mithril plate, Cindercloth, Raven leather and Cobalt mail remain useful entry gear. Onyxium, Prisma, Heavy leather and Ancient Steel are the top materials: they require level 30 and provide stronger armor protection. Highest-material weapons follow the same level requirement. Crafting each top-material armor piece, weapon or shield consumes one Void Heart in addition to its other ingredients."
+        },
+        {
+          "heading": false,
+          "text": "Ordinary enemies do not drop Void Hearts. Bosses have a small chance to drop one; you can also combine 100 Void Essence into one Heart. Save them for the equipment you intend to use."
+        },
+        {
+          "heading": false,
+          "text": "The strongest level-30 Legendary designs can match the base attributes of corresponding Set or Mythic gear. They do not grant its special bonuses. Compare the attributes you use, weapon damage and armor protection, rather than choosing by color alone."
+        },
+        {
+          "heading": true,
+          "text": "Matching sets and mythic weapons"
+        },
+        {
+          "heading": false,
+          "text": "In the level-30 Void Asylum raid (entry at levels 30-60), every boss has a 5% chance to award one Set armor piece or Mythic weapon, with an equal chance of either. After the first such drop, the chance falls to 0.1% per remaining boss for that run. These are shared raid drops, including when you play solo. Each boss awards at most one gear item: 52% Rare, 13% Epic, 5% Legendary, 5% Set/Mythic, or 25% no gear. After the first Set/Mythic, Rare becomes 56.9% and Set/Mythic becomes 0.1%. Each boss also gives the group 2-4 Void Essence and 1-3 of one high-tier bar, leather or cloth, even when no gear drops. The separate 2% Void Heart chance remains."
+        },
+        {
+          "heading": false,
+          "text": "Each subclass has two four-piece armor sets and four mythic weapons . Sets grant their first bonus at two equipped pieces and their full bonus at four . Pieces share a family name, and their descriptions list the matching pieces. Items in your bags do not count; you can mix two pieces from each set for both partial bonuses."
+        },
+        {
+          "heading": false,
+          "text": "Choose the bonuses that suit how you play. For example, Light's Verdant Dawn supports healing and shields, while Dawnweave strengthens Holy Smite and club attacks. Wearing all four Dawnweave pieces reduces your healing by 15%. A mythic's power works while you wield it; a shield must be your active shield. Bonuses belong to the listed subclass. Need rolls follow the item's level and subclass requirements."
+        }
+      ],
+      "links": [
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:professions:0",
+      "title": "Ranks and replaced choices",
+      "category": "Professions",
+      "summary": "More about ranks and replaced choices.",
+      "keywords": "Ranks and replaced choices",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Rank I, II, and III choices appear at profession levels 10, 30, and 50. The highest chosen rank of a perk supplies its full bonus; lower ranks do not add to it. Choosing a higher rank automatically clears its earlier ranks, freeing those milestones for other perks in the same profession. You cannot select a lower rank while its higher rank is chosen. Different perk families work together. Each ranked profession has the same three choices at every milestone; Hunter keeps its distinct contract choices. You can choose a higher rank without taking the earlier ranks. Retired choices become unspent choices again, keeping your profession level and XP."
+        }
+      ],
+      "links": [
+        "professions"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:crafting:0",
+      "title": "From fibre and hides to equipment",
+      "category": "Professions",
+      "summary": "More about from fibre and hides to equipment.",
+      "keywords": "From fibre and hides to equipment",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "A full Soft Leather armor set costs 15 Soft Leather : 3 for the helm, 6 for the chest, 2 for gloves, and 4 for legs."
+        },
+        {
+          "heading": false,
+          "text": "At the Armor Bench, make Cotton Bolts under Bolts : each uses four Fibre. Tan Soft Hides into Soft Leather at the Tannery; each leather uses one hide and needs no fuel. Gather materials before choosing the equipment recipe you want to make."
+        }
+      ],
+      "links": [
+        "crafting"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:fishing:0",
+      "title": "Compare bait and lures",
+      "category": "Professions",
+      "summary": "More about compare bait and lures.",
+      "keywords": "Compare bait and lures",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Bait"
+        },
+        {
+          "heading": true,
+          "text": "Mossworm Bait"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Common. Effect: Starts every fight at 50% catch progress instead of 35%.. Shop price: 20g"
+        },
+        {
+          "heading": true,
+          "text": "Dreamcap Dough"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Uncommon. Effect: Fish movement and dart rate are 15% lower.. Shop price: 35g"
+        },
+        {
+          "heading": true,
+          "text": "Snapgrub Cluster"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Effect: Catch progress fills 20% faster.. Shop price: 60g"
+        },
+        {
+          "heading": true,
+          "text": "Bloodfin Chum"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Common. Effect: Fish movement and escape pressure rise 15%; fish can be 25% larger and award 25% more Fishing XP.. Shop price: 30g"
+        },
+        {
+          "heading": true,
+          "text": "Gilded Roe"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Effect: Catch bar is 10% smaller; Rare, Epic and Legendary catch weights rise 25%, and treasure chance gains 5 percentage points.. Shop price: 100g"
+        },
+        {
+          "heading": true,
+          "text": "Lures"
+        },
+        {
+          "heading": true,
+          "text": "Cloudcork Float"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Common. Effect: Falls 15% slower and bounces 60% more softly at the bottom.. Shop price: 350g. Durability: 50"
+        },
+        {
+          "heading": true,
+          "text": "Barbed Spoon"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Uncommon. Effect: Catch progress waits 0.75 seconds before draining after the fish leaves your bar.. Shop price: 900g. Durability: 50"
+        },
+        {
+          "heading": true,
+          "text": "Dartcatch Spinner"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Effect: After a fish darts, your catch bar is 35% larger for 0.8 seconds. Two-second trigger cooldown.. Shop price: 1,600g. Durability: 50"
+        },
+        {
+          "heading": true,
+          "text": "Tidebell Hook"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Epic. Effect: Treasure fills 35% faster, treasure progress never decays, and the hook window lasts 0.5 seconds longer.. Shop price: 2,500g. Durability: 50"
+        }
+      ],
+      "links": [
+        "fishing"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:bank:0",
+      "title": "Bank expansion prices",
+      "category": "Town & Trading",
+      "summary": "More about bank expansion prices.",
+      "keywords": "Bank expansion prices",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Tab 2"
+        },
+        {
+          "heading": false,
+          "text": "5,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 3"
+        },
+        {
+          "heading": false,
+          "text": "25,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 4"
+        },
+        {
+          "heading": false,
+          "text": "125,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 5"
+        },
+        {
+          "heading": false,
+          "text": "625,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 6"
+        },
+        {
+          "heading": false,
+          "text": "2,500,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 7"
+        },
+        {
+          "heading": false,
+          "text": "5,000,000g"
+        },
+        {
+          "heading": true,
+          "text": "Tab 8"
+        },
+        {
+          "heading": false,
+          "text": "5,000,000g"
+        }
+      ],
+      "links": [
+        "bank"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:mounts:0",
+      "title": "Mount collection",
+      "category": "Collections & Controls",
+      "summary": "More about mount collection.",
+      "keywords": "Mount collection",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Brown Horse"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Common. Riding tier: Apprentice"
+        },
+        {
+          "heading": true,
+          "text": "Black Horse"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Uncommon. Riding tier: Apprentice"
+        },
+        {
+          "heading": true,
+          "text": "Blue Horse"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Riding tier: Journeyman"
+        },
+        {
+          "heading": true,
+          "text": "Green Horse"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Riding tier: Journeyman"
+        },
+        {
+          "heading": true,
+          "text": "Red Horse"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Riding tier: Journeyman"
+        },
+        {
+          "heading": true,
+          "text": "Ram Mount"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Uncommon. Riding tier: Apprentice"
+        },
+        {
+          "heading": true,
+          "text": "Goat Wagon"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Uncommon. Riding tier: Apprentice"
+        },
+        {
+          "heading": true,
+          "text": "Antelope Wagon"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Riding tier: Journeyman"
+        },
+        {
+          "heading": true,
+          "text": "Hound Wagon"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Riding tier: Journeyman"
+        },
+        {
+          "heading": true,
+          "text": "Hyena Wagon"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Rare. Riding tier: Journeyman"
+        },
+        {
+          "heading": true,
+          "text": "Tiger Sabertooth"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Epic. Riding tier: Expert"
+        },
+        {
+          "heading": true,
+          "text": "Frost Sabertooth"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Legendary. Riding tier: Expert"
+        },
+        {
+          "heading": true,
+          "text": "Skeleton Horse"
+        },
+        {
+          "heading": false,
+          "text": "Rarity: Epic. Riding tier: Journeyman"
+        }
+      ],
+      "links": [
+        "mounts"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:mounts:1",
+      "title": "Boss mount drops",
+      "category": "Collections & Controls",
+      "summary": "More about boss mount drops.",
+      "keywords": "Boss mount drops",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Each listed boss has a separate 1-in-1,000 chance to drop its mount crate, alongside its normal loot. Use the crate to unlock the mount; it does not replace riding training."
+        },
+        {
+          "heading": true,
+          "text": "Ram Mount"
+        },
+        {
+          "heading": false,
+          "text": "Boss: Irontusk. Chance per kill: 1 in 1,000"
+        },
+        {
+          "heading": true,
+          "text": "Brown Horse"
+        },
+        {
+          "heading": false,
+          "text": "Boss: The Pale Widow. Chance per kill: 1 in 1,000"
+        },
+        {
+          "heading": true,
+          "text": "Red Horse"
+        },
+        {
+          "heading": false,
+          "text": "Boss: Venomfang. Chance per kill: 1 in 1,000"
+        },
+        {
+          "heading": true,
+          "text": "Antelope Wagon"
+        },
+        {
+          "heading": false,
+          "text": "Boss: Grimhide. Chance per kill: 1 in 1,000"
+        },
+        {
+          "heading": true,
+          "text": "Goat Wagon"
+        },
+        {
+          "heading": false,
+          "text": "Boss: Mireclaw. Chance per kill: 1 in 1,000"
+        },
+        {
+          "heading": true,
+          "text": "Hyena Wagon"
+        },
+        {
+          "heading": false,
+          "text": "Boss: Dunebreaker. Chance per kill: 1 in 1,000"
+        },
+        {
+          "heading": true,
+          "text": "Tiger Sabertooth"
+        },
+        {
+          "heading": false,
+          "text": "Boss: The Gilded Maw. Chance per kill: 1 in 1,000"
+        }
+      ],
+      "links": [
+        "mounts"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:pets:0",
+      "title": "Pet collection",
+      "category": "Collections & Controls",
+      "summary": "More about pet collection.",
+      "keywords": "Pet collection",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Chicken Chick"
+        },
+        {
+          "heading": false,
+          "text": "Common"
+        },
+        {
+          "heading": true,
+          "text": "Dungeon drops"
+        }
+      ],
+      "links": [
+        "pets"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:inventory:0",
+      "title": "Find materials and quest help",
+      "category": "Collections & Controls",
+      "summary": "More about find materials and quest help.",
+      "keywords": "Find materials and quest help",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Search the guide for a material, profession, or your current quest. Follow ingredient links to their sources; Back returns to your previous article page or search results. Mark on map sets a personal guide destination when a verified location is available. It stays after closing the guide; use Clear Marker to remove it. Selecting another destination replaces it, and it clears when you leave its world or character."
+        }
+      ],
+      "links": [
+        "inventory"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "reference:inventory:1",
+      "title": "Reading the HUD",
+      "category": "Collections & Controls",
+      "summary": "More about reading the hud.",
+      "keywords": "Reading the HUD",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "The HUD shows all nine hotbar slots plus offhand, with slots 6-9 grouped at the bottom right. Bottom bars show health and energy values."
+        },
+        {
+          "heading": false,
+          "text": "HUD labels stay at 1-9 and Q/E/R even after rebinding. Signature shows charge; recovering abilities show cooldowns. Check Spellbook and Talents for missing abilities."
+        },
+        {
+          "heading": false,
+          "text": "Active effects appear as centered icons above your vitals, with timers below them. Green accents mark benefits; red accents mark harmful effects. Up to eight effects appear at once, with harmful effects first. Any extra effects remain active and are counted above the icons."
+        },
+        {
+          "heading": false,
+          "text": "Prepared talent bonuses appear separately as named gold cards. Use the indicated attack or action before its timer expires. READY means the bonus is available while its conditions hold; a number beside the name shows remaining empowered attacks. The card disappears when the bonus is used or expires."
+        },
+        {
+          "heading": false,
+          "text": "Small markers above enemies show your own bleeds, burns and other effects on that enemy. Their counts belong to you, not your party. A marker disappears when your effect ends or is used up."
+        },
+        {
+          "heading": false,
+          "text": "A blue strip immediately above your red health bar shows temporary shielding. It shrinks as the shield absorbs damage and disappears when the shield runs out."
+        }
+      ],
+      "links": [
+        "inventory"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "home",
+      "title": "Welcome to Rift Haven",
+      "category": "Getting Started",
+      "summary": "Open your inventory with O, follow your current quest, and try a profession.",
+      "keywords": "beginner start first help",
+      "blocks": [
+        {
+          "text": "Create your character, enter the world, and follow the quest tracker. Speak to the person it names and choose a response to continue.",
+          "heading": false
+        },
+        {
+          "text": "Your class level and each profession level are separate. Check the recipe requirement before spending gold on supplies.",
+          "heading": false
+        },
+        {
+          "text": "Use the search above to find materials, creatures, recipes, merchants, or a question. Open a related item to follow its ingredients; Back returns to the same article page or search results.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "characters",
+        "quests",
+        "professions",
+        "inventory",
+        "classes"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "quests",
+      "title": "Quests and conversations",
+      "category": "Quests & Adventure",
+      "summary": "Follow your tracked quest one step at a time.",
+      "keywords": "quest journal objective stuck dialogue delivery reward",
+      "blocks": [
+        {
+          "text": "Start the main story with Margaret in the tavern and follow its quests in order. Finish each report and collect its reward before moving on. Side and profession quests are not offered.",
+          "heading": false
+        },
+        {
+          "text": "Other players cannot fight enemies spawned for your personal story encounters. Stay in the marked encounter area until your objective updates. Speak with Rauk and choose Stand your ground to start or retry his fight.",
+          "heading": false
+        },
+        {
+          "text": "For Tiberius, fight the fiery beasts in the first cave and look deeper below for dinosaurs.",
+          "heading": false
+        },
+        {
+          "text": "Open Your current quest on the guide home page for the objective you are doing now, including remaining requirements. The Quest Log lets you choose which active quest to track.",
+          "heading": false
+        },
+        {
+          "text": "Use /q or /quests to open the Quest Log. Speak with a quest giver using the interaction prompt (F by default), then choose a response. Gold answers lead to quest actions; opening a conversation alone may not accept or finish a quest.",
+          "heading": false
+        },
+        {
+          "text": "Press Space to reveal the current line. Click a response or press its number. Leave or Esc closes the conversation.",
+          "heading": false
+        },
+        {
+          "text": "For deliveries, bring the requested items in your pack or hotbar and choose the handover response. A full counter means you have enough to hand in; return to the marked recipient. Partial handovers remain credited. Mei accepts either whitecap mushroom stack, including a mix of both. Make room before collecting rewards; check Claims when directed.",
+          "heading": false
+        },
+        {
+          "text": "If the tracker changes, read its new objective before trying the previous interaction again.",
+          "heading": false
+        },
+        {
+          "text": "Chapters 1 to 5 finish at levels 10, 20, 30, 41 and 45. Combat XP counts toward these milestones, so quest XP can be smaller after hunting. Story rewards include equipment for your class; check its required level before equipping it. The Mayor's Fear I, II and III quests require levels 45, 50 and 55. Clear the matching dungeon, then report to him. Each Fear quest rewards one level's worth of XP at its required level; repeat dungeons to earn the remaining levels before the next quest.",
+          "heading": false
+        },
+        {
+          "text": "For Barnabus's antidote errands, collect venom from cave spiders. Use the sealed quest bottle at the Sap Test Barrel and keep the remainder; Barnabus needs it with 10 Sap Shards from Trorks to correct the mixture. Return to Barnabus if you lose a quest bottle or the sap treatment. Collect supplies from Claims if your bags were full.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "inventory",
+        "party",
+        "crafting"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "mining",
+      "title": "Mining",
+      "category": "Professions",
+      "summary": "Mine ore with a pickaxe, then smelt it into bars.",
+      "keywords": "Mining levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "Get a pickaxe from Mining Supplies, or receive one during Vox’s main-story Mining and Weapon Crafting Introduction. Equip the pickaxe and strike a gatherable ore node.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Start with copper and tin. Open an ore entry below for its Mining requirement. Smelt at a Furnace with suitable fuel, then use bars at the Weapon or Armor Bench.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: If an ore is locked, gather an earlier ore until you meet its Mining level. A decorative rock is not an ore node. Depleted nodes need time to return.",
+          "heading": false
+        },
+        {
+          "heading": false,
+          "text": "Open an ore in /guide and choose Track nearest to mark a known available node in your current world. The marker advances when that node is depleted. Clear Marker turns it off; it also stops after 120 seconds without mining progress, or when you leave the world."
+        },
+        {
+          "heading": false,
+          "text": "With a Crude Pickaxe before perks, standard ore takes: copper/tin 10 hits ; silver/iron 15 ; thorium/adamantite 20 ; cobalt/mithril/gold 25 ; onyxium 30 . Better pickaxes and mining perks reduce the hits needed. Keep striking the same node to finish mining it."
+        }
+      ],
+      "links": [
+        "smithing",
+        "weapon-crafting",
+        "crafting"
+      ],
+      "icon": "Tool_Pickaxe_Crude"
+    },
+    {
+      "id": "foraging",
+      "title": "Foraging",
+      "category": "Professions",
+      "summary": "Press F at ready brush and let the harvest finish.",
+      "keywords": "Foraging levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "Look for green sparkles on gathering brush. Use the interaction prompt; hitting it does not harvest it. Movement and jumping are locked while gathering. Chop gatherable beech trees with a hatchet for wood and sap. Beech logs used in buildings are protected.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Start at Small Brush. The illustrated brush entries show every unlock and its materials. Cloth scraps feed Weaving; fruit and mushrooms feed Cooking and Alchemy.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: Wait if another player is gathering or the brush is regrowing. If it is locked, check your Foraging level and return to an earlier brush.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "weaving",
+        "cooking",
+        "alchemy"
+      ],
+      "icon": "Plant_Bush_Green"
+    },
+    {
+      "id": "farming",
+      "title": "Farming",
+      "category": "Professions",
+      "summary": "Plant seeds in farming soil, then harvest your mature crops.",
+      "keywords": "Farming levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "Gather starter seeds from Small Brush. Hold a seed and interact with an empty tilled farming plot. Your crops belong to your active character.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Start with Wild Berries, Whitecap, and Onion. Open crop entries for their level, seed, and growth time. Aim at a growing crop to see its remaining time.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: A crop cannot be planted on occupied soil or harvested before it is ready. Check the Farming requirement; do not try to use ordinary ground as a prepared plot.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "foraging",
+        "cooking"
+      ],
+      "icon": "RiftCore_Seed_Whitecap"
+    },
+    {
+      "id": "hunter",
+      "title": "Hunter",
+      "category": "Professions",
+      "summary": "Take a contract from Varrin Allistar, the Huntmaster.",
+      "keywords": "Hunter levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "During the main story, accept Varrin's 25-ram training contract and turn it in for three certificates total. Then use Cancel Task on the 1,000-dragon training task: cancellation costs those three certificates and unlocks Rewards / Shop. You do not need to hunt the dragons. Use /hunter status to check your current task.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Matching kills earn Hunter XP and may drop certificates. Return to Varrin to claim a finished contract. Spend certificates on recovery supplies and raw hide bundles. Dungeon and rift contracts unlock at Hunter 15; higher dungeon tiers also require their Hunter level, character level, and normal entry requirements. Toggle dungeon contracts off when you prefer overworld hunts.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: A completed contract stays active until claimed. Killing a similar creature does not meet a different contract target.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "combat-gear",
+        "party"
+      ],
+      "icon": "RiftCore_Hunter_Certificate"
+    },
+    {
+      "id": "smithing",
+      "title": "Smithing",
+      "category": "Professions",
+      "summary": "Smelt ore and make metal armor at the Armor Bench.",
+      "keywords": "Smithing levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "Mine starter ore with a pickaxe. Put ore and suitable fuel in the Furnace; collect the bars. At the Armor Bench, select a metal armor recipe you can make.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Start with unlocked bar and Bronze armor recipes. Open a recipe below to see the required profession level and follow each ingredient to its source.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: Check both Smithing level and equipment level. A raw ore cannot replace a bar. Keep inventory space for the finished item.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "mining",
+        "crafting"
+      ],
+      "icon": "Ingredient_Bar_Bronze"
+    },
+    {
+      "id": "weapon-crafting",
+      "title": "Weapon Crafting",
+      "category": "Professions",
+      "summary": "Make weapons and shields at the Weapon Bench.",
+      "keywords": "Weapon Crafting levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "Gather logs and fibre for starter wood recipes, or mine and smelt ore for metal weapons. Interact with the Weapon Bench and choose your weapon category.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Start with Wooden or Crude recipes and progress through the available material tiers. Select a recipe below for exact requirements and acquisition links.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: Use the weapon family your class can equip. Crafting skill and character equip level are different requirements. Make sure wood, bars and bindings are in your pack.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "mining",
+        "foraging",
+        "crafting",
+        "classes"
+      ],
+      "icon": "Weapon_Sword_Wood"
+    },
+    {
+      "id": "leatherworking",
+      "title": "Leatherworking",
+      "category": "Professions",
+      "summary": "Hunt hides, tan leather, and make armor.",
+      "keywords": "Leatherworking levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "Hunt boars for Soft Hides. At the Tannery, process hides into leather; no fuel is needed. Use leather recipes at the Armor Bench.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Start with Soft Leather. Open leather and armor entries below to follow higher tiers and their requirements.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: Bring processed leather when a recipe asks for leather. Chickens, rabbits, small birds and rats do not drop hides or leather.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "crafting",
+        "hunter"
+      ],
+      "icon": "Ingredient_Leather_Light"
+    },
+    {
+      "id": "weaving",
+      "title": "Weaving",
+      "category": "Professions",
+      "summary": "Turn gathered fibre and cloth scraps into cloth equipment.",
+      "keywords": "Weaving levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "Gather Plant Fibre from Small Brush. At the Armor Bench, choose Bolts to make Cotton Bolts, then choose cloth armor.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Use higher brush tiers for higher cloth scraps. Open the bolt or equipment recipe below for exact ingredients and Weaving level.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: Fibre is not a bolt. Process the material first, then return to the armor recipe. Check space and the full ingredient count.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "foraging",
+        "crafting"
+      ],
+      "icon": "Ingredient_Fibre"
+    },
+    {
+      "id": "alchemy",
+      "title": "Alchemy",
+      "category": "Professions",
+      "summary": "Make potions and supplies at the Alchemy Bench.",
+      "keywords": "Alchemy levels unlock supplies cannot cant failed",
+      "blocks": [
+        {
+          "text": "Getting started",
+          "heading": true
+        },
+        {
+          "text": "Gather berries, whitecap mushrooms, and tree sap to begin. Visit Alchemy Supplies for stock, then interact with the Alchemy Bench.",
+          "heading": false
+        },
+        {
+          "text": "Progression",
+          "heading": true
+        },
+        {
+          "text": "Start with Lesser Health or Lesser Stamina potions. Browse the recipes below for higher-level potions, remedies and supplies and follow their ingredient links.",
+          "heading": false
+        },
+        {
+          "text": "Successful work earns XP in this profession. Open Skills to see your level, next milestone, and available perks. Choose one perk at each unlocked tier; profession level is separate from the level needed to equip an item.",
+          "heading": false
+        },
+        {
+          "text": "Troubleshooting: Check Alchemy level and exact ingredient names. Keep the full cost in your pack and leave space for the output.",
+          "heading": false
+        }
+      ],
+      "links": [
+        "foraging",
+        "death",
+        "crafting"
+      ],
+      "icon": "Potion_Health_Lesser"
+    },
+    {
+      "id": "class:fury",
+      "title": "Fury Fighter",
+      "category": "Classes & Combat",
+      "summary": "Rage-fueled bruiser with heavy pressure and staying power.",
+      "keywords": "Fighter Fury abilities controls",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Use a battleaxe. Build Rage through combat, then land a charged hit at 100 Rage for Rage Strike. E throws your battleaxe. R uses Bloodrush, or Ravager or Undying Rage if you choose one of them. Guard, charged attacks and basics support different talent builds."
+        }
+      ],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "class:perfection",
+      "title": "Perfection Fighter",
+      "category": "Classes & Combat",
+      "summary": "Fast chi fighter built around timing, precision, and movement.",
+      "keywords": "Fighter Perfection abilities controls",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Use fists and build Chi through three-hit punch strings. Hold primary for a charged kick; you move at 80% speed while charging, or 82/84% with Steady Advance. Steady Advance reduces the charge movement penalty for both Fighter paths. E is Backflip Kick; R begins as Inner Focus and can be replaced through talents. Each orb above your hotbar represents 1 Chi. Gold orbs are available; dark orbs have been spent."
+        },
+        {
+          "heading": false,
+          "text": "Emerald Lotus is leather armor. Iron Vow remains a plate alternative."
+        }
+      ],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "class:shinobi",
+      "title": "Shinobi Rogue",
+      "category": "Classes & Combat",
+      "summary": "Sword-and-kunai attacker who creates openings, grapples behind enemies, and lands backstabs.",
+      "keywords": "Rogue Shinobi abilities controls",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Combine your sword with offhand kunai, then use E to grapple into position. R begins as Smoke Veil. Sword Q uses the weapon signature. Your talents can emphasize backstabs, kunai, control or sustained sword pressure."
+        }
+      ],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "class:void",
+      "title": "Void Rogue",
+      "category": "Classes & Combat",
+      "summary": "Mobile shadow rogue using Rot, Darkness, and cloaking.",
+      "keywords": "Rogue Void abilities controls",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Use daggers to build your own Rot and Darkness. Charged attacks and talent effects exploit that setup. R begins as a 4-second cloak; attacking or taking damage reveals you. Night Tide replaces it with up to 5 seconds of cloak and a moving decoy. The decoy disappears when your invisibility ends."
+        }
+      ],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "class:sol",
+      "title": "Sol Elemancer",
+      "category": "Classes & Combat",
+      "summary": "Mobile wind-and-fire caster; strong at range and fragile up close.",
+      "keywords": "Elemancer Sol abilities controls",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Tap left click for a weak melee strike, or hold it for at least 0.6 seconds and release to launch a staff orb. Hold right-click to repeat your selected offhand bolt as its cooldown finishes. Staff basics and your offhand bolt support your spells. E is Cinderstep from level 1: hold E with a staff to ignite jets beneath your feet. From the ground, standing still lifts you about 3 blocks into a hover. In the air, E gradually brakes your fall and holds the altitude where you stop. Movement keys accelerate and steer your glide; reversing direction takes time to brake and turn. Costs 10 mana upfront, includes the first full second, then drains 15 mana per second. Release E or exhaust your mana to stop thrust and fall normally. No cooldown. Moving off an edge glides downward while keeping directional thrust. Release movement keys while holding E to coast to a stop and gradually settle into a hover. Moving in the air descends faster than stationary hovering; releasing E ends the glide. Walls and ceilings stop movement; it grants no invulnerability and leaves no damaging trail. R is Incarnation from level 1: with a staff equipped, press R to ignite your body. After a short ignition, living fire lasts 8 seconds and empowers Sol spell damage by 35% and your own Burn ticks by 50%, while Sol abilities cost 30% less mana, including Flame Jet. Costs 60 mana with a 30-second base cooldown. Keep casting while active; no ground target is needed. Burn belongs to its caster. Hold right-click with Flame Jet selected to spray fire where you look, including upward. It costs 10 mana per second and has no cooldown; release to stop. Flame Jet uses a narrow flamethrower sweep up to 7 blocks along your aim, hitting up to 3 enemies per pulse. Aim directly at enemies; it does not damage or ignite blocks. Basic attacks cost no mana. Offhand slot 1 holds your bolt choice; slot 2 holds Flame Jet or Backdraft; slot 3 holds Flashover or Pyre; slot 4 holds Meteor Swarm or Cataclysm. Learn the matching talent and choose one spell per slot. E stays Cinderstep and R stays Incarnation. Other offhand spells share a 1-second recovery, with separate cooldowns for each slot. With a staff equipped, press H (Ability 4) for Cinder Ward: take 20% less damage for 4 seconds and apply your 3-second Burn to direct hostile attackers, at most once per second per attacker. It costs 18 mana with an 18-second base cooldown. Cast before taking hits; damage still gets through. Learn Flashover for offhand slot 3: a close-range eruption hitting up to 5 enemies within 3 blocks for 200% of Sol Bolt damage, or 275% against enemies already carrying your Burn, plus your 3-second Burn. It costs 18 mana with an 8-second base cooldown."
+        },
+        {
+          "text": "Backdraft (slot 2): instant broad blast up to 6 blocks for 200% of Sol Bolt damage, or 280% against enemies already carrying your Burn. Applies Burn and pushes up to 5 enemies up to 3 blocks along a clear route. Costs 12 mana; 4-second base cooldown. Pyre (slot 3): aim at ground within 16 blocks for six eruptions one second apart, each dealing 60% of Sol Bolt damage within 2.5 blocks and applying Burn, up to 5 enemies across the cast. Keep moving and casting while the field burns. Costs 24 mana; 10-second base cooldown. Cataclysm (slot 4): mark ground within 16 blocks; after 0.8 seconds it explodes within 4.5 blocks for 400% of Sol Bolt damage, or 500% against enemies already carrying your Burn, and applies Burn, up to 5 enemies. Costs 35 mana; 16-second base cooldown. Meteor Swarm: aim at ground within 20 blocks for four falling rocks, spreading within 1 block of your target. Each impact hits a 4-block radius for 95% of Sol Bolt damage, up to 5 enemies; each enemy takes at most three impacts. Costs 30 mana; 12-second base cooldown. Use Flame Jet for sustained aimed fire, Backdraft to create space, Pyre for a lasting field, and Flashover or Cataclysm to burst enemies you have already ignited. Walls block your projectile and ground-targeted spells."
+        },
+        {
+          "text": "Intelligence and Spell Damage gear improve your Sol damage; level alone supplies a modest base. Firecraft strengthens your whole fire kit and its Burn. Solar Reserve returns up to 3 mana from those spells once per cast, never from Flame Jet, Burn ticks or misses. Incandescent Power improves Incarnation's spell damage bonus. Cinder Ward talents improve its damage reduction and retaliatory Burn, or extend the ward to 6 seconds; they do not grant an absorb shield."
+        }
+      ],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "class:sea",
+      "title": "Sea Elemancer",
+      "category": "Classes & Combat",
+      "summary": "Water-bending controller that gathers enemies and locks down ground.",
+      "keywords": "Elemancer Sea abilities controls",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Tap left click for a weak melee strike, or hold it for at least 0.6 seconds and release to launch a staff orb. Hold right-click to repeat your selected Tide Lash bolt as its cooldown finishes. Your offhand Tide Lash builds up to three of your own Soaked stacks. Tap E to send Breaker Wave, or hold E briefly to ride it straight ahead. Release E to step off; the wave keeps travelling over land or water. You can swim through its water; submerging uses your normal breath. Walls stop your ride. Breaker Wave and damaging offhand control spells consume your stacks once per enemy for added damage. With a staff equipped, press R for Tidal Ascendance: after a short formation, empower Sea spell damage by 35% and reduce Sea mana costs by 30% for 8 seconds. Costs 60 mana with an independent 30-second base cooldown. Hover about 2 blocks above nearby ground or water while moving normally; press Space near hover height for a small upward boost. Steps raise your hover, but cliffs do not grant flight. Keep casting during the form. Tidal Surge gathers water at your target, then hits and pulls enemies inward after a brief windup. With a staff, use Ability 4 (G by default) for Reefwall: a water wall 2 blocks ahead lasting 4 seconds. Shots crossing the wall from either side are blocked unless they belong to you or your party, including NPC and boss shots, thrown weapons and enemy Breaker Waves. Melee attacks are unaffected. Its base cooldown is 28 seconds. Offhand slot 1 holds your Tide Lash choice; slot 2 holds Tidal Surge or Undertow; slot 3 holds Restorative Rain or Water Snare; slot 4 holds Oceanic Ruin or Maelstrom. Water Snare warns briefly, restrains up to 3 enemies for up to 0.75 seconds, then bursts; enemies must stay inside its 3-block area to take the burst. Learn the matching talents and choose one spell per slot. Other offhand spells share a 1-second recovery, with separate cooldowns for each slot."
+        }
+      ],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "class:light",
+      "title": "Light Paladin",
+      "category": "Classes & Combat",
+      "summary": "Holy support that protects, heals, and controls a fight.",
+      "keywords": "Paladin Light abilities controls",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Use a club and switch between your learned offhand spells, then right-click to cast the selected spell. Offhand slot 1 holds Touch of Life or Shield of Faith; slot 2 holds Divine Flash or Holy Smite; slot 3 holds one prayer; slot 4 holds Cleansing Rain or Divine Protection. Learn the matching talents to fill the later slots. You can choose only one spell for each slot. Leave room in your inventory for items displaced by a new spell."
+        },
+        {
+          "heading": false,
+          "text": "Offhand casts have a 1-second recovery before another offhand spell can be used. Each slot keeps its own cooldown when you change its spell choice. E stays Intercession, and R is Healing Hymn or Daybreak; their cooldowns are separate from the offhand slots. Damaging club basics trigger Blessed Strike to heal one injured nearby party member. Shield of Faith is a spell and does not require equipping a physical shield."
+        }
+      ],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "class:hope",
+      "title": "Hope Paladin",
+      "category": "Classes & Combat",
+      "summary": "Holy tank that challenges enemies and protects its party.",
+      "keywords": "Paladin Hope abilities controls",
+      "blocks": [
+        {
+          "heading": false,
+          "text": "Use a sword and shield. Guard hostile attacks to build Resolve. Radiant Judgment on E is available from level 1 and taunts nearby hostile NPCs around its first valid target, so you can tank dungeons by level 15. See Threat and tanking . At level 5, holding primary charges Bulwark Advance, which spends 40 Resolve to advance up to 6 blocks. Q remains your sword signature. R uses Stand Against the Void."
+        }
+      ],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear"
+      ],
+      "icon": ""
+    },
+    {
+      "id": "mana",
+      "title": "Mana and Spirit",
+      "category": "Classes & Combat",
+      "summary": "Manage mana as Elementalist or Light Paladin.",
+      "keywords": "mana spirit regen regeneration elementalist sol sea light paladin resource",
+      "blocks": [
+        {
+          "heading": true,
+          "text": "Watch your mana"
+        },
+        {
+          "heading": false,
+          "text": "Elementalist and Light Paladin have 100 maximum mana, shown in a blue meter above the hotbar. Spells spend mana when they successfully cast. A failed cast spends nothing. Weapon and staff auto-attacks, including the offhand bolt, are free."
+        },
+        {
+          "heading": true,
+          "text": "Recover between spells"
+        },
+        {
+          "heading": false,
+          "text": "Mana recovery resumes 1.5 seconds after spending mana. Spirit increases recovery with diminishing returns and still grants magic resistance. Each point gives more mana recovery at lower character levels; keep upgrading your Spirit gear as you level. Use free attacks while recovering. Caster cloth, healing plate and caster weapons are good places to look for Spirit. Elementalist Focused Casting adds up to 20 maximum mana; Sure Casting improves recovery by up to 20%."
+        },
+        {
+          "heading": true,
+          "text": "Save mana for the right moment"
+        },
+        {
+          "heading": false,
+          "text": "Small spells generally cost 12–24 mana; large spells cost 30–40. Check each learned spell in Talents for its cost. Large spells retain at least a 10-second cooldown after bonuses. Intercession costs 18 mana, Healing Hymn costs 30, and Daybreak costs 40. Sea Tidal Guard costs 30. Running out of mana is a reason to use free attacks and recover, rather than repeatedly trying the same spell."
+        }
+      ],
+      "links": []
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "applicationId": "1559412826022608930",
+  "guildId": "1464394110352887943",
+  "allowedRoleIds": ["1464399521936048181", "1464399336845738148", "1464399759484915835", "1464399651393372293", "1464399698898194496"],
+  "channels": {
+    "economy": "1559410514109538387",
+    "items": "1559410533721968731",
+    "activity": "1559410566483808436",
+    "staff": "1559410596502310912",
+    "alerts": "1559410647178027148"
+  },
+  "retention": {"detailedDays": 30, "suspiciousCaseDays": 180},
+  "delivery": {"maxEventsPerRun": 100, "maxEventsPerMessage": 10, "maxContentLength": 1800}
+}

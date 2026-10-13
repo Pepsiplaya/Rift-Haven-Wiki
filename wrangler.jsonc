@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rift-haven-api",
+  "main": "server/worker.mjs",
+  "compatibility_date": "2026-10-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "keep_vars": true,
+  "d1_databases": [{"binding": "DATA", "database_name": "rift-haven-data", "database_id": "a864336e-bd9d-4f82-aee6-83b80df88d58"}],
+  "vars": {
+    "RIFT_DB_GROUP": "mmo",
+    "DISCORD_PUBLIC_KEY": "0d94cf082030d71bb8b54ec84fd2cb30c3255bee64754f7764beffc30fe82043",
+    "AUDIT_DELIVERY_ENABLED": "true"
+  },
+  "triggers": {"crons": ["* * * * *"]},
+  "durable_objects": {"bindings": [{"name": "AUDIT_DISPATCHER", "class_name": "AuditDispatcher"}]},
+  "migrations": [{"tag": "v1", "new_sqlite_classes": ["AuditDispatcher"]}]
+}

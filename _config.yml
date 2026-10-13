@@ -1,4 +1,14 @@
-title: Rift Haven Wiki
-description: Player wiki for Rift Haven MMO gameplay systems.
+title: Rift Haven
+description: A handcrafted Hytale MMO. Your adventure starts here.
 theme: jekyll-theme-cayman
 markdown: kramdown
+exclude:
+  - server
+  - scripts
+  - node_modules
+  - package.json
+  - package-lock.json
+  - README.md
+  - .env
+  - wrangler.jsonc
+  - wiki
