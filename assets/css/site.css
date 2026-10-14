@@ -22,3 +22,5 @@
 .founder-title{color:#e6ca84;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:24px 0 10px}
 .founder-title span{margin-right:8px}.founder-profile .profile-aside h2{color:#f5e3ae}
 .founder-intro{color:#c9c1a8;font-size:.92rem;margin:6px 0 18px}
+.profile-shortcuts .avatar-hint{display:none}
+.profile-aside:has(.portrait.avatar-ready) .avatar-hint{display:block}
