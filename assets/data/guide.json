@@ -1026,7 +1026,7 @@
       "icon": null,
       "blocks": [
         {
-          "text": "Choose a path below to learn its controls and fighting style. Open Character to see your abilities and talents.",
+          "text": "Choose a path below to learn its controls and fighting style. Open Character to see your abilities and talents. Your base E and R abilities are available from level 1; talents add upgrades and replacements.",
           "heading": false,
           "icon": null,
           "link": ""
@@ -2803,7 +2803,7 @@
           "link": ""
         },
         {
-          "text": "Sort Inventory groups similar items in your pack without moving hotbar items. Free space counts pack and hotbar slots.",
+          "text": "Sort Inventory groups similar items in your pack without moving hotbar items. Free space counts pack and hotbar slots. Quest weapons, hatchets and pickaxes go into a free hotbar slot first. If your hotbar is full, look in your pack.",
           "heading": false,
           "icon": null,
           "link": ""
@@ -2929,7 +2929,7 @@
           "link": ""
         },
         {
-          "text": "Track a quest to show its objective on the map and compass. A gold question mark means it is ready to hand in; a diamond marks an active objective. See Quests for the full marker guide.",
+          "text": "Track a quest to show its objective on the map and compass. A top-screen arrow points toward your tracked destination in three dimensions and shows its distance. It tilts up or down for targets on another floor, with Above you or Below you when needed. Toggle Quest direction arrow in the quest journal or /settings > Interface. It points straight toward the objective; use paths and doors to reach it. A gold question mark means it is ready to hand in; a diamond marks an active objective. See Quests for the full marker guide.",
           "heading": false,
           "icon": null,
           "link": ""
@@ -3984,7 +3984,7 @@
           "link": ""
         },
         {
-          "text": "With a Crude Pickaxe before perks, standard ore takes: copper/tin 10 hits ; silver/iron 15 ; thorium/adamantite 20 ; cobalt/mithril/gold 25 ; onyxium 30 . Better pickaxes and mining perks reduce the hits needed. Keep striking the same node to finish mining it.",
+          "text": "Mining unlocks: copper, tin, silver and gold at 1; iron at 10; adamantite at 20; mithril at 30; onyxium at 45. With a Crude Pickaxe before perks, standard ore takes: copper/tin 10 hits ; silver/iron 15 ; thorium/adamantite 20 ; cobalt/mithril/gold 25 ; onyxium 30 . Better pickaxes and mining perks reduce the hits needed. Keep striking the same node to finish mining it.",
           "heading": false,
           "icon": null,
           "link": ""

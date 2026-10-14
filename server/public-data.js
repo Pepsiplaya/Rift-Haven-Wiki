@@ -29,18 +29,18 @@ class PublicData {
   }
   table(name){return '`'+name+'_'+this.group+'`';}
   async query(sql,values=[]){if(!/^\s*SELECT\b/i.test(sql))throw new Error('Public data queries must be SELECT-only');const [rows]=await this.db.execute(sql,values);return rows;}
-  publicCharacters(){return `SELECT ac.character_id AS character_id, ac.character_name AS name, ac.created_at, ac.last_played,
-      pc.main_class, pc.subclass, pc.level, pc.experience, cu.balance
+  publicCharacters(ranked=false){return `SELECT ac.character_id AS character_id, ac.character_name AS name, ac.created_at, ac.last_played,
+      pc.main_class, pc.subclass, pc.level, pc.experience, cu.balance, (COALESCE(h.hidden,0)=0 AND COALESCE(hc.hidden,0)=0) AS leaderboard_eligible
       FROM ${this.table('account_characters')} ac
       LEFT JOIN ${this.table('player_classes')} pc ON pc.uuid=ac.character_id
       LEFT JOIN ${this.table('currency')} cu ON cu.uuid=ac.character_id
       LEFT JOIN ${this.hiddenTable()} h ON h.uuid=ac.account_uuid
       LEFT JOIN ${this.hiddenTable()} hc ON hc.uuid=ac.character_id
-      WHERE COALESCE(h.hidden,0)=0 AND COALESCE(hc.hidden,0)=0 AND ac.character_name IS NOT NULL`;
+      WHERE ${ranked?'COALESCE(h.hidden,0)=0 AND COALESCE(hc.hidden,0)=0 AND LOWER(ac.character_name)<>\'lyq\' AND ':''}ac.character_name IS NOT NULL`;
   }
   hiddenTable(){return '`leaderboard_stats_'+this.group+'_hidden`';}
-  characterSql(){return this.publicCharacters();}
-  characterProjection(row){return {name:text(row.name,64),mainClass:ROSTER.has(row.main_class)?row.main_class:null,subclass:text(row.subclass,64)||null,level:row.level==null?null:Number(row.level),experience:integer(row.experience),balance:integer(row.balance),createdAt:timestamp(row.created_at),lastPlayed:timestamp(row.last_played)};}
+  characterSql(ranked=false){return this.publicCharacters(ranked);}
+  characterProjection(row){return {name:text(row.name,64),leaderboardEligible:Number(row.leaderboard_eligible)!==0&&text(row.name,64).toLowerCase()!=='lyq',role:text(row.name,64).toLowerCase()==='lyq'?'founder':null,mainClass:ROSTER.has(row.main_class)?row.main_class:null,subclass:text(row.subclass,64)||null,level:row.level==null?null:Number(row.level),experience:integer(row.experience),balance:integer(row.balance),createdAt:timestamp(row.created_at),lastPlayed:timestamp(row.last_played)};}
   async players({q='',limit=36}={}){
     const safeLimit=Math.min(100,Math.max(1,Number(limit)||36));
     const source=this.characterSql();const where=q?' AND ac.character_name LIKE ?':'';const args=q?[like(q)]:[];
@@ -78,7 +78,7 @@ class PublicData {
   }
   async guilds({q=''}={}){const rows=await this.query(`SELECT id,data_json FROM ${this.table('guilds')} WHERE JSON_VALID(data_json) ORDER BY updated_at DESC LIMIT 1000`);const needle=text(q,64).toLowerCase();return {guilds:rows.map(guildProjection).filter(g=>g&&(!needle||g.name.toLowerCase().includes(needle))).sort((a,b)=>b.memberCount-a.memberCount||a.name.localeCompare(b.name))};}
   async rankings({metric='wealth'}={}){
-    const source=this.characterSql();let rows;
+    const source=this.characterSql(true);let rows;
     if(metric==='wealth'||metric==='level'){const field=metric==='wealth'?'balance':'level';rows=await this.query(`SELECT name,${field} AS score FROM (${source}) visible WHERE ${field}>0 ORDER BY ${field} DESC,name LIMIT 100`);}
     else{if(!Object.hasOwn(METRICS,metric))metric='quests';rows=await this.query(`SELECT visible.name,SUM(stats.score) AS score FROM (${source}) visible JOIN ${this.table('leaderboard_stats')} stats ON stats.uuid=visible.character_id WHERE stats.metric_key=? AND stats.score>0 GROUP BY visible.character_id,visible.name ORDER BY score DESC,visible.name LIMIT 100`,[METRICS[metric]]);}
     return {metric,players:rows.map(row=>({name:text(row.name,64),score:integer(row.score)}))};

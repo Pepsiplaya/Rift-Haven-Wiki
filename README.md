@@ -6,7 +6,7 @@ The game homepage, community dashboard, profiles, market, guild directory, ranki
 
 The game commits economy changes and audit records together in its MySQL transaction. A background publisher forwards pending records over signed HTTPS and publishes public-data snapshots once a minute. Cloudflare D1 stores the snapshots and audit records; no SQL password is stored in Cloudflare. A singleton dispatcher batches Discord messages and respects rate-limit responses. Delivery has stable event references and may duplicate a batch after a lost acknowledgement.
 
-Public profiles exclude hidden accounts and hidden characters, UUIDs, private bank contents, social relationships, and staff records. Only public fields survive the Cloudflare ingestion projection. Auction prices represent the complete listing. Empty markets and guild directories reflect actual data. Dungeon player clears are not unique run counts. Unrecorded fastest times remain absent.
+Public character profiles include staff. Leaderboard eligibility controls rankings only; UUIDs, private bank contents, social relationships, and staff audit records are excluded. Only public fields survive the Cloudflare ingestion projection. Auction prices represent the complete listing. Empty markets and guild directories reflect actual data. Dungeon player clears are not unique run counts. Unrecorded fastest times remain absent.
 
 The first snapshot was seeded from the game database. Continuous synchronization requires the new game plugin and `portal-sync.properties` on the dedicated server. Database credentials stay in the existing game configuration. Keep the sync properties private; it contains the shared signing secret.
 
@@ -47,7 +47,7 @@ The additional website Druid guide is based on current Druid form, spellbook and
 
 ## Compendium, equipment and live world tools
 
-`/items` contains 272 items anchored to accepted merchant/gathering/drop/crafting sources, with 147 craftable output IDs and ingredient alternatives. Run `python scripts/build-discovery-catalog.py` against the current accepted artifact to regenerate; it verifies inventory hashes and executes pure accepted catalog helpers offline, without starting the game. Native asset existence alone is not an obtainability source. Dynamic generated gear, metadata variants and customized live recipes can differ; this is a bounded compendium, not an exhaustive loot dump.
+`/items` contains 272 items anchored to accepted merchant/gathering/drop/crafting sources, with 145 craftable output IDs and ingredient alternatives. Run `python scripts/build-discovery-catalog.py` against the current accepted artifact to regenerate; it verifies inventory hashes and executes pure accepted catalog helpers offline, without starting the game. Native asset existence alone is not an obtainability source. Dynamic generated gear, metadata variants and customized live recipes can differ; this is a bounded compendium, not an exhaustive loot dump.
 
 `/dungeons/:id` uses accepted public definitions and reward tables via `python scripts/build-dungeon-details.py`, overlaid with recorded unique-run rollups. Run times include instance preparation/loading. `/market/history` projects only committed auction.purchase events from the retained 30-day audit window; no buyer UUIDs, claim receipts or investigation references are public. Item charts summarize up to 1,000 purchases and cannot value individual generated stat rolls.
 

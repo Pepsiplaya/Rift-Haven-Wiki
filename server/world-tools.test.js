@@ -1,6 +1,20 @@
 'use strict';
 const {test}=require('node:test'),assert=require('node:assert/strict');
 const {sanitizeSnapshot,SnapshotData}=require('./snapshot-data'),{sale}=require('./market-history'),{embed}=require('./audit-bot');
+test('staff profiles remain clickable while every leaderboard excludes them',async()=>{
+ const raw={players:[{name:'Lyq',level:60,balance:'99999',leaderboardEligible:false},{name:'Staff',level:60,balance:'99999',leaderboardEligible:false},{name:'Player',level:12,balance:'10'}],listings:[],presence:{observedAt:Date.now(),names:['Lyq','Staff','Player'],connectedCount:3}};
+ const data=new SnapshotData(sanitizeSnapshot(raw));
+ assert.equal((await data.profile('lyq')).role,'founder');
+ assert.deepEqual((await data.players()).players.map(p=>p.name).sort(),['Lyq','Player','Staff']);
+ assert.deepEqual((await data.status()).players.map(p=>p.name),['Lyq','Staff','Player']);
+ for(const metric of ['level','wealth','class-xp'])assert.deepEqual((await data.rankings({metric})).players.map(p=>p.name),['Player']);
+});
+test('retired material guide routes disappear without hiding physical gear identities',()=>{
+ const {projectGuide}=require('./guide-data');
+ const guide=projectGuide({articles:[{id:'mining',title:'Mining',links:['item:Ore_Cobalt','item:Ore_Mithril'],blocks:[{text:'Cobalt',link:'item:Ore_Cobalt'}]},{id:'item:Ore_Cobalt',title:'Cobalt Ore'},{id:'item:Ore_Mithril',title:'Mithril Ore'},{id:'item:Armor_Cobalt_Chest',title:'Chest armor'}]});
+ assert.deepEqual(guide.articles.map(a=>a.id),['mining','item:Ore_Mithril','item:Armor_Cobalt_Chest']);
+ assert.deepEqual(guide.articles[0].links,['item:Ore_Mithril']);assert.deepEqual(guide.articles[0].blocks,[]);
+});
 test('presence expires instead of presenting stale online players; hidden names never reach the response',async()=>{
   const raw={players:[{name:'Visible',level:12}],listings:[],presence:{observedAt:Date.now(),names:['Visible','Hidden','Visible']}};
   const live=await new SnapshotData(sanitizeSnapshot(raw)).status();assert.equal(live.state,'live');assert.equal(live.online,null);assert.equal(live.publicOnline,1);assert.equal(live.players[0].name,'Visible');assert.ok(!JSON.stringify(live).includes('Hidden'));

@@ -63,6 +63,8 @@ def compiled_catalogs(jar, receipt, inventory):
 
 
 def safe(item):
+    if item in {'Ore_Thorium','Ore_Cobalt','Ingredient_Ore_Thorium','Ingredient_Ore_Cobalt','Ingredient_Bar_Thorium','Ingredient_Bar_Cobalt','Salvage_Thorium','Salvage_Cobalt'}:
+        return False
     return bool(item) and not re.search(
         r'(?i)(template|_lesson_|_training_|_quest_|professionicon|perkicon|talenticon|'
         r'_talent_|_debug|_admin|_test|_experimental|_placeholder)', item)
@@ -192,8 +194,7 @@ def build():
                         output[item]['name'] = entry.get('label') or output[item]['name']
 
         # GuideCatalogLoader.resources supplies these released gathering routes.
-        for ore, level in zip(('Copper', 'Tin', 'Iron', 'Thorium', 'Cobalt',
-                               'Adamantite', 'Mithril', 'Onyxium'), (1, 1, 10, 20, 30, 40, 50, 60)):
+        for ore, level in zip(('Copper', 'Tin', 'Iron', 'Adamantite', 'Mithril', 'Onyxium'), (1, 1, 10, 20, 30, 45)):
             add('Ore_' + ore, {'type': 'gathering', 'profession': 'MINING',
                               'requiredLevel': level, 'method': 'Mine ore nodes with a pickaxe.'})
         add('Wood_Beech_Trunk', {'type': 'gathering', 'profession': 'FORAGING',
@@ -355,6 +356,9 @@ def build():
                     entry['armorType'] = gear['armorType']
         for entry in output.values():
             entry['sources'].sort(key=lambda s: (s['type'], s.get('shop', ''), s.get('creature', '')))
+        for metal in ('Copper', 'Tin', 'Iron', 'Adamantite', 'Mithril', 'Onyxium'):
+            if 'Ore_' + metal in output:
+                output['Ore_' + metal]['description'] = f'Smelt this ore into {metal} bars at a furnace.'
 
     result = {'schemaVersion': 1, 'releaseVersion': receipt['version'],
               'snapshotKind': 'accepted-release-defaults',
