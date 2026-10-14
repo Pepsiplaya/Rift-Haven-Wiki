@@ -1,4 +1,4 @@
-# Rift Haven website and staff audit bot
+﻿# Rift Haven website and staff audit bot
 
 The game homepage, community dashboard, profiles, market, guild directory, rankings, guide, and news run on the existing GitHub Pages site. Public records and Discord interactions run on `rift-haven-api.rift-haven-website.workers.dev`.
 
@@ -47,7 +47,7 @@ The additional website Druid guide is based on current Druid form, spellbook and
 
 ## Compendium, equipment and live world tools
 
-`/items` contains 272 items anchored to accepted merchant/gathering/drop/crafting sources, with 145 craftable output IDs and ingredient alternatives. Run `python scripts/build-discovery-catalog.py` against the current accepted artifact to regenerate; it verifies inventory hashes and executes pure accepted catalog helpers offline, without starting the game. Native asset existence alone is not an obtainability source. Dynamic generated gear, metadata variants and customized live recipes can differ; this is a bounded compendium, not an exhaustive loot dump.
+`/items` contains 268 items anchored to accepted merchant/gathering/drop/crafting sources, with 145 craftable output IDs and ingredient alternatives. Run `python scripts/build-discovery-catalog.py` against the current accepted artifact to regenerate; it verifies inventory hashes and executes pure accepted catalog helpers offline, without starting the game. Native asset existence alone is not an obtainability source. Dynamic generated gear, metadata variants and customized live recipes can differ; this is a bounded compendium, not an exhaustive loot dump.
 
 `/dungeons/:id` uses accepted public definitions and reward tables via `python scripts/build-dungeon-details.py`, overlaid with recorded unique-run rollups. Run times include instance preparation/loading. `/market/history` projects only committed auction.purchase events from the retained 30-day audit window; no buyer UUIDs, claim receipts or investigation references are public. Item charts summarize up to 1,000 purchases and cannot value individual generated stat rolls.
 
@@ -56,3 +56,4 @@ The next game publisher sends saved equipment, selected talent ranks and actual 
 `python scripts/build-equipped-avatars.py` regenerates equipment cache variants from the allowlisted private bootstrap snapshot. `python scripts/build-selected-talents.py` exports canonical labels for selected public talent IDs. Both need regeneration when new equipment appearances or new selected talent IDs appear. Neither raw inventory nor private appearance selectors are shipped to browsers. `/start` is a local-browser first-session checklist; no account registration or staff activity is public.
 
 Gold audit cards now include the server-provided source and context (shop item/quantity, quest, contract, staff action, guild or auction reference when captured). Old records explicitly indicate that their source was not recorded; no cause is reconstructed from a balance delta alone.
+

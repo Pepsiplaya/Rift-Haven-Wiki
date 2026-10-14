@@ -358,7 +358,8 @@ def build():
             entry['sources'].sort(key=lambda s: (s['type'], s.get('shop', ''), s.get('creature', '')))
         for metal in ('Copper', 'Tin', 'Iron', 'Adamantite', 'Mithril', 'Onyxium'):
             if 'Ore_' + metal in output:
-                output['Ore_' + metal]['description'] = f'Smelt this ore into {metal} bars at a furnace.'
+                output['Ore_' + metal]['description'] = (f'Smelt this ore into {metal} bars at a furnace.'
+                    if 'Ingredient_Bar_' + metal in output else 'Gather this ore with a pickaxe.')
 
     result = {'schemaVersion': 1, 'releaseVersion': receipt['version'],
               'snapshotKind': 'accepted-release-defaults',
