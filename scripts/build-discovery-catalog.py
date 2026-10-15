@@ -1,7 +1,7 @@
 """Build a conservative player-obtainable discovery graph from the accepted release.
 
-Asset existence never admits an item. Admission needs a named merchant, a current
-guide-supported gathering/hunting route, or a recipe with obtainable ingredients.
+Asset existence never admits an item. Admission needs a named merchant, a released
+gathering/hunting/bag route, or a recipe with obtainable ingredients.
 This offline snapshot is not a claim about live stock or custom server overrides.
 """
 from pathlib import Path
@@ -34,6 +34,7 @@ def compiled_catalogs(jar, receipt, inventory):
                'sockets': ('jewelcrafting.JewelcraftingCatalog', 'socketRecipes'),
                'refining': ('jewelcrafting.JewelcraftingCatalog', 'refiningRecipes'),
                'gems': ('jewelcrafting.JewelcraftingCatalog', 'gems'),
+               'bagMaterials': ('fishing.FishingBagLoot', 'materials'),
                'brushes': ('gathering.ForagingBushCatalog', 'getDefinitions')}
     with ZipFile(jar) as pack:
         for name, _ in classes.values():
@@ -53,7 +54,11 @@ def compiled_catalogs(jar, receipt, inventory):
     source = ('import java.util.*; import com.google.gson.Gson; '
               'class DiscoveryExport { public static void main(String[] args) throws Exception {'
               'Map<String,Object> result=new LinkedHashMap<>();' + invocations +
-              'System.out.println(new Gson().toJson(result)); }}')
+              'var tiers=new ArrayList<Object>();'
+              'for(var t:com.mmoserver.riftcore.fishing.FishingBagLoot.Tier.values())'
+              'tiers.add(Map.of("id",t.bagId(),"label",t.label(),"cost",t.fishCost,'
+              '"min",t.min,"max",t.max,"gemMax",t.gemMax,"count",t.materialCount()));'
+              'result.put("bags",tiers);System.out.println(new Gson().toJson(result)); }}')
     with tempfile.TemporaryDirectory(prefix='rift-discovery-') as scratch:
         helper = Path(scratch) / 'DiscoveryExport.java'
         helper.write_text(source, encoding='utf-8')
@@ -109,9 +114,12 @@ def build():
                 raise ValueError('Accepted entry inventory mismatch: ' + path)
             return json.loads(data)
 
-        definitions, locale = {}, {}
+        definitions, locale, role_assets, drop_assets = {}, {}, {}, {}
         for pack in (native, rift):
             for path in pack.namelist():
+                if path.endswith('.json') and path.startswith(('Server/NPC/Roles/', 'Server/Drops/')):
+                    target = role_assets if path.startswith('Server/NPC/Roles/') else drop_assets
+                    target[Path(path).stem] = json.loads(pack.read(path))
                 if path.startswith('Server/Item/Items/') and path.endswith('.json'):
                     try:
                         definitions[Path(path).stem] = json.loads(pack.read(path))
@@ -194,9 +202,10 @@ def build():
                         output[item]['name'] = entry.get('label') or output[item]['name']
 
         # GuideCatalogLoader.resources supplies these released gathering routes.
-        for ore, level in zip(('Copper', 'Tin', 'Iron', 'Adamantite', 'Mithril', 'Onyxium'), (1, 1, 10, 20, 30, 45)):
+        for ore, level, seconds in zip(('Copper', 'Tin', 'Iron', 'Adamantite', 'Mithril', 'Onyxium'), (1, 1, 10, 20, 30, 45), (30, 30, 30, 60, 150, 600)):
             add('Ore_' + ore, {'type': 'gathering', 'profession': 'MINING',
-                              'requiredLevel': level, 'method': 'Mine ore nodes with a pickaxe.'})
+                              'requiredLevel': level, 'respawnSeconds': seconds,
+                              'method': f'Mine ore nodes with a pickaxe. Default respawn: {seconds} seconds.'})
         add('Wood_Beech_Trunk', {'type': 'gathering', 'profession': 'FORAGING',
                                 'method': 'Chop gatherable beech trees with a hatchet.'})
         add('Ingredient_Tree_Sap', {'type': 'gathering', 'profession': 'FORAGING',
@@ -216,7 +225,7 @@ def build():
                     add(crop['seedItemId'], {'type': 'gathering', 'profession': 'FORAGING',
                                            'requiredLevel': brush['requiredLevel'],
                                            'requiredPerk': 'Seed Seeker',
-                                           'method': 'Gather ' + brush['displayName'] + '.',
+                                           'method': 'Gather ' + brush['displayName'] + ' for a chance of an extra seed with Seed Seeker.',
                                            'guaranteed': False})
         for crop in catalogs['farming']:
             if crop['seedItemId'] in output:
@@ -230,10 +239,29 @@ def build():
                 add(fish['itemId'], {'type': 'fishing', 'profession': 'FISHING',
                                      'method': fish['journalClue'], 'guaranteed': False,
                                      'rarity': fish['frequency'].lower()})
+                output[fish['itemId']]['rarity'] = fish['frequency'].lower()
+
+        add('Dead_Fish', {'type': 'fishing', 'profession': 'FISHING',
+                         'method': 'An occasional failed catch. Becomes less likely as Fishing improves; none at level 60.'})
+        bag_materials = {}
+        for material in catalogs['bagMaterials']:
+            levels = bag_materials.setdefault(material['itemId'], {})
+            levels[material['skill']] = min(material['level'], levels.get(material['skill'], material['level']))
+        for bag in catalogs['bags']:
+            fish = 'Dead Fish' if bag['label'] == 'Junk' else bag['label'] + ' fish'
+            add(bag['id'], {'type': 'exchange', 'merchant': 'Rak',
+                           'method': f'Trade {bag["cost"]} {fish} for one {bag["label"]} Bag.'})
+            for item, requirements in bag_materials.items():
+                gem = item.startswith('Rock_Gem_')
+                required = ' or '.join(f'{skill.title()} {level}' for skill, level in sorted(requirements.items()))
+                add(item, {'type': 'bag', 'bagId': bag['id'],
+                    'bagName': bag['label'] + ' Bag', 'requirements': requirements,
+                    'minimum': 1 if gem else bag['min'],
+                    'maximum': bag['gemMax'] if gem else bag['max'],
+                    'method': f'Can contain {1 if gem else bag["min"]}–{bag["gemMax"] if gem else bag["max"]}. Requires {required} when opening. Trade fish with Rak for this bag.'})
 
         handbook = accepted('guide/handbook.json')
         article_ids = {article['id'] for article in handbook['articles']}
-        drops = accepted('guide/creature-drops.json')
         quests = accepted('defaults/campaign/rift_haven_v2/quests/main.json')['quests']
         # A drop lookup alone proves no creature availability. Admit only exact
         # PLAYABLE V2 combat objectives, plus the authored current boar starter route.
@@ -251,12 +279,73 @@ def build():
                 roles.add('Boar')
             if any('25-ram' in b['text'].lower() for b in hunter['blocks']):
                 roles.add('Ram')
+        # Include the released map's leveled creatures, not every native NPC.
+        roles.update(Path(p).stem for p in rift.namelist() if p.startswith('Server/NPC/Roles/')
+                     and re.search(r'_Level_\d+\.json$', p)
+                     and not Path(p).stem.startswith(('Component_', 'Template_'))
+                     and '_Quest_' not in p)
+
+        def role_data(role, seen=frozenset()):
+            if role in seen or role not in role_assets:
+                return {}, {}
+            raw = role_assets[role]
+            settings, parameters = role_data(raw.get('Reference'), seen | {role})
+            parameters = {**parameters, **{k: v.get('Value') for k, v in raw.get('Parameters', {}).items()}}
+            return {**settings, **raw, **raw.get('Modify', {})}, parameters
+
+        def drop_items(node, chance=1.0, seen=frozenset()):
+            if not isinstance(node, dict):
+                return
+            if node.get('Type') == 'Single' and node.get('Item', {}).get('ItemId'):
+                yield node['Item'], chance
+            if node.get('Type') == 'Reference':
+                ref = node.get('DropListId') or node.get('DropList')
+                if ref in drop_assets and ref not in seen:
+                    yield from drop_items(drop_assets[ref].get('Container', {}), chance, seen | {ref})
+            children = node.get('Containers', [])
+            total = sum(c.get('Weight', 1) for c in children) if node.get('Type') == 'Choice' else 0
+            for child in children:
+                yield from drop_items(child, chance * child.get('Weight', 1) / total if total else chance, seen)
+
+        def creature_source(role):
+            base = re.sub(r'_Level_\d+$', '', role).removeprefix('RiftCore_').removeprefix('Overworld_')
+            level = re.search(r'_Level_(\d+)$', role)
+            return {'type': 'drop', 'creature': role,
+                    'creatureName': base.replace('_', ' ') + (f' (level {level[1]})' if level else '')}
+
         for role in sorted(roles):
-            base = re.sub(r'_Level_\d+$', '', role)
-            for item in drops.get(role, drops.get(base, [])):
-                add(item, {'type': 'drop', 'creature': role,
-                           'creatureName': base.removeprefix('RiftCore_').replace('_', ' '),
-                           'guaranteed': False})
+            if '_Quest_' in role:
+                continue
+            if any(re.fullmatch(re.escape(role) + r'_Level_\d+', other) for other in roles):
+                continue
+            settings, parameters = role_data(role)
+            drop = settings.get('DropList')
+            if isinstance(drop, dict):
+                drop = parameters.get(drop.get('Compute'))
+            # No stale guide lookup fallback: effective role/drop assets decide rewards.
+            rewards = {}
+            for reward, chance in drop_items(drop_assets.get(drop, {}).get('Container', {})):
+                item = reward['ItemId']
+                if item not in rewards:
+                    rewards[item] = [reward.get('QuantityMin', 1), reward.get('QuantityMax', 1), chance]
+                else:
+                    rewards[item][2] += chance
+            for item, (minimum, maximum, chance) in rewards.items():
+                add(item, {**creature_source(role), 'guaranteed': chance >= 0.999999,
+                           'method': f'{"Drops" if chance >= 0.999999 else "Can drop"} {minimum}–{maximum} {"per kill" if chance >= 0.999999 else "at a time"}.'})
+
+        for boss in accepted('variant-loot/wild-bosses.json')['bosses']:
+            source = creature_source(boss['role'])
+            for material in boss['materials']:
+                add(material['itemId'], {**source, 'guaranteed': False,
+                    'method': f'Can drop {material["minimum"]}–{material["maximum"]} in a material reward roll.'})
+            for gem in boss['gems']:
+                for tier in boss.get('gemTiers') or [{'value': ''}]:
+                    add(gem + tier['value'], {**source, 'guaranteed': False,
+                        'method': 'Every kill awards an extra stack of 1–3 gems, chosen from this boss’s gem pool. Existing reward rolls can award more.'})
+            if boss.get('bonusDrop'):
+                add(boss['bonusDrop']['itemId'], {**source, 'guaranteed': False,
+                    'method': f'Rare mount reward: 1 in {boss["bonusDrop"]["oneIn"]:,} kills.'})
 
         # Active released forge families are authoritative overrides, not every
         # native item's embedded recipe. Merge in the same order as the loader.
@@ -266,6 +355,9 @@ def build():
                      'defaults/content/druid_staff_recipes.json'):
             for recipe in accepted(path)['recipes']:
                 if visible(recipe):
+                    if recipe['outputId'] == 'Ingredient_Bolt_Cotton':
+                        recipe['inputs'] = [{'acceptedItemIds': ['Ingredient_Fibre', 'Ingredient_Fabric_Scrap_Cotton'], 'quantity': i['quantity']}
+                                            if i.get('itemId') == 'Ingredient_Fibre' else i for i in recipe['inputs']]
                     recipe_for(recipe['outputId'], {
                         'bench': recipe['benchId'], 'profession': recipe['skill'],
                         'requiredLevel': recipe['requiredLevel'],
@@ -302,6 +394,14 @@ def build():
         # Narrow processing coverage: released ore-to-bar recipes. Require a
         # known bar progression level and an exact furnace, never arbitrary assets.
         for item, raw in definitions.items():
+            leather = item.removeprefix('Ingredient_Leather_')
+            if item.startswith('Ingredient_Leather_') and leather in {'Soft','Light','Medium','Scaled','Dark','Storm','Heavy','Prismic'}:
+                recipe = raw.get('Recipe', {})
+                if any(b.get('Id') == 'Tannery' for b in recipe.get('BenchRequirement', [])):
+                    recipe_for(item, {'bench': 'Tannery', 'profession': 'LEATHERWORKING',
+                        'requiredLevel': {'Soft':1,'Light':12,'Medium':24,'Scaled':24,'Dark':36,'Storm':36,'Heavy':48,'Prismic':48}[leather],
+                        'quantity': recipe.get('OutputQuantity', 1),
+                        'inputs': [{'itemId': i['ItemId'], 'quantity': i.get('Quantity', 1)} for i in recipe.get('Input', [])]})
             metal = item.removeprefix('Ingredient_Bar_')
             if not item.startswith('Ingredient_Bar_') or metal not in BAR_LEVELS:
                 continue
@@ -355,7 +455,8 @@ def build():
                 if gear.get('armorType'):
                     entry['armorType'] = gear['armorType']
         for entry in output.values():
-            entry['sources'].sort(key=lambda s: (s['type'], s.get('shop', ''), s.get('creature', '')))
+            order = {'shop':0, 'gathering':1, 'farming':2, 'fishing':3, 'drop':4, 'exchange':5, 'bag':6, 'crafting':7}
+            entry['sources'].sort(key=lambda s: (order.get(s['type'], 9), s.get('shop', ''), s.get('creature', '')))
         for metal in ('Copper', 'Tin', 'Iron', 'Adamantite', 'Mithril', 'Onyxium'):
             if 'Ore_' + metal in output:
                 output['Ore_' + metal]['description'] = (f'Smelt this ore into {metal} bars at a furnace.'
@@ -367,7 +468,7 @@ def build():
               'coverage': {'items': len(output),
                            'recipeItems': sum(bool(e['recipes']) for e in output.values()),
                            'limitations': ['Live merchant stock and custom server overrides are not included.',
-                                           'Most creature drops and dynamic meal metadata variants are not yet exported.',
+                                           'Dynamic equipment rolls and meal metadata variants are not included.',
                                            'Recipes with unverified ingredient routes are excluded.']}}
     destination = SITE / 'assets/data/discovery-items.json'
     destination.write_text(json.dumps(result, ensure_ascii=False, separators=(',', ':')) + '\n',
