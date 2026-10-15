@@ -26,3 +26,8 @@
 .recipe-card summary{cursor:pointer;color:var(--gold);font-size:13px;line-height:1.8}.recipe-query{display:block;color:var(--muted);font-size:12px;margin:20px 0}.recipe-query .input{display:block;width:100%;margin-top:8px}.recipe-variant{border-top:1px solid var(--line);padding:17px 0}.recipe-variant summary{display:flex;justify-content:space-between;gap:16px}.recipe-variant summary span:last-child{font-size:11px;color:var(--muted)}.recipe-variant .recipe-inputs>div>span>a{display:inline-flex;margin:4px 4px 4px 0}.recipe-variant .recipe-inputs img{height:30px;width:30px}.recipe-card>[data-more-recipes]{margin-top:16px}[data-more-recipes][hidden]{display:none}
 
 .dungeon-card .dungeon-card-art{height:250px;background:radial-gradient(ellipse at 50% 75%,#795d3c66,transparent 70%),#0b1613}
+
+/* Visible category navigation puts creature drops first. */
+.npc-categories{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 24px}.npc-category{display:flex;align-items:center;gap:14px;padding:15px 21px;border:1px solid var(--line);background:#141e18;color:var(--muted)}.npc-category strong{font-size:13px}.npc-category span{font-size:11px;opacity:.8}.npc-category:hover,.npc-category.is-active{border-color:var(--gold);color:var(--gold);background:#24291b}.npc-filter{grid-template-columns:1fr auto}.npc-filter>input[type=hidden]{display:none}
+@media(max-width:760px){.npc-filter>label:first-child{grid-column:auto}.npc-category{padding:12px 14px;gap:9px}}
+@media(max-width:420px){.npc-categories{display:grid;grid-template-columns:1fr 1fr}.npc-category{justify-content:space-between}.npc-filter{grid-template-columns:1fr}.npc-filter .button{width:100%}}
