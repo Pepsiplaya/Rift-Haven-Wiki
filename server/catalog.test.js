@@ -3,6 +3,17 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 const catalog=require('../assets/data/discovery-items.json'),items=catalog.items,metadata=require('../assets/data/items.json');
 const drops=id=>items[id].sources.filter(s=>s.type==='drop').map(s=>s.creature);
 
+test('drop percentages describe receiving an item rather than summing repeated gem rolls',()=>{
+  const source=(item,role)=>items[item].sources.find(s=>s.creature===role);
+  assert.equal(source('Ingredient_Hide_Dark','RiftCore_Desert_Raptor_Level_25').dropChance,.5);
+  assert.equal(source('Ingredient_Life_Essence','RiftCore_Desert_Raptor_Level_25').dropChance,.25);
+  for(const item of ['Ingredient_Fabric_Scrap_Prismaloom','Ingredient_Hide_Heavy','Ore_Onyxium'])assert.equal(source(item,'Outlander_Priest_Level_22').dropChance,.15);
+  const noGemOfType=.9+.1*(6/7)*(.9+.1*(6/7)*(.9+.1*(6/7)));
+  assert.ok(Math.abs(source('Rock_Gem_Ruby','Outlander_Priest_Level_22').dropChance-(1-noGemOfType))<1e-9);
+  assert.deepEqual(catalog.creatures.Trork_Raider_Level_16.gemChain,{chance:.1,maximum:3,repeatChance:.1,twoOrMore:.01,three:.001});
+  for(const item of Object.values(items))for(const row of item.sources.filter(s=>s.type==='drop'))assert.ok(row.dropChance>0&&row.dropChance<=1);
+});
+
 test('seed pages include creature, brush and all six bag acquisition routes',()=>{
   for(const [id,creature] of [['RiftCore_Seed_Cotton','Cactee'],['RiftCore_Seed_Fire_Flower','Snapdragon']]){
     assert.ok(drops(id).includes(creature));

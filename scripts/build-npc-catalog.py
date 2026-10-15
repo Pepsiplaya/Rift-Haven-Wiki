@@ -16,7 +16,8 @@ def accepted(path):
 registry=accepted('defaults/campaign/rift_haven_v2/content/hycitizens/registry.json')['citizens']
 dialogs=accepted('defaults/campaign/rift_haven_v2/dialog/npcs/npcs.json')['npcs']
 lore=json.loads((site/'assets/data/citizen-lore.json').read_text(encoding='utf-8'))
-discovery=json.loads((site/'assets/data/discovery-items.json').read_text(encoding='utf-8'))['items']
+discovery_data=json.loads((site/'assets/data/discovery-items.json').read_text(encoding='utf-8'))
+discovery=discovery_data['items']
 slug=lambda value:re.sub('[^a-z0-9]+','-',value.lower()).strip('-')
 catalog={};portraits={};citizen_models={}
 for citizen in registry:
@@ -62,7 +63,7 @@ for role in sorted(map_roles):
     for item,d in discovery.items():
         for s in d['sources']:
             if s.get('creature')==role:
-                name=s['creatureName'];drops.append({'itemId':item,'description':s.get('method') or 'Can drop when defeated.'})
+                name=s['creatureName'];drops.append({'itemId':item,'description':s.get('method') or 'Can drop when defeated.', 'chance':s.get('dropChance')})
     level_match=re.search(r'_Level_(\d+)$',role)
     level=int(level_match[1]) if level_match else None;boss='_Boss_' in role
     fallback=re.sub(r'_Level_\d+$','',role).removeprefix('RiftCore_').removeprefix('Overworld_').replace('_',' ')
@@ -73,11 +74,12 @@ for role in sorted(map_roles):
     model=resolve_model(appearance)
     catalog[key]={'id':key,'name':name,'kind':'boss' if boss else 'creature','level':level,'region':region,
         'role':'Overworld boss' if boss else 'Overworld creature','drops':drops,'items':[],
-        'lore':f'{name} is '+(f'a level {level} ' if level else 'a ')+('overworld boss.' if boss else 'creature found in Rift Haven.')}
+        'lore':f'{name} is '+(f'a level {level} ' if level else 'a ')+('overworld boss.' if boss else 'creature found in Rift Haven.'),
+        'loot':discovery_data.get('creatures',{}).get(role,{})}
     if model.get('Model') and model.get('Texture'):portraits[key]={'model':model['Model'],'texture':model['Texture']}
     # Native model icons include the complete face, clothing and armor. The
     # standalone renderer cannot assemble these model attachment sets.
-    if role.startswith(('Outlander_', 'Trork_')) and model.get('Icon'):
+    if isinstance(appearance,str) and (appearance.startswith(('Outlander_', 'Trork_', 'Skeleton_')) or appearance=='Zombie') and model.get('Icon'):
         icon='Common/'+model['Icon']
         source=pack if icon in pack.namelist() else native
         if icon in source.namelist():portraits[key]={'nativeIcon':source.read(icon)}
@@ -116,6 +118,9 @@ for key,visual in portraits.items():
         if result.returncode or not png.exists():continue
         with Image.open(png) as image:image.save(target,lossless=True)
     catalog[key]['portrait']='npcs/'+key;rendered+=1
+for entry in catalog.values():
+    if entry.get('portrait'):
+        entry['portraitVersion']=hashlib.sha256((out/(entry['id']+'.webp')).read_bytes()).hexdigest()[:12]
 result={'releaseVersion':receipt['version'],'npcs':list(catalog.values())}
 (site/'assets/data/npcs.json').write_text(json.dumps(result,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
 print(json.dumps({'citizens':sum(n['kind']=='citizen' for n in catalog.values()),'creatures':sum(n['kind']!='citizen' for n in catalog.values()),'portraits':rendered}))

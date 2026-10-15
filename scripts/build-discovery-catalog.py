@@ -101,7 +101,7 @@ def build():
     inventory = json.loads((ROOT / receipt['acceptedInventory']).read_text(encoding='utf-8-sig'))
     catalogs = compiled_catalogs(jar_path, receipt, inventory)
     metadata = json.loads((SITE / 'assets/data/items.json').read_text(encoding='utf-8'))
-    output, candidates = {}, {}
+    output, candidates, creature_loot = {}, {}, {}
     def recipe_for(item, recipe):
         rows = candidates.setdefault(item, [])
         if recipe not in rows:
@@ -292,6 +292,46 @@ def build():
             return {'type': 'drop', 'creature': role,
                     'creatureName': base.replace('_', ' ') + (f' (level {level[1]})' if level else '')}
 
+        def drop_counts(node, matches, seen=frozenset()):
+            """Exact stack-count distribution; repeated/conditional gem rolls included."""
+            kind = node.get('Type')
+            if kind == 'Single':
+                return {int(matches(node.get('Item', {}).get('ItemId', ''))): 1.0}
+            if kind == 'Reference':
+                ref = node.get('DropListId') or node.get('DropList')
+                if ref in drop_assets and ref not in seen:
+                    return drop_counts(drop_assets[ref].get('Container', {}), matches, seen | {ref})
+                return {0: 1.0}
+            children = node.get('Containers', [])
+            if not children:
+                return {0: 1.0}
+            if kind == 'Choice':
+                total = sum(c.get('Weight', 1) for c in children)
+                result = {}
+                for child in children:
+                    for count, chance in drop_counts(child, matches, seen).items():
+                        result[count] = result.get(count, 0) + chance * child.get('Weight', 1) / total
+                return result
+            result = {0: 1.0}
+            for child in children:
+                combined = {}
+                for a, p in result.items():
+                    for b, q in drop_counts(child, matches, seen).items():
+                        combined[a+b] = combined.get(a+b, 0) + p*q
+                result = combined
+            return result
+
+        def amount(minimum, maximum):
+            return str(minimum) if minimum == maximum else f'{minimum}\u2013{maximum}'
+
+        def shared_bundles(node, chance=1.0):
+            children = node.get('Containers', [])
+            if node.get('Type') == 'Multiple' and len(children)>1 and chance<1 and all(c.get('Type')=='Single' for c in children):
+                yield {'chance':round(chance,10),'items':[c['Item']['ItemId'] for c in children]}
+            total = sum(c.get('Weight',1) for c in children) if node.get('Type')=='Choice' else 0
+            for child in children:
+                yield from shared_bundles(child,chance*child.get('Weight',1)/total if total else chance)
+
         for role in sorted(roles):
             if '_Quest_' in role:
                 continue
@@ -301,6 +341,14 @@ def build():
             drop = settings.get('DropList')
             if isinstance(drop, dict):
                 drop = parameters.get(drop.get('Compute'))
+            container = drop_assets.get(drop, {}).get('Container', {})
+            gems = drop_counts(container, lambda item: item.startswith('Rock_Gem_'))
+            if max(gems) == 3 and abs(1-gems.get(0, 0)-.1) < 1e-8:
+                creature_loot[role] = {'gemChain': {'chance': .1, 'maximum': 3,
+                    'repeatChance': .1, 'twoOrMore': .01, 'three': .001}}
+            bundles=list(shared_bundles(container))
+            if bundles:
+                creature_loot.setdefault(role,{})['bundles']=bundles
             # No stale guide lookup fallback: effective role/drop assets decide rewards.
             rewards = {}
             for reward, chance in drop_items(drop_assets.get(drop, {}).get('Container', {})):
@@ -308,24 +356,39 @@ def build():
                 if item not in rewards:
                     rewards[item] = [reward.get('QuantityMin', 1), reward.get('QuantityMax', 1), chance]
                 else:
+                    rewards[item][0] = min(rewards[item][0], reward.get('QuantityMin', 1))
+                    rewards[item][1] = max(rewards[item][1], reward.get('QuantityMax', 1))
                     rewards[item][2] += chance
             for item, (minimum, maximum, chance) in rewards.items():
+                chance = 1-drop_counts(container, lambda value: value == item).get(0, 0)
                 add(item, {**creature_source(role), 'guaranteed': chance >= 0.999999,
-                           'method': f'{"Drops" if chance >= 0.999999 else "Can drop"} {minimum}–{maximum} {"per kill" if chance >= 0.999999 else "at a time"}.'})
+                           'dropChance': round(chance, 10),
+                           'method': f'{"Drops" if chance >= 0.999999 else "Can drop"} {amount(minimum,maximum)} {"per kill" if chance >= 0.999999 else "at a time"}.'})
 
-        for boss in accepted('variant-loot/wild-bosses.json')['bosses']:
+        boss_loot = accepted('variant-loot/wild-bosses.json')
+        for boss in boss_loot['bosses']:
             if boss['role'] not in roles:
                 continue
             source = creature_source(boss['role'])
+            categories = boss.get('categories') or boss_loot['categories']
+            weights = {c['value']: c['weight']/sum(v['weight'] for v in categories) for c in categories}
+            rolls = boss_loot['rollsPerKill']
+            creature_loot[boss['role']] = {'guaranteedGems': True}
             for material in boss['materials']:
+                single = weights.get('material',0)*material['weight']/sum(m['weight'] for m in boss['materials'])
                 add(material['itemId'], {**source, 'guaranteed': False,
-                    'method': f'Can drop {material["minimum"]}–{material["maximum"]} in a material reward roll.'})
+                    'dropChance': round(1-(1-single)**rolls,10),
+                    'method': f'Can drop {amount(material["minimum"],material["maximum"])} in a material reward roll.'})
             for gem in boss['gems']:
-                for tier in boss.get('gemTiers') or [{'value': ''}]:
+                tiers = boss.get('gemTiers') or [{'value': '', 'weight':1}]
+                for tier in tiers:
+                    single = tier['weight']/sum(t['weight'] for t in tiers)/len(boss['gems'])
                     add(gem + tier['value'], {**source, 'guaranteed': False,
+                        'dropChance': round(1-(1-single)*(1-weights.get('gem',0)*single)**rolls,10),
                         'method': 'Every kill awards an extra stack of 1–3 gems, chosen from this boss’s gem pool. Existing reward rolls can award more.'})
             if boss.get('bonusDrop'):
                 add(boss['bonusDrop']['itemId'], {**source, 'guaranteed': False,
+                    'dropChance': 1/boss['bonusDrop']['oneIn'],
                     'method': f'Rare mount reward: 1 in {boss["bonusDrop"]["oneIn"]:,} kills.'})
 
         # Active released forge families are authoritative overrides, not every
@@ -445,7 +508,7 @@ def build():
 
     result = {'schemaVersion': 1, 'releaseVersion': receipt['version'],
               'snapshotKind': 'accepted-release-defaults',
-              'items': dict(sorted(output.items())),
+              'items': dict(sorted(output.items())), 'creatures': creature_loot,
               'coverage': {'items': len(output),
                            'recipeItems': sum(bool(e['recipes']) for e in output.values()),
                            'limitations': ['Live merchant stock and custom server overrides are not included.',

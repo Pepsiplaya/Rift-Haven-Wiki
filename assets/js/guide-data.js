@@ -2,7 +2,7 @@
   let pending;
   const retired=new Set(['item:Ore_Thorium','item:Ore_Cobalt','item:Ingredient_Bar_Thorium','item:Ingredient_Bar_Cobalt','item:Ingredient_Ore_Thorium','item:Ingredient_Ore_Cobalt']);
   function currentMaterials(guide){const levels={'item:Ore_Copper':1,'item:Ore_Tin':1,'item:Ore_Iron':10,'item:Ore_Adamantite':20,'item:Ore_Mithril':30,'item:Ore_Onyxium':45};guide.articles=guide.articles.filter(a=>!retired.has(a.id));for(const a of guide.articles){a.links=(a.links||[]).filter(id=>!retired.has(id));a.blocks=(a.blocks||[]).filter(b=>!retired.has(b.link));for(const b of a.blocks){const level=levels[a.id]??levels[b.link];if(level!=null)b.text=String(b.text||'').replace(/Mining (?:level )?\d+/g,'Mining '+level);}}return guide;}
-  async function json(url){const response=await fetch(url,{signal:AbortSignal.timeout(10000)});if(!response.ok)throw new Error('Guide unavailable');return response.json();}
+  async function json(url){const response=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(10000)});if(!response.ok)throw new Error('Guide unavailable');return response.json();}
   window.RiftGuideData={load:()=>pending??=Promise.all([
     json('/assets/data/guide.json').catch(()=>null),
     json(window.RIFT_CONFIG.apiBase+'/guide').catch(()=>null),
