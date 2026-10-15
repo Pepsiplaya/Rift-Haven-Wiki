@@ -4,7 +4,12 @@ import hashlib,re,shutil
 
 root=Path(__file__).resolve().parents[1]
 target=root/'_site'
-target.mkdir(exist_ok=True)
+# Never let removed assets survive into a later public deployment.
+if target.resolve()!=root/'_site':
+    raise RuntimeError('Public output must be the local _site directory')
+if target.exists():
+    shutil.rmtree(target)
+target.mkdir()
 shutil.copytree(root/'assets',target/'assets',dirs_exist_ok=True)
 html=(root/'index.html').read_text(encoding='utf-8')
 def version_asset(match):
