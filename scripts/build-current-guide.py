@@ -19,6 +19,43 @@ with ZipFile(jar) as pack:
     guide = json.loads(raw)
 catalog = json.loads((site / 'assets/data/discovery-items.json').read_text(encoding='utf-8'))
 items = catalog['items']
+
+# The public site describes the default player group's available commands.
+# Public requireNoPermission() commands remain valid without LuckPerms nodes.
+# Shop/HUD/duel shortcuts require nodes absent from Bailey's player group;
+# use merchant dialogue and Settings instead. Prefer the explicitly granted
+# native /spawn over /stuck's separate native Adventure permission group.
+for article in guide['articles']:
+    if article['id'] == 'commands':
+        blocks = []
+        skip = False
+        for block in article['blocks']:
+            if block.get('heading'):
+                skip = block['text'] in ('/shop', '/hud on', '/duel')
+            if not skip:
+                blocks.append(block)
+        article['blocks'] = blocks
+    if article['id'] == 'pvp':
+        article['title'] = 'Arena combat'
+        article['summary'] = 'Join arena combat.'
+        article['keywords'] = 'pvp arena combat'
+        article['blocks'] = [
+            {'heading': True, 'text': 'Arena combat'},
+            {'text': 'Use /arena to open the arena menu and /arena leave to leave. '
+                     'The normal downed-state rescue window does not apply inside the arena.'}
+        ]
+    for block in article['blocks']:
+        text = block['text']
+        if text.startswith('Open /shop and browse'):
+            text = ('Talk to a merchant and choose Browse the shop. Select an item, '
+                    'check the quantity and total cost, and confirm the purchase. '
+                    'Keep room in your inventory for what you buy.')
+        text = text.replace('from Rak Kantor or the Fishing section of /shop',
+                            'from Rak Kantor through his shop dialogue')
+        text = text.replace(' or use /hud on', '')
+        text = text.replace('/stuck', '/spawn')
+        block['text'] = text
+
 for article in guide['articles']:
     if article['id'] == 'mining':
         for block in article['blocks']:
