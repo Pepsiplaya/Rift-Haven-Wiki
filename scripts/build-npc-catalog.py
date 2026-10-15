@@ -3,6 +3,7 @@ from pathlib import Path
 from zipfile import ZipFile
 import hashlib,json,re,subprocess,sys
 from PIL import Image
+from io import BytesIO
 
 root=Path(__file__).resolve().parents[2];site=root/'Website'
 receipt=json.loads((root/'Plugin Source/deployment/current-release.json').read_text(encoding='utf-8-sig'))
@@ -52,8 +53,8 @@ def resolve_model(model,seen=frozenset()):
 for key,model_id in citizen_models.items():
     model=resolve_model(model_id)
     if model.get('Model') and model.get('Texture'):portraits[key]={'model':model['Model'],'texture':model['Texture']}
-map_roles={Path(path).stem for path in pack.namelist() if path.startswith('Server/NPC/Roles/') and re.search(r'_Level_\d+\.json$',path)}
-map_roles.update(s['creature'] for item in discovery.values() for s in item['sources'] if s['type']=='drop')
+map_roles=set(json.loads((site/'assets/data/map-npc-roles.json').read_text(encoding='utf-8')))
+assert map_roles <= roles.keys(), 'Placed role missing from accepted/native assets'
 for role in sorted(map_roles):
     if role.startswith(('Template_','Component_')) or '_Quest_' in role:continue
     key='creature-'+role
@@ -74,6 +75,12 @@ for role in sorted(map_roles):
         'role':'Overworld boss' if boss else 'Overworld creature','drops':drops,'items':[],
         'lore':f'{name} is '+(f'a level {level} ' if level else 'a ')+('overworld boss.' if boss else 'creature found in Rift Haven.')}
     if model.get('Model') and model.get('Texture'):portraits[key]={'model':model['Model'],'texture':model['Texture']}
+    # Native model icons include the complete face, clothing and armor. The
+    # standalone renderer cannot assemble these model attachment sets.
+    if role.startswith(('Outlander_', 'Trork_')) and model.get('Icon'):
+        icon='Common/'+model['Icon']
+        source=pack if icon in pack.namelist() else native
+        if icon in source.namelist():portraits[key]={'nativeIcon':source.read(icon)}
 
 stage=site/'.local/npc-render';stage.mkdir(parents=True,exist_ok=True)
 renderer=root/'.runtime/avatar-renderer';out=site/'assets/images/npcs';out.mkdir(parents=True,exist_ok=True)
@@ -89,6 +96,15 @@ def materialize(path):
 rendered=0
 for key,visual in portraits.items():
     target=out/(key+'.webp');png=stage/(key+'.png')
+    if 'nativeIcon' in visual:
+        with Image.open(BytesIO(visual['nativeIcon'])) as image:
+            image=image.convert('RGBA');image=image.crop(image.getbbox())
+            scale=min(340/image.width,350/image.height)
+            image=image.resize((round(image.width*scale),round(image.height*scale)),Image.Resampling.NEAREST)
+            canvas=Image.new('RGBA',(384,384));canvas.alpha_composite(image,((384-image.width)//2,384-image.height-12))
+            canvas.save(target,lossless=True)
+        catalog[key]['portrait']='npcs/'+key;rendered+=1
+        continue
     if not target.exists() or ('--refresh-creatures' in sys.argv and key.startswith('creature-')):
         command=[str(renderer/'tools/blockyrender.exe'),'-view','full-body' if 'model' in visual else 'bust','-size','384','-rotation','12','-light','-threads','2','-o',str(png)]
         if 'model' in visual:

@@ -9,19 +9,22 @@ test('guild detail shows only public characters and basic guild information',asy
   assert.ok(!JSON.stringify(guild).includes('PRIVATE'));assert.ok(!JSON.stringify(guild).includes('9999'));
   await assert.rejects(()=>publicApi(new URL('https://example.test/api/guilds/Missing'),data),e=>e.status===404);
 });
-test('NPC directory contains Rift Haven citizens and only authored overworld role families',()=>{
+test('NPC directory contains Haven citizens and only creatures placed on the map',()=>{
   const rows=require('../assets/data/npcs.json').npcs,items=require('../assets/data/discovery-items.json').items;
   assert.equal(rows.filter(n=>n.kind==='citizen').length,44);assert.equal(new Set(rows.map(n=>n.id)).size,rows.length);
   assert.ok(rows.some(n=>n.name==='Margaret Quill'&&n.lore.includes('tavern')));
   assert.ok(rows.some(n=>n.name==='Rowan Mossvale'));assert.equal(rows.filter(n=>n.name==='Tobias Watterson').length,1);
   for(const row of rows){
     for(const key of ['position','npcId','hyCitizenId','cached-skin','commands','pages'])assert.ok(!Object.hasOwn(row,key));
-    if(row.kind!=='citizen'&&!['creature-Zombie','creature-Scarak_Seeker'].includes(row.id))assert.match(row.id,/_Level_\d+$/);
     assert.ok(!row.id.includes('_Quest_'));
     for(const reward of row.drops)assert.ok(items[reward.itemId]);
     for(const item of row.items)assert.ok(items[item]);
     assert.ok(fs.existsSync(path.join(__dirname,'../assets/images',row.portrait+'.webp')));
   }
+  const placed=new Set(require('../assets/data/map-npc-roles.json'));
+  assert.equal(rows.filter(n=>n.kind!=='citizen').length,placed.size);
+  for(const row of rows.filter(n=>n.kind!=='citizen'))assert.ok(placed.has(row.id.replace('creature-','')));
+  assert.ok(!rows.some(n=>/Crawler_Void|Eye_Void|Larva_Void|Spawn_Void|Spectre_Void/.test(n.id)));
   const ids=new Set(rows.map(n=>n.id));
   for(const item of Object.values(items))for(const source of item.sources)
     if(source.type==='drop')assert.ok(ids.has('creature-'+source.creature),'Missing drop NPC: '+source.creature);

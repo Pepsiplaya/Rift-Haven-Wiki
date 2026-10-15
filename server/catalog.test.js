@@ -4,7 +4,7 @@ const catalog=require('../assets/data/discovery-items.json'),items=catalog.items
 const drops=id=>items[id].sources.filter(s=>s.type==='drop').map(s=>s.creature);
 
 test('seed pages include creature, brush and all six bag acquisition routes',()=>{
-  for(const [id,creature] of [['RiftCore_Seed_Cotton','Cactee_Level_16'],['RiftCore_Seed_Fire_Flower','Snapdragon_Level_17']]){
+  for(const [id,creature] of [['RiftCore_Seed_Cotton','Cactee'],['RiftCore_Seed_Fire_Flower','Snapdragon']]){
     assert.ok(drops(id).includes(creature));
     assert.ok(items[id].sources.some(s=>s.type==='gathering'&&s.requiredPerk==='Seed Seeker'));
     const bags=items[id].sources.filter(s=>s.type==='bag');assert.equal(bags.length,6);

@@ -260,30 +260,9 @@ def build():
                     'maximum': bag['gemMax'] if gem else bag['max'],
                     'method': f'Can contain {1 if gem else bag["min"]}–{bag["gemMax"] if gem else bag["max"]}. Requires {required} when opening. Trade fish with Rak for this bag.'})
 
-        handbook = accepted('guide/handbook.json')
-        article_ids = {article['id'] for article in handbook['articles']}
-        quests = accepted('defaults/campaign/rift_haven_v2/quests/main.json')['quests']
-        # A drop lookup alone proves no creature availability. Admit only exact
-        # PLAYABLE V2 combat objectives, plus the authored current boar starter route.
-        roles = set()
-        for quest in quests:
-            if quest.get('releaseState') != 'PLAYABLE':
-                continue
-            for stage in quest.get('stages', []):
-                for objective in stage.get('objectives', []):
-                    if objective.get('type') == 'KILL':
-                        roles.update(objective.get('target', '').split('|'))
-        if 'hunter' in article_ids:
-            hunter = next(a for a in handbook['articles'] if a['id'] == 'hunter')
-            if any('boar' in b['text'].lower() for b in hunter['blocks']):
-                roles.add('Boar')
-            if any('25-ram' in b['text'].lower() for b in hunter['blocks']):
-                roles.add('Ram')
-        # Include the released map's leveled creatures, not every native NPC.
-        roles.update(Path(p).stem for p in rift.namelist() if p.startswith('Server/NPC/Roles/')
-                     and re.search(r'_Level_\d+\.json$', p)
-                     and not Path(p).stem.startswith(('Component_', 'Template_'))
-                     and '_Quest_' not in p)
+        # Only exact roles from the dedicated map's current placement export.
+        roles=set(json.loads((SITE/'assets/data/map-npc-roles.json').read_text(encoding='utf-8')))
+        assert roles <= role_assets.keys(), 'Placed role missing from accepted/native assets'
 
         def role_data(role, seen=frozenset()):
             if role in seen or role not in role_assets:
@@ -335,6 +314,8 @@ def build():
                            'method': f'{"Drops" if chance >= 0.999999 else "Can drop"} {minimum}–{maximum} {"per kill" if chance >= 0.999999 else "at a time"}.'})
 
         for boss in accepted('variant-loot/wild-bosses.json')['bosses']:
+            if boss['role'] not in roles:
+                continue
             source = creature_source(boss['role'])
             for material in boss['materials']:
                 add(material['itemId'], {**source, 'guaranteed': False,
