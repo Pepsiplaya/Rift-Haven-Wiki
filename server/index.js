@@ -2,7 +2,7 @@
 const http=require('node:http');const fs=require('node:fs/promises');const path=require('node:path');const {createDatabase}=require('./database');const {PublicData}=require('./public-data');const {publicApi}=require('./routes');
 const root=path.resolve(__dirname,'..'),host=process.env.HOST||'127.0.0.1',port=Number(process.env.PORT)||8092;
 const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.webp':'image/webp','.png':'image/png','.svg':'image/svg+xml'};
-const allowedPage=/^\/(?:home|profiles|profile\/[^/]+|market(?:\/history)?|items(?:\/[^/]+)?|status|start|guilds|rankings|dungeons(?:\/[^/]+)?|guide(?:\/[^/]+)?|news(?:\/[^/]+)?)\/?$/;
+const allowedPage=/^\/(?:home|profiles|profile\/[^/]+|market(?:\/history)?|items(?:\/[^/]+)?|status|start|guilds(?:\/[^/]+)?|npcs(?:\/[^/]+)?|rankings|dungeons(?:\/[^/]+)?|guide(?:\/[^/]+)?|news(?:\/[^/]+)?)\/?$/;
 let db,data;const rateLimits=new Map();
 function limited(key){const now=Date.now();let bucket=rateLimits.get(key);if(!bucket||bucket.until<now){bucket={until:now+60000,count:0};rateLimits.set(key,bucket);}if(rateLimits.size>10000)for(const [k,v]of rateLimits)if(v.until<now)rateLimits.delete(k);return ++bucket.count>120;}
 function json(response,status,body){response.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':status===200?'public, max-age=15':'no-store','X-Content-Type-Options':'nosniff'});response.end(JSON.stringify(body));}

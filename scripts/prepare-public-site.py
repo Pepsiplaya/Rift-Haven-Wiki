@@ -15,7 +15,7 @@ html=re.sub(r'((?:src|href)=")(/assets/[^"?]+\.(?:js|css))(\")',version_asset,ht
 (target/'index.html').write_text(html,encoding='utf-8')
 # Fixed portal entry points need no 404 redirect. Dynamic player/article paths
 # still restore their original route through the small GitHub Pages fallback.
-for route in ['start','status','home','profiles','items','market','market/history','guilds','rankings','dungeons','guide','news']:
+for route in ['npcs','status','home','profiles','items','market','market/history','guilds','rankings','dungeons','guide','news']:
     folder=target/route;folder.mkdir(parents=True,exist_ok=True)
     (folder/'index.html').write_text(html,encoding='utf-8')
 version=hashlib.sha256(html.encode()).hexdigest()[:16]

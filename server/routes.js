@@ -8,6 +8,7 @@ async function publicApi(url,data){
   if(path[0]==='players'&&path.length===2){const profile=await data.profile(path[1]);if(!profile){const error=new Error('Character not found');error.status=404;throw error;}return profile;}
   if(path[0]==='market'&&path.length===1)return data.market(params);
   if(path[0]==='guilds'&&path.length===1)return data.guilds(params);
+  if(path[0]==='guilds'&&path.length===2){const guild=await data.guild(path[1]);if(!guild){const error=new Error('Guild not found');error.status=404;throw error;}return guild;}
   if(path[0]==='rankings'&&path.length===1)return data.rankings(params);
   if(path[0]==='dungeons'&&path.length===1)return data.dungeons();
   const error=new Error('Not found');error.status=404;throw error;

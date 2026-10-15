@@ -60,6 +60,13 @@ class SnapshotData{
   }
   async profile(name){const matches=this.records.filter(p=>p.name.toLowerCase()===String(name).toLowerCase());return matches.length===1?matches[0]:null;}
   async guilds({q=''}={}){return {guilds:this.guildRecords.filter(g=>g.name.toLowerCase().includes(text(q,64).toLowerCase())).sort((a,b)=>b.memberCount-a.memberCount)};}
+  async guild(name){
+    const guild=this.guildRecords.find(g=>g.name.toLowerCase()===text(name,64).toLowerCase());
+    if(!guild)return null;
+    const members=this.records.filter(p=>p.guild?.name?.toLowerCase()===guild.name.toLowerCase())
+      .map(({name,mainClass,level,avatar})=>({name,mainClass,level,avatar})).sort((a,b)=>a.name.localeCompare(b.name));
+    return {name:guild.name,info:guild.info,createdAt:guild.createdAt,memberCount:guild.memberCount,members};
+  }
   async dungeons(){return {dungeons:this.dungeonRecords.length?this.dungeonRecords:dungeonCatalog.map(d=>({...d,native:d.preserveNativeEncounters===true,playerClears:null,bestTimeMs:null}))};}
   async market({q='',rarity='',sort='newest',page=1,limit=20}={}){
     const now=Date.now(),needle=text(q,64).toLowerCase();const rows=this.listings.filter(l=>(!l.expiresAt||l.expiresAt>now)&&(!rarity||l.rarity===rarity)&&(!needle||(l.name+' '+l.seller).toLowerCase().includes(needle)));

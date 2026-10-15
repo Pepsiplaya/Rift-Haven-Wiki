@@ -22,6 +22,7 @@
   <script defer src="/assets/js/player-tools.js"></script>
   <script defer src="/assets/js/site-search.js"></script>
   <script defer src="/assets/js/world-tools.js"></script>
+  <script defer src="/assets/js/npcs.js"></script>
   <script defer src="/assets/js/app.js"></script>
 </head>
 <body>
@@ -31,7 +32,7 @@
     <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="main-nav">☰</button>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">
       <a href="/home" data-route>Community</a>
-      <div class="nav-game"><button aria-expanded="false" aria-controls="game-menu">The game <span aria-hidden="true">⌄</span></button><div id="game-menu" class="game-menu" hidden><a href="/start" data-route>Start your adventure</a><a href="/items" data-route>Item compendium</a><a href="/status" data-route>Who is online</a><a href="/profiles" data-route>Player profiles</a><a href="/guilds" data-route>Guilds</a><a href="/dungeons" data-route>Dungeons</a><a href="/rankings" data-route>Rankings</a><a href="/guide" data-route>Player guide</a></div></div>
+      <div class="nav-game"><button aria-expanded="false" aria-controls="game-menu">Explore <span aria-hidden="true">&#8964;</span></button><div id="game-menu" class="game-menu" hidden><span class="nav-menu-label">The world</span><a href="/items" data-route>Items</a><a href="/npcs" data-route>NPCs</a><a href="/dungeons" data-route>Dungeons</a><a href="/guide" data-route>Player guide</a><span class="nav-menu-label">The community</span><a href="/status" data-route>Who is online</a><a href="/profiles" data-route>Players</a><a href="/guilds" data-route>Guilds</a><a href="/rankings" data-route>Rankings</a></div></div>
       <a href="/market" data-route>Market</a><a href="/news" data-route>News</a>
       <a href="https://discord.gg/RiftHaven" target="_blank" rel="noopener noreferrer" class="nav-discord">Discord <span aria-hidden="true">↗</span></a>
     </nav>
@@ -40,7 +41,7 @@
   </header>
   <main id="main" tabindex="-1"></main>
   <footer class="site-footer">
-    <div class="footer-top"><div><a href="/" data-route class="brand"><img src="/assets/images/emblem.webp" width="44" height="44" alt=""><span>Rift Haven</span></a><p>A world to explore.<br>A place to call home.</p></div><div><h2>Explore</h2><a href="/profiles" data-route>Player profiles</a><a href="/market" data-route>Auction house</a><a href="/guide" data-route>Player guide</a></div><div><h2>Community</h2><a href="/guilds" data-route>Guilds</a><a href="/rankings" data-route>Rankings</a><a href="/news" data-route>News</a><a href="https://discord.gg/RiftHaven" target="_blank" rel="noopener noreferrer">Discord ↗</a></div><div class="footer-join"><h2>Your next adventure</h2><button class="server-address" data-copy-server><span>Play.Rift-Haven.com</span><span aria-hidden="true">⧉</span></button><small>Click to copy the server address.</small></div></div>
+    <div class="footer-top"><div><a href="/" data-route class="brand"><img src="/assets/images/emblem.webp" width="44" height="44" alt=""><span>Rift Haven</span></a><p>A world to explore.<br>A place to call home.</p></div><div><h2>Explore</h2><a href="/items" data-route>Items</a><a href="/npcs" data-route>NPCs</a><a href="/dungeons" data-route>Dungeons</a><a href="/market" data-route>Auction house</a><a href="/guide" data-route>Player guide</a></div><div><h2>Community</h2><a href="/guilds" data-route>Guilds</a><a href="/rankings" data-route>Rankings</a><a href="/news" data-route>News</a><a href="https://discord.gg/RiftHaven" target="_blank" rel="noopener noreferrer">Discord ↗</a></div><div class="footer-join"><h2>Your next adventure</h2><button class="server-address" data-copy-server><span>Play.Rift-Haven.com</span><span aria-hidden="true">⧉</span></button><small>Click to copy the server address.</small></div></div>
     <div class="footer-bottom"><span>© <span id="year">2026</span> Rift Haven</span><span>An independent Hytale server. Not affiliated with Hypixel Studios.</span><a href="#main" class="back-top" aria-label="Back to top">↑</a></div>
   </footer>
   <div class="toast" role="status" aria-live="polite" id="toast"></div>

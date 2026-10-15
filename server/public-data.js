@@ -77,6 +77,18 @@ class PublicData {
     const size=Math.min(100,Math.max(1,Number(limit)||20)),current=Math.min(500,Math.max(1,Number(page)||1));return {listings:listings.slice((current-1)*size,current*size),total:listings.length,page:current,updatedAt:new Date(now).toISOString()};
   }
   async guilds({q=''}={}){const rows=await this.query(`SELECT id,data_json FROM ${this.table('guilds')} WHERE JSON_VALID(data_json) ORDER BY updated_at DESC LIMIT 1000`);const needle=text(q,64).toLowerCase();return {guilds:rows.map(guildProjection).filter(g=>g&&(!needle||g.name.toLowerCase().includes(needle))).sort((a,b)=>b.memberCount-a.memberCount||a.name.localeCompare(b.name))};}
+  async guild(name){
+    const rows=await this.query(`SELECT id,data_json FROM ${this.table('guilds')} WHERE JSON_VALID(data_json) LIMIT 1000`);
+    const row=rows.find(r=>guildProjection(r)?.name.toLowerCase()===text(name,64).toLowerCase());
+    if(!row)return null;
+    const ids=Object.keys(parse(row.data_json).members||{}).slice(0,1000);
+    const members=[];
+    for(let at=0;at<ids.length;at+=100){const batch=ids.slice(at,at+100);
+      const visible=await this.query(`SELECT name,main_class,level FROM (${this.characterSql(false)}) visible WHERE character_id IN (${batch.map(()=>'?').join(',')})`,batch);
+      members.push(...visible.map(p=>({name:text(p.name,64),mainClass:text(p.main_class,64)||null,level:Number(p.level)||0,avatar:null})));
+    }
+    return {...guildProjection(row),members:members.sort((a,b)=>a.name.localeCompare(b.name))};
+  }
   async rankings({metric='wealth'}={}){
     const source=this.characterSql(true);let rows;
     if(metric==='wealth'||metric==='level'){const field=metric==='wealth'?'balance':'level';rows=await this.query(`SELECT name,${field} AS score FROM (${source}) visible WHERE ${field}>0 ORDER BY ${field} DESC,name LIMIT 100`);}
