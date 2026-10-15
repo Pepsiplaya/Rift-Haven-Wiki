@@ -16,12 +16,15 @@ test('NPC directory contains Rift Haven citizens and only authored overworld rol
   assert.ok(rows.some(n=>n.name==='Rowan Mossvale'));assert.equal(rows.filter(n=>n.name==='Tobias Watterson').length,1);
   for(const row of rows){
     for(const key of ['position','npcId','hyCitizenId','cached-skin','commands','pages'])assert.ok(!Object.hasOwn(row,key));
-    if(row.kind!=='citizen')assert.match(row.id,/_Level_\d+$/);
+    if(row.kind!=='citizen'&&!['creature-Zombie','creature-Scarak_Seeker'].includes(row.id))assert.match(row.id,/_Level_\d+$/);
     assert.ok(!row.id.includes('_Quest_'));
     for(const reward of row.drops)assert.ok(items[reward.itemId]);
     for(const item of row.items)assert.ok(items[item]);
     assert.ok(fs.existsSync(path.join(__dirname,'../assets/images',row.portrait+'.webp')));
   }
+  const ids=new Set(rows.map(n=>n.id));
+  for(const item of Object.values(items))for(const source of item.sources)
+    if(source.type==='drop')assert.ok(ids.has('creature-'+source.creature),'Missing drop NPC: '+source.creature);
 });
 test('dungeons have distinct native encounter previews instead of a generic chest',()=>{
   const art=require('../assets/data/dungeon-art.json');assert.equal(Object.keys(art).length,6);

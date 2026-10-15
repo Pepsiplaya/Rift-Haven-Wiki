@@ -52,9 +52,9 @@ def resolve_model(model,seen=frozenset()):
 for key,model_id in citizen_models.items():
     model=resolve_model(model_id)
     if model.get('Model') and model.get('Texture'):portraits[key]={'model':model['Model'],'texture':model['Texture']}
-for path in pack.namelist():
-    role=Path(path).stem
-    if not path.startswith('Server/NPC/Roles/') or not re.search(r'_Level_\d+\.json$',path):continue
+map_roles={Path(path).stem for path in pack.namelist() if path.startswith('Server/NPC/Roles/') and re.search(r'_Level_\d+\.json$',path)}
+map_roles.update(s['creature'] for item in discovery.values() for s in item['sources'] if s['type']=='drop')
+for role in sorted(map_roles):
     if role.startswith(('Template_','Component_')) or '_Quest_' in role:continue
     key='creature-'+role
     drops=[];name=None
@@ -62,7 +62,8 @@ for path in pack.namelist():
         for s in d['sources']:
             if s.get('creature')==role:
                 name=s['creatureName'];drops.append({'itemId':item,'description':s.get('method') or 'Can drop when defeated.'})
-    level=int(re.search(r'_Level_(\d+)$',role)[1]);boss='_Boss_' in role
+    level_match=re.search(r'_Level_(\d+)$',role)
+    level=int(level_match[1]) if level_match else None;boss='_Boss_' in role
     fallback=re.sub(r'_Level_\d+$','',role).removeprefix('RiftCore_').removeprefix('Overworld_').replace('_',' ')
     name=re.sub(r' \(level \d+\)$','',name or fallback)
     region='Desert' if any(s in role for s in ['Desert_','Pyramid_','Cactee','Scorpion','Snapdragon','Overworld_Scarak']) else 'Crypt' if 'Crypt_' in role else 'Outlander territory' if 'Outlander_' in role else 'Trork territory' if 'Trork_' in role else None
@@ -71,7 +72,7 @@ for path in pack.namelist():
     model=resolve_model(appearance)
     catalog[key]={'id':key,'name':name,'kind':'boss' if boss else 'creature','level':level,'region':region,
         'role':'Overworld boss' if boss else 'Overworld creature','drops':drops,'items':[],
-        'lore':f'{name} is a level {level} '+('overworld boss.' if boss else 'creature found in Rift Haven.')}
+        'lore':f'{name} is '+(f'a level {level} ' if level else 'a ')+('overworld boss.' if boss else 'creature found in Rift Haven.')}
     if model.get('Model') and model.get('Texture'):portraits[key]={'model':model['Model'],'texture':model['Texture']}
 
 stage=site/'.local/npc-render';stage.mkdir(parents=True,exist_ok=True)
