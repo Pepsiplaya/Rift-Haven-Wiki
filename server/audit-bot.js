@@ -33,6 +33,7 @@ function embed(event){
   if(event.kind==='integration.test')description='Staff logging is connected. This was a delivery test; no player transaction or suspected abuse was recorded.';
   else if(event.kind==='wallet.change'){field('Source',d.source||d.reason||'Source was not recorded for this entry');field('Before',money(d.before),true);field('After',money(d.after),true);field('Change',(Number(d.delta)>0?'+':'')+money(d.delta),true);field('Quest',d.questName||d.questId);field('Contract',d.contractId);field('Item',d.itemName||itemCatalog[d.itemId]?.name||d.itemId,true);field('Quantity',d.quantity,true);field('Staff member',d.staff,true);field('Action',d.action,true);field('Seller',d.seller,true);field('Guild',d.guild,true);field('Reward reference',d.awardKey);}
   else if(event.kind.startsWith('auction.')){field('Item',itemCatalog[d.itemId]?.name||d.itemId,true);field('Quantity',d.quantity,true);field('Total price',d.price?money(d.price):null,true);field('Seller',d.sellerName,true);field('Market fee',d.saleCut?money(d.saleCut):null,true);field('Seller receives',d.sellerProceeds?money(d.sellerProceeds):null,true);field('Source',d.source||d.reason);}
+  else if(event.kind==='bug.reported'){field('Report',d.category==='EXPLOIT'?'Restricted exploit report':d.title);field('Category',d.category,true);field('Priority',d.priority,true);field('Blocks progression',d.blocksProgress?'Yes':'No',true);field('Build',d.build);field('Ticket',d.ticketId);field('Review','Open /rc bug in-game. Full text and diagnostics stay on the server.');}
   else if(event.kind==='bank.items.changed')field('Bank balance changes',(d.changes||[]).map(i=>`${Number(i.delta)>0?'+':''}${i.delta} ${itemCatalog[i.itemId]?.name||i.itemId}`).join('\n'));
   else if(event.kind.startsWith('dungeon.')){field('Dungeon',require('../assets/data/dungeons.json').find(row=>row.id===d.dungeonId)?.name||d.dungeonId,true);field('Party size',d.partySize,true);if(d.durationMs)field('Elapsed',Math.floor(d.durationMs/60000)+'m '+Math.floor(d.durationMs/1000)%60+'s',true);}
   else if(event.kind==='staff.item.give.requested'){field('Recipient',d.recipient,true);field('Item',itemCatalog[d.itemId]?.name||d.itemId,true);field('Quantity requested',d.quantity,true);field('Quality',d.quality,true);field('Durability',d.durability,true);field('Status',d.requestNote||'Command requested; item delivery is not confirmed');}
@@ -55,9 +56,11 @@ async function deliver(events,{token,fetch:request=globalThis.fetch,acknowledge}
   if(!token)throw new Error('Discord bot token is missing');
   let sent=0;
   for(const batch of batches(events)){
+    const bugAlert=batch.events.some(e=>e.kind==='bug.reported'&&e.category==='alerts'&&e.outcome==='committed');
+    const ownerRole='1464399336845738148';
     const response=await request(`https://discord.com/api/v10/channels/${batch.channelId}/messages`,{
       method:'POST',headers:{Authorization:`Bot ${token}`,'Content-Type':'application/json'},
-      body:JSON.stringify({content:batch.content,embeds:batch.embeds,allowed_mentions:{parse:[],users:[],roles:[],replied_user:false}}),signal:AbortSignal.timeout(10000)
+      body:JSON.stringify({content:bugAlert?`<@&${ownerRole}> New bug reports are waiting in /rc bug.`:batch.content,embeds:batch.embeds,allowed_mentions:{parse:[],users:[],roles:bugAlert?[ownerRole]:[],replied_user:false}}),signal:AbortSignal.timeout(10000)
     });
     if(response.status===429){const limit=await response.json();return {sent,retryAfterSeconds:Math.max(1,Number(limit.retry_after)||5),global:limit.global===true};}
     if(!response.ok)throw new Error(`Discord delivery failed (${response.status})`);

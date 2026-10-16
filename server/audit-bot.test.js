@@ -12,6 +12,22 @@ test('native give cards show requested details without claiming delivery or leak
   assert.equal(panel.fields.length,6);
 });
 const event=i=>({eventId:'event-'+i,category:'economy',kind:'wallet.change',outcome:'committed',actorName:'@everyone',summary:'gold moved',createdAt:Date.now()});
+
+test('new bug alerts mention only the owner role and retain the report reference',async()=>{
+  const bug={...event(1),category:'alerts',kind:'bug.reported',details:{ticketId:'ticket-one',title:'@everyone Missing reward',category:'QUESTS',priority:'HIGH',build:'271',blocksProgress:true}};
+  let body,url;await deliver([bug],{token:'test',fetch:async(u,init)=>{url=u;body=JSON.parse(init.body);return Response.json({id:'receipt'});},acknowledge:async()=>{}});
+  assert.ok(url.includes(policy.channels.alerts));assert.deepEqual(body.allowed_mentions.roles,['1464399336845738148']);assert.deepEqual(body.allowed_mentions.parse,[]);assert.deepEqual(body.allowed_mentions.users,[]);
+  assert.equal(body.content,'<@&1464399336845738148> New bug reports are waiting in /rc bug.');assert.ok(!JSON.stringify(body.embeds).includes('@everyone'));
+  assert.ok(body.embeds[0].fields.some(f=>f.name==='Ticket'&&f.value==='ticket-one'));
+  bug.details.category='EXPLOIT';bug.details.title='Sensitive exploit steps';assert.ok(!JSON.stringify(embed(bug)).includes('Sensitive exploit steps'));
+});
+
+test('ordinary and unsuccessful events cannot trigger owner mentions',async()=>{
+  for(const row of [event(1),{...event(1),kind:'bug.reported',category:'alerts',outcome:'attempt'}]){
+    let body;await deliver([row],{token:'test',fetch:async(u,init)=>{body=JSON.parse(init.body);return Response.json({id:'receipt'});},acknowledge:async()=>{}});
+    assert.deepEqual(body.allowed_mentions.roles,[]);assert.equal(body.content,'');
+  }
+});
 test('staff roles are restricted to the configured guild',()=>{
   for(const role of policy.allowedRoleIds)assert.equal(authorized({guild_id:policy.guildId,member:{roles:[role]}}),true);
   assert.equal(authorized({guild_id:'other',member:{roles:policy.allowedRoleIds}}),false);
