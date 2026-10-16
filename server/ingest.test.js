@@ -15,7 +15,7 @@ test('snapshot market excludes expired listings and sorts full prices precisely'
 });
 test('item inspection uses native artwork and drops private metadata',async()=>{
   const snapshot=sanitizeSnapshot({players:[],listings:[{id:'food',itemId:'Food_Wildmeat_Raw',name:'Wild Meat',price:'1',quantity:'3',metadata:'private receipt',details:{ownerId:'private',receipt:'private',stats:{strength:7,secretStat:99},requiredLevel:5}}]});
-  const item=(await new SnapshotData(snapshot).market()).listings[0];assert.match(item.icon,/^items\/[a-f0-9]{16}$/);assert.equal(item.details.stats.strength,7);assert.equal(item.details.requiredLevel,5);assert.ok(!JSON.stringify(item).includes('private'));assert.ok(!JSON.stringify(item).includes('secretStat'));assert.match(item.details.description,/Cooking: \+10 Strength/);
+  const item=(await new SnapshotData(snapshot).market()).listings[0];assert.match(item.icon,/^items\/[a-f0-9]{16}$/);assert.equal(item.details.stats.strength,7);assert.equal(item.details.requiredLevel,5);assert.ok(!JSON.stringify(item).includes('private'));assert.ok(!JSON.stringify(item).includes('secretStat'));assert.match(item.details.description,/Cooking: Adds \+10 Strength/);
 });
 test('profession ranks break level ties using saved XP and respect class filters',async()=>{
   const data=new SnapshotData(sanitizeSnapshot({listings:[],players:[{name:'First',mainClass:'rogue',skills:{MINING:{level:8,experience:90}}},{name:'Second',mainClass:'rogue',skills:{MINING:{level:8,experience:80}}},{name:'Other',mainClass:'fighter',skills:{MINING:{level:10,experience:1}}}]}));
