@@ -1,12 +1,12 @@
 """Public Rift Haven citizens and released map creatures; never the native NPC dump."""
 from pathlib import Path
 from zipfile import ZipFile
-import hashlib,json,re,subprocess,sys
+import hashlib,json,re,subprocess,sys,os
 from PIL import Image
 from io import BytesIO
 
 root=Path(__file__).resolve().parents[2];site=root/'Website'
-receipt=json.loads((root/'Plugin Source/deployment/current-release.json').read_text(encoding='utf-8-sig'))
+receipt=json.loads(Path(os.environ.get('RIFT_DATA_RELEASE',root/'Plugin Source/deployment/current-release.json')).read_text(encoding='utf-8-sig'))
 jar=root/receipt['jar']
 assert hashlib.sha256(jar.read_bytes()).hexdigest()==receipt['jarSha256']
 pack=ZipFile(jar);inventory=json.loads((root/receipt['acceptedInventory']).read_text(encoding='utf-8-sig'))

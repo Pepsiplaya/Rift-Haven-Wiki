@@ -14,13 +14,30 @@ test('drop percentages describe receiving an item rather than summing repeated g
   for(const item of Object.values(items))for(const row of item.sources.filter(s=>s.type==='drop'))assert.ok(row.dropChance>0&&row.dropChance<=1);
 });
 
-test('seed pages include creature, brush and all six bag acquisition routes',()=>{
-  for(const [id,creature] of [['RiftCore_Seed_Cotton','Cactee'],['RiftCore_Seed_Fire_Flower','Snapdragon']]){
+test('plant seeds follow the new creature tiers and conditional brush drops',()=>{
+  for(const [id,creature] of [['RiftCore_Seed_Whitecap','Cactee'],['RiftCore_Seed_Bluecap','Snapdragon']]){
     assert.ok(drops(id).includes(creature));
-    assert.ok(items[id].sources.some(s=>s.type==='gathering'&&s.requiredPerk==='Seed Seeker'));
-    const bags=items[id].sources.filter(s=>s.type==='bag');assert.equal(bags.length,6);
-    for(const bag of bags){assert.ok(items[bag.bagId]);assert.ok(bag.requirements.FARMING);assert.ok(bag.minimum>0);}
+    assert.ok(items[id].sources.some(s=>s.type==='gathering'&&s.method.includes('1-in-10')));
+    assert.ok(!drops(id).includes(creature==='Cactee'?'Snapdragon':'Cactee'));
   }
+  assert.ok(!items.RiftCore_Seed_Pork);
+  const party=items.RiftCore_Seed_Pumpkin.sources;
+  assert.ok(!party.some(s=>s.type==='bag'||s.type==='drop'));
+  assert.ok(party.some(s=>s.type==='gathering'&&s.method.includes('1 in 50')));
+  assert.ok(party.some(s=>s.type==='gathering'&&s.method.includes('1 in 25')));
+});
+
+test('meals and potions describe the current stats, stacking and one-bottle recipes',()=>{
+  assert.ok(!items.Food_Egg);assert.ok(!items.RiftCore_Frozen_Time);
+  assert.match(items.RiftCore_MealV3__Beef__Beef__Pork.description,/\+80 Strength/);
+  assert.match(items.RiftCore_MealV3__Beef__Corn__Pork.description,/\+25 Agility/);
+  assert.match(items.RiftCore_MealV3__Pork.description,/one minute/);
+  assert.equal(items.RiftCore_MealV3__Pork.recipes[0].requiredLevel,1);
+  for(const item of Object.values(items))for(const recipe of item.recipes.filter(r=>r.profession==='ALCHEMY')){
+    assert.equal(recipe.quantity,1);assert.equal(recipe.goldCost,0);
+  }
+  assert.match(items.RiftCore_Alchemy_BATTLE_T1.description,/5/);
+  assert.match(items.RiftCore_Alchemy_GUARDIAN_T3.description,/15%/);
 });
 test('current raw hides and tanning routes replace obsolete NPC leather rewards',()=>{
   assert.ok(drops('Ingredient_Hide_Light').includes('Molerat_Level_12'));
@@ -56,10 +73,11 @@ test('ore availability and timers exclude retired raw metals without hiding phys
 });
 test('the published handbook wins over stale live text while preserving extra live articles',async()=>{
   const current=require('../assets/data/guide.json'),fishing=current.articles.find(a=>a.id==='fishing');
-  const context={window:{RIFT_CONFIG:{apiBase:'/api'}},AbortSignal,fetch:async url=>({ok:true,json:async()=>structuredClone(url==='/api/guide'?{articles:[{id:'fishing',title:'OLD',blocks:[],links:[]},{id:'live-extra',title:'Live',blocks:[],links:[]}]}:url.endsWith('guide-additions.json')?{articles:[]}:current)})};
+  const context={window:{RIFT_CONFIG:{apiBase:'/api'}},AbortSignal,fetch:async url=>({ok:true,json:async()=>structuredClone(url==='/api/guide'?{articles:[{id:'fishing',title:'OLD',blocks:[],links:[]},{id:'live-extra',title:'Live',blocks:[],links:[]},{id:'item:Food_Egg',title:'Retired egg',blocks:[],links:[]},{id:'recipe:cooking:old_stew',title:'Old recipe',blocks:[],links:[]}]}:url.endsWith('guide-additions.json')?{articles:[]}:current)})};
   vm.runInNewContext(fs.readFileSync(require.resolve('../assets/js/guide-data.js'),'utf8'),context);
   const guide=await context.window.RiftGuideData.load();assert.equal(guide.articles.find(a=>a.id==='fishing').title,fishing.title);
   assert.ok(guide.articles.some(a=>a.id==='live-extra'));
-  assert.match(JSON.stringify(guide.articles.find(a=>a.id==='jewelcrafting')),/900 XP/);
+  assert.ok(!guide.articles.some(a=>a.id==='item:Food_Egg'||a.id==='recipe:cooking:old_stew'));
+  assert.match(JSON.stringify(guide.articles.find(a=>a.id==='jewelcrafting')),/126 base XP/);
   assert.match(JSON.stringify(guide.articles.find(a=>a.id==='fishing')),/Legendary 7/);
 });

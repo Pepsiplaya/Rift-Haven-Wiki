@@ -15,7 +15,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
 SITE = ROOT / 'Website'
-RECEIPT = ROOT / 'Plugin Source/deployment/current-release.json'
+RECEIPT = Path(os.environ.get('RIFT_DATA_RELEASE', ROOT / 'Plugin Source/deployment/current-release.json'))
 BAR_LEVELS = {'Copper': 1, 'Tin': 1, 'Bronze': 1, 'Silver': 1, 'Gold': 1,
               'Iron': 12, 'Steel': 12, 'Thorium': 24, 'Adamantite': 24,
               'Cobalt': 36, 'Mithril': 36, 'Onyxium': 48,
@@ -28,6 +28,7 @@ def compiled_catalogs(jar, receipt, inventory):
     """Invoke pure static catalogs from accepted bytecode, never a game server."""
     classes = {'alchemy': ('alchemy.AlchemyRecipeCatalog', 'all'),
                'cooking': ('cooking.CookingRecipeCatalog', 'all'),
+               'preparedMeals': ('cooking.CookingRecipeCatalog', 'preparedMealItems'),
                'farming': ('farming.FarmingCropCatalog', 'all'),
                'fishing': ('fishing.FishingSpeciesCatalog', 'all'),
                'bands': ('jewelcrafting.JewelcraftingCatalog', 'bandRecipes'),
@@ -37,12 +38,12 @@ def compiled_catalogs(jar, receipt, inventory):
                'bagMaterials': ('fishing.FishingBagLoot', 'materials'),
                'brushes': ('gathering.ForagingBushCatalog', 'getDefinitions')}
     with ZipFile(jar) as pack:
-        for name, _ in classes.values():
+        for name in [n for n, _ in classes.values()]+['provisions.FoodProgression','provisions.ProvisionCatalog']:
             path = 'com/mmoserver/riftcore/' + name.replace('.', '/') + '.class'
             if hashlib.sha256(pack.read(path)).hexdigest() != inventory.get(path):
                 raise ValueError('Accepted catalog bytecode mismatch: ' + path)
     java = Path(os.environ.get('DISCOVERY_JAVA',
-                'C:/Program Files/Eclipse Adoptium/jdk-25.0.1.8-hotspot/bin/java.exe'))
+                'C:/Program Files/Java/jdk-25/bin/java.exe'))
     server_hash = receipt.get('serverSha256',
         'c3b5985b9e72727bf3bcf220923d7e61e78fe0f37cd1cd9c2a73f51e4f408ff8')
     server = ROOT / '.runtime/hytale-server' / ('HytaleServer-' + server_hash + '.jar')
@@ -54,6 +55,12 @@ def compiled_catalogs(jar, receipt, inventory):
     source = ('import java.util.*; import com.google.gson.Gson; '
               'class DiscoveryExport { public static void main(String[] args) throws Exception {'
               'Map<String,Object> result=new LinkedHashMap<>();' + invocations +
+              'result.put("ingredients",com.mmoserver.riftcore.provisions.FoodProgression.ALL);'
+              'var potions=new ArrayList<Object>();'
+              'for(var recipe:com.mmoserver.riftcore.alchemy.AlchemyRecipeCatalog.all()){'
+              'var p=com.mmoserver.riftcore.provisions.ProvisionCatalog.potion(recipe.outputItemId());'
+              'if(p!=null)potions.add(Map.of("id",p.id(),"name",p.name(),"description",com.mmoserver.riftcore.provisions.ProvisionCatalog.potionDescription(p,0)));}'
+              'result.put("potions",potions);'
               'var tiers=new ArrayList<Object>();'
               'for(var t:com.mmoserver.riftcore.fishing.FishingBagLoot.Tier.values())'
               'tiers.add(Map.of("id",t.bagId(),"label",t.label(),"cost",t.fishCost,'
@@ -63,7 +70,7 @@ def compiled_catalogs(jar, receipt, inventory):
         helper = Path(scratch) / 'DiscoveryExport.java'
         helper.write_text(source, encoding='utf-8')
         run = subprocess.run([str(java), '--class-path', str(jar) + os.pathsep + str(server),
-                              str(helper)], text=True, capture_output=True, check=True, timeout=90)
+                              str(helper)], text=True, encoding='utf-8', capture_output=True, check=True, timeout=90)
         return json.loads(run.stdout.strip().splitlines()[-1])
 
 
@@ -139,6 +146,19 @@ def build():
             raw = definitions[item]
             return {**definition(raw.get('Parent'), seen | {item}), **raw}
 
+        # These logical meal identities are emitted by the accepted cooking
+        # catalog and retain the exact native parent icon used in game.
+        for meal in catalogs['preparedMeals']:
+            parent = meal['parentItemId']
+            if parent not in metadata or parent not in definitions:
+                raise ValueError('Meal parent unavailable: ' + parent)
+            metadata[meal['itemId']] = {**metadata[parent], 'name': meal['displayName']}
+            definitions[meal['itemId']] = {'Parent': parent, 'TranslationProperties': {
+                'Name': meal['displayName'], 'Description': meal['description']}}
+        for potion in catalogs['potions']:
+            definitions[potion['id']]['TranslationProperties'] = {
+                'Name': potion['name'], 'Description': potion['description']}
+
         def localize(text, seen=frozenset()):
             if not text or text in seen:
                 return ''
@@ -166,11 +186,11 @@ def build():
             translations = definition(item).get('TranslationProperties', {})
             if translations.get('Name'):
                 name = localize(translations['Name'])
-                if name and name != translations['Name']:
+                if name and not name.startswith(('server.', 'common.')):
                     entry['name'] = name
             description = localize(translations.get('Description', ''))
             entry.pop('description', None)
-            if description and description != translations.get('Description') and '[TMP]' not in description:
+            if description and not description.startswith(('server.', 'common.')) and '[TMP]' not in description:
                 entry['description'] = description
             if source is not None and source not in entry['sources']:
                 entry['sources'].append(source)
@@ -210,23 +230,38 @@ def build():
                                 'method': 'Chop gatherable beech trees with a hatchet.'})
         add('Ingredient_Tree_Sap', {'type': 'gathering', 'profession': 'FORAGING',
                                     'method': 'Chop gatherable beech trees with a hatchet.'})
-        for brush in catalogs['brushes']:
+        plants = [i for i in catalogs['ingredients'] if not i['animal']]
+        respawns = (30, 60, 120, 300, 600)
+        food_ids = {i['itemId'] for i in plants}
+        for index, brush in enumerate(catalogs['brushes']):
             for reward in brush['rewards']:
                 item = next((i for i in reward['itemIdCandidates'] if i in definitions), None)
-                if item:
+                if item and item not in food_ids:
                     add(item, {'type': 'gathering', 'profession': 'FORAGING',
                                'requiredLevel': brush['requiredLevel'],
                                'method': 'Gather ' + brush['displayName'] + '.',
                                'guaranteed': False})
-        for index, brush in enumerate(catalogs['brushes']):
-            levels = (1, 10, 30, 40, 50)
+            tiers = ({1}, {1, 3}, {2}, {2, 3}, {3})[index]
+            for ingredient in plants:
+                if ingredient['tier'] not in tiers:
+                    continue
+                party = ingredient['tier'] == 3
+                rare = '1 in 50' if index == 1 else '1 in 25' if index == 3 else None
+                chance = (f' The party-ingredient roll is {rare}, then selects a party plant ingredient.'
+                          if party and rare else '')
+                source = {'type': 'gathering', 'profession': 'FORAGING',
+                          'requiredLevel': brush['requiredLevel'], 'respawnSeconds': respawns[index],
+                          'method': f'Gather {brush["displayName"]}. Respawns in {respawns[index]} seconds.' + chance,
+                          'guaranteed': False}
+                add(ingredient['itemId'], source)
+                add('RiftCore_Seed_' + ingredient['key'], {**source,
+                    'method': f'When {ingredient["name"]} drops from {brush["displayName"]}, there is a 1-in-10 chance of its matching seed.' + chance})
+            # Seed Seeker's extra seed route applies only to ordinary crops.
             for crop in catalogs['farming']:
-                if crop['requiredLevel'] == levels[index]:
+                if crop['requiredLevel'] == (1, 12, 24, 36, 48)[index] and crop['requiredLevel'] < 48:
                     add(crop['seedItemId'], {'type': 'gathering', 'profession': 'FORAGING',
-                                           'requiredLevel': brush['requiredLevel'],
-                                           'requiredPerk': 'Seed Seeker',
-                                           'method': 'Gather ' + brush['displayName'] + ' for a chance of an extra seed with Seed Seeker.',
-                                           'guaranteed': False})
+                        'requiredLevel': brush['requiredLevel'], 'requiredPerk': 'Seed Seeker',
+                        'method': 'Gather ' + brush['displayName'] + ' for a chance of an extra ordinary seed with Seed Seeker.', 'guaranteed': False})
         for crop in catalogs['farming']:
             if crop['seedItemId'] in output:
                 add(crop['harvestItemId'], {'type': 'farming', 'profession': 'FARMING',
@@ -415,9 +450,11 @@ def build():
         for recipe in catalogs['cooking']:
             inputs = [{'acceptedItemIds': i['acceptedItemIds'], 'quantity': i['quantity']}
                       for i in recipe['inputs']]
-            recipe_for(recipe['outputItemId'], {'bench': 'Cooking station', 'profession': 'COOKING',
+            ingredient_keys = {i['key'].lower(): i['key'] for i in catalogs['ingredients']}
+            meal_id = ('RiftCore_MealV3__' + '__'.join(sorted(ingredient_keys[k.lower()] for k in recipe['ingredientKeys']))) if recipe['kind'] == 'DYNAMIC' else recipe['outputItemId']
+            recipe_for(meal_id, {'bench': 'Cooking station', 'profession': 'COOKING',
                         'requiredLevel': recipe['requiredLevel'], 'quantity': recipe['outputQty'],
-                        'inputs': inputs})
+                        'inputs': inputs, 'craftSeconds': recipe['craftTimeMs'] / 1000})
         for recipe in catalogs['bands']:
             recipe_for(recipe['outputItemId'], {'bench': 'Jewelcrafting station',
                         'profession': 'JEWELCRAFTING', 'requiredLevel': recipe['requiredLevel'],
@@ -512,7 +549,7 @@ def build():
               'coverage': {'items': len(output),
                            'recipeItems': sum(bool(e['recipes']) for e in output.values()),
                            'limitations': ['Live merchant stock and custom server overrides are not included.',
-                                           'Dynamic equipment rolls and meal metadata variants are not included.',
+                                           'Dynamic equipment rolls and crafting-talent duration variants are not included.',
                                            'Recipes with unverified ingredient routes are excluded.']}}
     destination = SITE / 'assets/data/discovery-items.json'
     destination.write_text(json.dumps(result, ensure_ascii=False, separators=(',', ':')) + '\n',

@@ -4,10 +4,11 @@ from zipfile import ZipFile
 import hashlib
 import json
 import subprocess
+import os
 
 root = Path(__file__).resolve().parents[2]
 site = root / 'Website'
-receipt = json.loads((root / 'Plugin Source/deployment/current-release.json').read_text(encoding='utf-8-sig'))
+receipt = json.loads(Path(os.environ.get('RIFT_DATA_RELEASE',root / 'Plugin Source/deployment/current-release.json')).read_text(encoding='utf-8-sig'))
 jar = root / receipt['jar']
 if hashlib.sha256(jar.read_bytes()).hexdigest() != receipt['jarSha256']:
     raise ValueError('Accepted release JAR hash mismatch')
@@ -41,8 +42,7 @@ for article in guide['articles']:
         article['keywords'] = 'pvp arena combat'
         article['blocks'] = [
             {'heading': True, 'text': 'Arena combat'},
-            {'text': 'Use /arena to open the arena menu and /arena leave to leave. '
-                     'The normal downed-state rescue window does not apply inside the arena.'}
+            {'text': 'Use /arena to open the arena menu and /arena leave to leave.'}
         ]
     for block in article['blocks']:
         text = block['text']
@@ -70,6 +70,10 @@ for article in guide['articles']:
 
 # Item pages in /guide link the same verified acquisition graph as /items.
 for item_id, item in items.items():
+    # The compendium lists every combination. Keep the bounded guide concise
+    # with single-ingredient examples and the full cooking controls article.
+    if item_id.startswith('RiftCore_MealV3__') and len(item_id.split('__')) > 2:
+        continue
     blocks = []
     if item.get('description'):
         blocks.append({'text': item['description']})

@@ -10,11 +10,16 @@
   ]).then(([current,live,additions])=>{
     if(!current&&!live)throw new Error('Guide unavailable');
     // A delayed game export must not replace the current published handbook.
-    const articles=new Map((live?.articles||[]).map(a=>[a.id,a]));
+    const published=new Set((current?.articles||[]).map(a=>a.id));
+    const staleFood=a=>current&&!published.has(a.id)&&(
+      /^(?:recipe:(?:cooking|alchemy):|creature:|item:(?:Food_|RiftCore_(?:Cooking_|Cooked_|Meal_|Seed_)))/.test(a.id)
+      ||new Set(['item:Plant_Crop_Health2','item:Plant_Crop_Mushroom_Cap_Red','item:Plant_Fruit_Spiral','item:Plant_Fruit_Apple','item:Plant_Crop_Lettuce_Item']).has(a.id));
+    const articles=new Map((live?.articles||[]).filter(a=>!staleFood(a)).map(a=>[a.id,a]));
     for(const article of current?.articles||[])articles.set(article.id,article);
     for(const article of additions.articles||[])if(!articles.has(article.id))articles.set(article.id,article);
     const base=currentMaterials({...live,...current,articles:[...articles.values()]});
     const ids=new Set(base.articles.map(a=>a.id));
+    for(const article of base.articles){article.links=(article.links||[]).filter(id=>ids.has(id));for(const block of article.blocks||[])if(block.link&&!ids.has(block.link))block.link='';}
     const classes=base.articles.find(a=>a.id==='classes');
     if(classes&&ids.has('class:druid')&&!classes.links.includes('class:druid')){classes.links.push('class:druid');classes.keywords+=' druid nature guardian briarwolf';}
     return base;
