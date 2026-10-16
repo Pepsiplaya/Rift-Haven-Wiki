@@ -33,3 +33,14 @@ test('progression XP includes completed levels instead of ranking only leftover 
   const data=new SnapshotData(sanitizeSnapshot({listings:[],players:[{name:'Higher',skills:{MINING:{level:2,experience:0,xpCurveVersion:2}}},{name:'Lower',skills:{MINING:{level:1,experience:80,xpCurveVersion:2}}}]}));
   const result=await data.rankings({metric:'total-skill-xp'});assert.deepEqual(result.players.map(p=>p.name),['Higher','Lower']);assert.ok(BigInt(result.players[0].score)>80n);assert.equal((await data.profile('Higher')).skills.MINING.experienceToNextLevel,require('../assets/data/progression.json').professionCurrent[2]);
 });
+
+
+test('revision 3 profiles use each profession curve and retain unknown revisions as unknown',async()=>{
+  const curves=require('../assets/data/progression.json'),skills={};
+  for(const key of Object.keys(curves.professionBySkill))skills[key]={level:2,experience:3,xpCurveVersion:3};
+  const data=new SnapshotData(sanitizeSnapshot({listings:[],players:[{name:'Current',skills},{name:'Unknown',skills:{COOKING:{level:2,experience:3,xpCurveVersion:99}}}]}));
+  const current=await data.profile('Current');
+  for(const [key,skill]of Object.entries(current.skills)){assert.equal(skill.xpCurveVersion,3);assert.equal(skill.experienceToNextLevel,curves.professionBySkill[key][2]);assert.equal(skill.totalExperience,String(curves.professionBySkill[key][1]+3));}
+  assert.notEqual(current.skills.COOKING.experienceToNextLevel,current.skills.MINING.experienceToNextLevel);
+  const unknown=await data.profile('Unknown');assert.equal(unknown.skills.COOKING.totalExperience,null);assert.equal(unknown.skills.COOKING.experienceToNextLevel,null);
+});

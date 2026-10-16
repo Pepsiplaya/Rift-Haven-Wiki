@@ -18,6 +18,21 @@ with ZipFile(jar) as pack:
     if hashlib.sha256(raw).hexdigest() != inventory['guide/handbook.json']:
         raise ValueError('Accepted handbook hash mismatch')
     guide = json.loads(raw)
+additions=json.loads((site/'assets/data/guide-additions.json').read_text(encoding='utf-8'))
+existing={article['id'] for article in guide['articles']}
+guide['articles'].extend(article for article in additions['articles'] if article['id'] not in existing)
+class_articles={article['id']:article for article in guide['articles']}
+for preview in json.loads((site/'assets/data/class-abilities.json').read_text(encoding='utf-8')):
+    article=class_articles[preview['articleId']]
+    article['blocks'].append({'heading':True,'text':(preview['form']+' abilities') if preview['form'] else 'Signature abilities'})
+    for ability in preview['abilities']:
+        article['blocks'].append({'heading':True,'text':ability['name']})
+        # The approved player-facing description already starts with the card name.
+        description=ability['description'].split('\n\n',1)[-1]
+        for paragraph in description.split('\n\n'):
+            article['blocks'].append({'text':paragraph})
+classes=class_articles['classes']
+if 'class:druid' not in classes['links']:classes['links'].append('class:druid')
 catalog = json.loads((site / 'assets/data/discovery-items.json').read_text(encoding='utf-8'))
 items = catalog['items']
 
@@ -27,6 +42,7 @@ items = catalog['items']
 # use merchant dialogue and Settings instead. Prefer the explicitly granted
 # native /spawn over /stuck's separate native Adventure permission group.
 for article in guide['articles']:
+    article['title']=article['title'].replace('Elemancer','Elementalist')
     if article['id'] == 'commands':
         blocks = []
         skip = False

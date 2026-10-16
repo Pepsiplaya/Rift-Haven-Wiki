@@ -1,55 +1,405 @@
 [
-  {"id":"update-10","number":10,"title":"The Deepworks, Druid & a new chapter","summary":"Enter The Deepworks, discover Druid, and follow Haven’s rebuilt 54-quest campaign.","eventTime":1791842400,"sections":[
-    {"heading":"The Deepworks","items":["A new dungeon for levels 30–60, solo or with up to five players. Enter through /dungeon.","Native encounters, enemy stats, drops, and shared respawn checkpoints. Party size does not increase enemy health or damage here.","Activate the challenge button near the Gobliterator entrance for a tougher fight."]},
-    {"heading":"Druid","items":["Heal as a human, protect your party as a bear, or hunt enemies as a wolf.","Nature, Guardian, and Briarwolf share one talent budget. Queue as Tank, Healer, or DPS according to your build.","New transformation animations and nature effects. Craft Nature Staffs; healing improves with character and equipped staff level."]},
-    {"heading":"Classes & combat","items":["Reworked Sol and Sea spells, talents, and effects. Sol gains Flame Jet, steerable Cinderstep, and Incarnation.","Sea gains Breaker Wave, Tidal Ascendance, and Reefwall protection against hostile projectiles.","Elementalists and Light Paladins now have a visible mana bar. Spirit improves recovery; basic attacks remain free.","Added Spirit Voidstone gems and updated Light Paladin healing and protection effects."]},
-    {"heading":"Haven’s story","items":["A rebuilt 54-quest main campaign begins with Margaret in the tavern. Follow the story in order.","Story introductions teach gathering, crafting, Hunter tasks, and contracts, with clearer conversations, markers, destinations, and class equipment rewards.","Side and standalone profession quest offers are disabled; follow the main campaign for introductions."]},
-    {"heading":"Equipment & quality of life","items":["Clearer class equipment hints at crafting benches.","Save HUD key labels in /settings → Keybinds; change actual controls in Hytale Settings.","Updated /guide with gameplay help and Deepworks details, plus quest, NPC movement, and combat cleanup fixes."]}
-  ]},
-  {"id":"update-9","number":9,"title":"Build your class. Find your people.","summary":"Expanded talents, guilds, friends, and daily and weekly contracts bring more ways to grow together.","sections":[
-    {"heading":"Classes & talents","items":["Reworked class and specialization trees with ranked upgrades and more build choices through level 60.","Free talent changes, Suggested Builds, and two saved builds are available through /class → Talents.","Updated abilities, spells, combat effects, tank threat, and taunts. Light Paladin talents emphasize healing and party support."]},
-    {"heading":"Guilds & friends","items":["Create or join a guild with guild chat, customizable ranks, and a shared bank through /guild.","Use /friends to add friends, see who’s online, and invite them to your party.","Added whispers, replies, and ignore controls."]},
-    {"heading":"Quests & contracts","items":["Reworked conversations, objectives, XP, gold, and equipment rewards, with clearer choices, filters, and tracking.","Three daily and three weekly contracts reward adventuring with gold and XP. Check /contracts and claim rewards at a Contracts Board.","Fixed quest interactions and Roland’s rescue."]},
-    {"heading":"Dungeons & quality of life","items":["Rebalanced Khaos bosses for solo attempts and parties with a tank and healer. Additional party members increase enemy health without increasing damage.","Existing dungeons remain open through level 60, retaining their original enemy and loot tiers.","Reworked dungeon and raid loot pools, updated /guide and destination tracking, and improved menus and gathering responsiveness."]}
-  ]},
-  {"id":"update-8","number":8,"title":"Seven bosses. Rare rewards.","summary":"New world bosses, mount drops, gem upgrades, fishing balance, and clearer menus.","sections":[
-    {"heading":"Seven new bosses","items":["Level 5: Irontusk — Ram Mount; Venomfang — Red Horse; The Pale Widow — Brown Horse.","Level 10: Grimhide — Antelope Wagon; Mireclaw — Goat Wagon; Dunebreaker — Hyena Wagon.","Level 15: The Gilded Maw — Tiger Sabertooth.","Bosses awaken when approached or provoked, display a boss bar, return home after combat, and respawn after ten minutes.","Each kill gives two independent loot rolls. Gear ranges from Rare to Legendary: levels 5–10 from level-5 bosses, 10–15 from level-10 bosses, and level 15–22 armor from The Gilded Maw.","Each boss also has a separate 1-in-1,000 chance to drop its mount crate, alongside normal loot."]},
-    {"heading":"Gems","items":["Lesser gems give +6, regular gems +9, and Greater gems +12 to the matching attribute.","Level-5 bosses drop Lesser gems; level-10 bosses drop regular gems. The Gilded Maw’s gem rewards are 80% regular and 20% Greater.","Fixed gem names and descriptions. Voidstone is unchanged in this update."]},
-    {"heading":"Crafting, fishing & quests","items":["Crafting benches remember the last recipe and category during your session. Cleaned up shop stock and removed the unused Hunting Supplies shop and sticks.","All 30 fish have matching rarities, catch pools, and rewards, with rebalanced catch chances.","Reworked 18 side quests, improved early quest XP, cooking, meal stacking, and crafting-material recognition.","Refreshed inventory, character, skill, and profession layouts, ability cooldown feedback, and gear comparisons. Reduced delays around menus, quests, talent saving, and bank transfers."]}
-  ]},
-  {"id":"update-7","number":7,"title":"A world of professions","summary":"Foraging, Cooking, Alchemy, Jewelcrafting, permanent essence growth, and a new beta inventory.","sections":[
-    {"heading":"Profession expansion","items":["Foraging adds bushes, plants, harvestables, and materials that feed other professions.","Cooking adds recipes and a cooking bench flow. Cooked foods provide timed buffs.","Alchemy adds bench and recipe progression, expanded potion paths, and Rift effects including Gills, Luminence, Lightning in a Bottle, Regen Remedy, Miracle Kit, Frozen Time, and Returning Rift.","Jewelcrafting adds rings, amulets, copper/silver/gold paths, and socketed jewelry."]},
-    {"heading":"Permanent growth & perks","items":["Elemental and concentrated essences play a larger role in crafting and progression. Greater essence upgrades provide permanent stat growth, with costs increasing as bonuses grow.","Expanded profession perks, talent tiers, choices, reset flow, skill XP feedback, and persistence."]},
-    {"heading":"Beta inventory & unified navigation","items":["Open the new beta inventory with O. It combines armor and jewelry slots, storage and hotbar, live character stats, and class, talent, and ability panels.","Added dragging, improved tooltips, most vanilla inventory controls, and live stat refresh after gear changes.","Shared navigation connects Inventory, Skills, Quests, Party, and Dungeon Finder. The inventory remains beta; please report unexpected behavior."]},
-    {"heading":"Loot & saves","items":["Reworked creature-family drops, essences, hides, meat, chitin, feathers, gems, ingots, and other materials.","Updated dungeon chest assets with materials and profession rewards appropriate to their value.","Fixed quest state crossing characters and improved persistence and reload behavior for progression, stats, inventory, and professions."]}
-  ]},
-  {"id":"update-6","number":6,"title":"Protection, persistence & polish","summary":"PvP protection, safer character swaps, dungeon cleanup, and progression fixes.","sections":[
-    {"heading":"PvP protection","items":["Disabled world PvP now ignores player hits and knockback for melee, projectiles, and abilities.","When party PvP is disabled, party members are fully protected from one another."]},
-    {"heading":"Characters & dungeons","items":["Class reset immediately reopens selection. Fixed /character transitions, stale /class data, and crossover state during swaps.","Khaos, Fear II, and Fear III mobs no longer attack each other. Improved Baron and Scarak Broodmother boss bars.","Removed most dungeon chest spawns outside Fear I while those dungeons shift toward future Rift content. Removed old shield and Ancient Steel rewards from Burnt Praetorian drops."]},
-    {"heading":"Progression & stability","items":["Doubled Light/Soft hide drops from wolves, rats, snakes, and similar mobs. Improved ore respawns and added chickens to the farm.","Cleaned up quest item names, enabled arena-kill progression only inside the arena, and removed the old Unassigned leaderboard class stat.","Reduced Paladin club damage and fixed follow-up scaling issues, stale party HUD updates, MySQL recovery, and login sequencing."]}
-  ]},
-  {"id":"update-5","number":5,"title":"Fear, loot & class balance","summary":"Expanded Fear progression and a broad balance pass across dungeons, rewards, equipment, and classes.","sections":[
-    {"heading":"Dungeons & rewards","items":["Expanded the Dungeon of Fear path with a new dungeon, loosened upper-level entry restrictions, and retuned Khaos and Fear pacing.","Reworked loot: normal enemies lean toward materials, with larger rewards from elites and bosses. Added themed Fear rewards."]},
-    {"heading":"Equipment & classes","items":["Rebalanced weapons and armor, normalized weapon damage progression, corrected outliers, and improved rolled gear and comparison tooltips.","Retuned Fighter Thick Skinned, Rogue/Shinobi damage and sustain, Execution Jutsu, Draining Jutsu, and weapon-tier Kunai scaling.","Moved Burning Passion earlier and Like the Wind later. Normalized Air, Fire, and Solar Bolt damage; improved Solar Wave and Gale Torrent range and feel, and burn scaling."]},
-    {"heading":"Quality of life","items":["Bank tabs can be unlocked with gold. Auction tooltips compare against equipped gear.","Cleaned up character swapping and slots, fixed slot duplication, and made crafting XP reflect recipe level more accurately."]}
-  ]},
-  {"id":"update-4","number":4,"title":"Ready your party","summary":"Reliable dungeon queues, role checks, character entry, and crafting progression.","sections":[
-    {"heading":"Dungeon finder","items":["Random queues check party level range and size, rejecting under-level parties immediately.","Non-leaders choose Tank, DPS, or Healer in a role-ready check. Closing or declining marks the player not ready. Queue status shows the selected role.","Improved party loading and safe recovery when dungeon entry fails."]},
-    {"heading":"Characters, crafting & resources","items":["Choose a character slot at login; new characters begin in the intended starting area.","Added Weapon Crafting for Sword, Battleaxe, Club, and Staff, remapped requirements, rebalanced crafting XP, and improved quality chances when skill exceeds recipe level.","Affected recipes use Wood instead of sticks. Added Mosshorn fibre drops of 1–12 and increased fibre from Beech leaves."]},
-    {"heading":"Fixes & fishing","items":["Auction duration selection now applies correctly.","Fishing tooltips explain right-click to cast, Ability2 (E by default) to reel, and Ability3 (R by default) to change lures. Tuned lobster catches.","Slightly increased mob-kill XP for smoother leveling."]}
-  ]},
-  {"id":"update-3","number":3,"title":"Fishing gets a full minigame","summary":"New fishing interactions, lures, bait, collections, and rarity-based loot bags.","sections":[
-    {"heading":"Fishing overhaul","items":["Fish visually approach the bobber before hooking. Recasting cancels the current cast.","Improved slip/fail flow, splash and audio feedback, and minigame scaling by fish rarity."]},
-    {"heading":"Lures, bait & rewards","items":["Added lure and bait types with different stats. Cycle lures with Ability3; bait is consumed from your off-hand.","Lures have durability and can break. Added Poor through Legendary loot bags with rewards based on current skill levels.","Added fishing collections, first-catch and milestone rewards, and fishing leaderboards."]},
-    {"heading":"Feedback & progression","items":["Cleaner catch, skill, and class XP notifications and improved fishing UI readability.","Cleaned up early leather progression and creature-hide drops."]}
-  ]},
-  {"id":"update-2","number":2,"title":"Combat feel & inventory fixes","summary":"Improved ability sound, Gale Torrent, item safety, and Haven’s spawn system.","sections":[
-    {"heading":"Combat","items":["Added and improved ability sound effects and reworked Gale Torrent for more consistent results."]},
-    {"heading":"Systems & world","items":["Fixed inventory item disappearance. Items that fail placement go to Auction House Claims/Collections.","Fixed weapon deletion during withdrawal with a restricted weapon, full inventory, and empty hotbar.","Fixed quest tracker dropdown visibility and the spawn system around Haven."]}
-  ]},
-  {"id":"update-1","number":1,"title":"Our first patch is live","summary":"Faster smelting, more mining XP, combat tuning, and bank improvements.","sections":[
-    {"heading":"Crafting & gathering","items":["Reduced furnace smelting time from 2.0 seconds to 0.5 seconds and increased mining XP by 20%."]},
-    {"heading":"Combat","items":["Increased Kunai base damage from 6 to 12. Explosion damage changed from a flat 30 to 5 + (Level × 0.5).","Fixed Elementalist spells damaging players when they should not."]},
-    {"heading":"Systems & quality of life","items":["Added Fishing and Class XP/Level leaderboard tracking.","Fixed incorrect bank-item rarity. Deposit All ignores the hotbar.","Added a world-spawned NPC system and updated join/leave message formatting."]}
-  ]}
+  {
+    "id": "update-11",
+    "number": 11,
+    "title": "Choose your calling, cook for your party",
+    "summary": "Our next update brings new character creation, reworked Cooking and Alchemy, meals to share with your party, and refreshed profession progression.",
+    "sections": [
+      {
+        "heading": "Choose your class",
+        "items": [
+          "Explore classes and subclasses during character creation, with ability descriptions and animated previews.",
+          "Your class and subclass choice is permanent. Compare the available paths before confirming. Druid keeps access to Nature, Guardian and Briarwolf; choosing a preview form does not lock your character to it."
+        ]
+      },
+      {
+        "heading": "Make every ingredient count",
+        "items": [
+          "Raw ingredients no longer grant buffs or healing. Put them to use through Cooking or Alchemy.",
+          "Each cooking ingredient adds +10, +25 or +30 to one of the seven primary stats.",
+          "Cook with one ingredient at Cooking 1, two at 30, and three at 50. Repeating an ingredient adds its bonuses together.",
+          "Food buffs last 15 minutes before duration talents and survive death. Only one meal buff can be active at once; eating another replaces the whole previous meal buff."
+        ]
+      },
+      {
+        "heading": "Serve your party",
+        "items": [
+          "Add a Tier 3 ingredient to make a placeable party meal. Guests receive the stats that match your Tier 3 ingredients, including bonuses from lower-tier ingredients that share those stats.",
+          "For example, Beef + Corn + Pork gives guests +55 Strength. The player who placed it also gets the meal?s +25 Agility.",
+          "Place the meal on a block surface, then press F to take a serving. The player who placed it must eat too.",
+          "The meal stays available for one minute. Each current party member can take one serving, with no serving-count limit. If you already have a food buff, press F again within five seconds to confirm replacing it."
+        ]
+      },
+      {
+        "heading": "Alchemy reworked",
+        "items": [
+          "Brew Lesser, normal and Greater potions and elixirs using the new ingredient tiers.",
+          "Prepare supplies for health, mana, stamina, recovery, damage, defense, healing and movement. Every craft makes one bottle.",
+          "Potion and elixir cooldowns have been removed. Drinking still takes 1.5 seconds; different effects can coexist, while the same effect replaces its previous application. The Rift Pit keeps its controlled consumable rules.",
+          "Take another shape with Dog, Frog, Mouse and Pigeon morph potions. Transformations last 60 seconds, or press F to return early."
+        ]
+      },
+      {
+        "heading": "Gather and grow",
+        "items": [
+          "Bushes provide the new plant ingredients and their matching seeds. Higher tiers offer stronger ingredients, with chances to find rare party-food ingredients.",
+          "Cactees drop Tier 1 plant ingredients and seeds; Snapdragons drop Tier 2."
+        ]
+      },
+      {
+        "heading": "Profession progression",
+        "items": [
+          "Profession XP and training rewards have been rebalanced. Current-tier crafting recipes stay useful longer, while older recipes gradually award less XP.",
+          "Change individual profession talent choices for free through /skills. Right-click a selected talent and confirm to reset its row, then choose a replacement. Each profession and level row has its own 24-hour reset cooldown. Your skill level and XP stay unchanged."
+        ]
+      },
+      {
+        "heading": "Keep the feedback coming",
+        "items": [
+          "Check /guide for recipes, progression help and party-meal controls.",
+          "Please keep reporting bugs and balance issues. Include your class and build, and a screenshot or clip when possible. Thank you for helping shape Rift Haven."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-10",
+    "number": 10,
+    "title": "The Deepworks, Druid & a new chapter",
+    "summary": "Enter The Deepworks, discover Druid, and follow Haven’s rebuilt 54-quest campaign.",
+    "eventTime": 1791842400,
+    "sections": [
+      {
+        "heading": "The Deepworks",
+        "items": [
+          "A new dungeon for levels 30–60, solo or with up to five players. Enter through /dungeon.",
+          "Native encounters, enemy stats, drops, and shared respawn checkpoints. Party size does not increase enemy health or damage here.",
+          "Activate the challenge button near the Gobliterator entrance for a tougher fight."
+        ]
+      },
+      {
+        "heading": "Druid",
+        "items": [
+          "Heal as a human, protect your party as a bear, or hunt enemies as a wolf.",
+          "Nature, Guardian, and Briarwolf share one talent budget. Queue as Tank, Healer, or DPS according to your build.",
+          "New transformation animations and nature effects. Craft Nature Staffs; healing improves with character and equipped staff level."
+        ]
+      },
+      {
+        "heading": "Classes & combat",
+        "items": [
+          "Reworked Sol and Sea spells, talents, and effects. Sol gains Flame Jet, steerable Cinderstep, and Incarnation.",
+          "Sea gains Breaker Wave, Tidal Ascendance, and Reefwall protection against hostile projectiles.",
+          "Elementalists and Light Paladins now have a visible mana bar. Spirit improves recovery; basic attacks remain free.",
+          "Added Spirit Voidstone gems and updated Light Paladin healing and protection effects."
+        ]
+      },
+      {
+        "heading": "Haven’s story",
+        "items": [
+          "A rebuilt 54-quest main campaign begins with Margaret in the tavern. Follow the story in order.",
+          "Story introductions teach gathering, crafting, Hunter tasks, and contracts, with clearer conversations, markers, destinations, and class equipment rewards.",
+          "Side and standalone profession quest offers are disabled; follow the main campaign for introductions."
+        ]
+      },
+      {
+        "heading": "Equipment & quality of life",
+        "items": [
+          "Clearer class equipment hints at crafting benches.",
+          "Save HUD key labels in /settings → Keybinds; change actual controls in Hytale Settings.",
+          "Updated /guide with gameplay help and Deepworks details, plus quest, NPC movement, and combat cleanup fixes."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-9",
+    "number": 9,
+    "title": "Build your class. Find your people.",
+    "summary": "Expanded talents, guilds, friends, and daily and weekly contracts bring more ways to grow together.",
+    "sections": [
+      {
+        "heading": "Classes & talents",
+        "items": [
+          "Reworked class and specialization trees with ranked upgrades and more build choices through level 60.",
+          "Free talent changes, Suggested Builds, and two saved builds are available through /class → Talents.",
+          "Updated abilities, spells, combat effects, tank threat, and taunts. Light Paladin talents emphasize healing and party support."
+        ]
+      },
+      {
+        "heading": "Guilds & friends",
+        "items": [
+          "Create or join a guild with guild chat, customizable ranks, and a shared bank through /guild.",
+          "Use /friends to add friends, see who’s online, and invite them to your party.",
+          "Added whispers, replies, and ignore controls."
+        ]
+      },
+      {
+        "heading": "Quests & contracts",
+        "items": [
+          "Reworked conversations, objectives, XP, gold, and equipment rewards, with clearer choices, filters, and tracking.",
+          "Three daily and three weekly contracts reward adventuring with gold and XP. Check /contracts and claim rewards at a Contracts Board.",
+          "Fixed quest interactions and Roland’s rescue."
+        ]
+      },
+      {
+        "heading": "Dungeons & quality of life",
+        "items": [
+          "Rebalanced Khaos bosses for solo attempts and parties with a tank and healer. Additional party members increase enemy health without increasing damage.",
+          "Existing dungeons remain open through level 60, retaining their original enemy and loot tiers.",
+          "Reworked dungeon and raid loot pools, updated /guide and destination tracking, and improved menus and gathering responsiveness."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-8",
+    "number": 8,
+    "title": "Seven bosses. Rare rewards.",
+    "summary": "New world bosses, mount drops, gem upgrades, fishing balance, and clearer menus.",
+    "sections": [
+      {
+        "heading": "Seven new bosses",
+        "items": [
+          "Level 5: Irontusk — Ram Mount; Venomfang — Red Horse; The Pale Widow — Brown Horse.",
+          "Level 10: Grimhide — Antelope Wagon; Mireclaw — Goat Wagon; Dunebreaker — Hyena Wagon.",
+          "Level 15: The Gilded Maw — Tiger Sabertooth.",
+          "Bosses awaken when approached or provoked, display a boss bar, return home after combat, and respawn after ten minutes.",
+          "Each kill gives two independent loot rolls. Gear ranges from Rare to Legendary: levels 5–10 from level-5 bosses, 10–15 from level-10 bosses, and level 15–22 armor from The Gilded Maw.",
+          "Each boss also has a separate 1-in-1,000 chance to drop its mount crate, alongside normal loot."
+        ]
+      },
+      {
+        "heading": "Gems",
+        "items": [
+          "Lesser gems give +6, regular gems +9, and Greater gems +12 to the matching attribute.",
+          "Level-5 bosses drop Lesser gems; level-10 bosses drop regular gems. The Gilded Maw’s gem rewards are 80% regular and 20% Greater.",
+          "Fixed gem names and descriptions. Voidstone is unchanged in this update."
+        ]
+      },
+      {
+        "heading": "Crafting, fishing & quests",
+        "items": [
+          "Crafting benches remember the last recipe and category during your session. Cleaned up shop stock and removed the unused Hunting Supplies shop and sticks.",
+          "All 30 fish have matching rarities, catch pools, and rewards, with rebalanced catch chances.",
+          "Reworked 18 side quests, improved early quest XP, cooking, meal stacking, and crafting-material recognition.",
+          "Refreshed inventory, character, skill, and profession layouts, ability cooldown feedback, and gear comparisons. Reduced delays around menus, quests, talent saving, and bank transfers."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-7",
+    "number": 7,
+    "title": "A world of professions",
+    "summary": "Foraging, Cooking, Alchemy, Jewelcrafting, permanent essence growth, and a new beta inventory.",
+    "sections": [
+      {
+        "heading": "Profession expansion",
+        "items": [
+          "Foraging adds bushes, plants, harvestables, and materials that feed other professions.",
+          "Cooking adds recipes and a cooking bench flow. Cooked foods provide timed buffs.",
+          "Alchemy adds bench and recipe progression, expanded potion paths, and Rift effects including Gills, Luminence, Lightning in a Bottle, Regen Remedy, Miracle Kit, Frozen Time, and Returning Rift.",
+          "Jewelcrafting adds rings, amulets, copper/silver/gold paths, and socketed jewelry."
+        ]
+      },
+      {
+        "heading": "Permanent growth & perks",
+        "items": [
+          "Elemental and concentrated essences play a larger role in crafting and progression. Greater essence upgrades provide permanent stat growth, with costs increasing as bonuses grow.",
+          "Expanded profession perks, talent tiers, choices, reset flow, skill XP feedback, and persistence."
+        ]
+      },
+      {
+        "heading": "Beta inventory & unified navigation",
+        "items": [
+          "Open the new beta inventory with O. It combines armor and jewelry slots, storage and hotbar, live character stats, and class, talent, and ability panels.",
+          "Added dragging, improved tooltips, most vanilla inventory controls, and live stat refresh after gear changes.",
+          "Shared navigation connects Inventory, Skills, Quests, Party, and Dungeon Finder. The inventory remains beta; please report unexpected behavior."
+        ]
+      },
+      {
+        "heading": "Loot & saves",
+        "items": [
+          "Reworked creature-family drops, essences, hides, meat, chitin, feathers, gems, ingots, and other materials.",
+          "Updated dungeon chest assets with materials and profession rewards appropriate to their value.",
+          "Fixed quest state crossing characters and improved persistence and reload behavior for progression, stats, inventory, and professions."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-6",
+    "number": 6,
+    "title": "Protection, persistence & polish",
+    "summary": "PvP protection, safer character swaps, dungeon cleanup, and progression fixes.",
+    "sections": [
+      {
+        "heading": "PvP protection",
+        "items": [
+          "Disabled world PvP now ignores player hits and knockback for melee, projectiles, and abilities.",
+          "When party PvP is disabled, party members are fully protected from one another."
+        ]
+      },
+      {
+        "heading": "Characters & dungeons",
+        "items": [
+          "Class reset immediately reopens selection. Fixed /character transitions, stale /class data, and crossover state during swaps.",
+          "Khaos, Fear II, and Fear III mobs no longer attack each other. Improved Baron and Scarak Broodmother boss bars.",
+          "Removed most dungeon chest spawns outside Fear I while those dungeons shift toward future Rift content. Removed old shield and Ancient Steel rewards from Burnt Praetorian drops."
+        ]
+      },
+      {
+        "heading": "Progression & stability",
+        "items": [
+          "Doubled Light/Soft hide drops from wolves, rats, snakes, and similar mobs. Improved ore respawns and added chickens to the farm.",
+          "Cleaned up quest item names, enabled arena-kill progression only inside the arena, and removed the old Unassigned leaderboard class stat.",
+          "Reduced Paladin club damage and fixed follow-up scaling issues, stale party HUD updates, MySQL recovery, and login sequencing."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-5",
+    "number": 5,
+    "title": "Fear, loot & class balance",
+    "summary": "Expanded Fear progression and a broad balance pass across dungeons, rewards, equipment, and classes.",
+    "sections": [
+      {
+        "heading": "Dungeons & rewards",
+        "items": [
+          "Expanded the Dungeon of Fear path with a new dungeon, loosened upper-level entry restrictions, and retuned Khaos and Fear pacing.",
+          "Reworked loot: normal enemies lean toward materials, with larger rewards from elites and bosses. Added themed Fear rewards."
+        ]
+      },
+      {
+        "heading": "Equipment & classes",
+        "items": [
+          "Rebalanced weapons and armor, normalized weapon damage progression, corrected outliers, and improved rolled gear and comparison tooltips.",
+          "Retuned Fighter Thick Skinned, Rogue/Shinobi damage and sustain, Execution Jutsu, Draining Jutsu, and weapon-tier Kunai scaling.",
+          "Moved Burning Passion earlier and Like the Wind later. Normalized Air, Fire, and Solar Bolt damage; improved Solar Wave and Gale Torrent range and feel, and burn scaling."
+        ]
+      },
+      {
+        "heading": "Quality of life",
+        "items": [
+          "Bank tabs can be unlocked with gold. Auction tooltips compare against equipped gear.",
+          "Cleaned up character swapping and slots, fixed slot duplication, and made crafting XP reflect recipe level more accurately."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-4",
+    "number": 4,
+    "title": "Ready your party",
+    "summary": "Reliable dungeon queues, role checks, character entry, and crafting progression.",
+    "sections": [
+      {
+        "heading": "Dungeon finder",
+        "items": [
+          "Random queues check party level range and size, rejecting under-level parties immediately.",
+          "Non-leaders choose Tank, DPS, or Healer in a role-ready check. Closing or declining marks the player not ready. Queue status shows the selected role.",
+          "Improved party loading and safe recovery when dungeon entry fails."
+        ]
+      },
+      {
+        "heading": "Characters, crafting & resources",
+        "items": [
+          "Choose a character slot at login; new characters begin in the intended starting area.",
+          "Added Weapon Crafting for Sword, Battleaxe, Club, and Staff, remapped requirements, rebalanced crafting XP, and improved quality chances when skill exceeds recipe level.",
+          "Affected recipes use Wood instead of sticks. Added Mosshorn fibre drops of 1–12 and increased fibre from Beech leaves."
+        ]
+      },
+      {
+        "heading": "Fixes & fishing",
+        "items": [
+          "Auction duration selection now applies correctly.",
+          "Fishing tooltips explain right-click to cast, Ability2 (E by default) to reel, and Ability3 (R by default) to change lures. Tuned lobster catches.",
+          "Slightly increased mob-kill XP for smoother leveling."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-3",
+    "number": 3,
+    "title": "Fishing gets a full minigame",
+    "summary": "New fishing interactions, lures, bait, collections, and rarity-based loot bags.",
+    "sections": [
+      {
+        "heading": "Fishing overhaul",
+        "items": [
+          "Fish visually approach the bobber before hooking. Recasting cancels the current cast.",
+          "Improved slip/fail flow, splash and audio feedback, and minigame scaling by fish rarity."
+        ]
+      },
+      {
+        "heading": "Lures, bait & rewards",
+        "items": [
+          "Added lure and bait types with different stats. Cycle lures with Ability3; bait is consumed from your off-hand.",
+          "Lures have durability and can break. Added Poor through Legendary loot bags with rewards based on current skill levels.",
+          "Added fishing collections, first-catch and milestone rewards, and fishing leaderboards."
+        ]
+      },
+      {
+        "heading": "Feedback & progression",
+        "items": [
+          "Cleaner catch, skill, and class XP notifications and improved fishing UI readability.",
+          "Cleaned up early leather progression and creature-hide drops."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-2",
+    "number": 2,
+    "title": "Combat feel & inventory fixes",
+    "summary": "Improved ability sound, Gale Torrent, item safety, and Haven’s spawn system.",
+    "sections": [
+      {
+        "heading": "Combat",
+        "items": [
+          "Added and improved ability sound effects and reworked Gale Torrent for more consistent results."
+        ]
+      },
+      {
+        "heading": "Systems & world",
+        "items": [
+          "Fixed inventory item disappearance. Items that fail placement go to Auction House Claims/Collections.",
+          "Fixed weapon deletion during withdrawal with a restricted weapon, full inventory, and empty hotbar.",
+          "Fixed quest tracker dropdown visibility and the spawn system around Haven."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "update-1",
+    "number": 1,
+    "title": "Our first patch is live",
+    "summary": "Faster smelting, more mining XP, combat tuning, and bank improvements.",
+    "sections": [
+      {
+        "heading": "Crafting & gathering",
+        "items": [
+          "Reduced furnace smelting time from 2.0 seconds to 0.5 seconds and increased mining XP by 20%."
+        ]
+      },
+      {
+        "heading": "Combat",
+        "items": [
+          "Increased Kunai base damage from 6 to 12. Explosion damage changed from a flat 30 to 5 + (Level × 0.5).",
+          "Fixed Elementalist spells damaging players when they should not."
+        ]
+      },
+      {
+        "heading": "Systems & quality of life",
+        "items": [
+          "Added Fishing and Class XP/Level leaderboard tracking.",
+          "Fixed incorrect bank-item rarity. Deposit All ignores the hotbar.",
+          "Added a world-spawned NPC system and updated join/leave message formatting."
+        ]
+      }
+    ]
+  }
 ]

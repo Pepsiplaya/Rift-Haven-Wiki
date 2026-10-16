@@ -7,25 +7,87 @@
       "summary": "Heal in Human Form, protect your party as a bear, and hunt as a wolf. Nature, Guardian and Briarwolf share one talent budget.",
       "keywords": "druid nature guardian briarwolf human bear wolf shapeshift verdancy healing tank dps spores wounds staff",
       "icon": "",
-      "links": ["classes", "talents", "combat-gear", "party", "dungeons", "professions"],
+      "links": [
+        "classes",
+        "talents",
+        "combat-gear",
+        "party",
+        "dungeons",
+        "professions"
+      ],
       "blocks": [
-        {"heading": true, "text": "Three forms, one character"},
-        {"heading": false, "text": "Select Human, Bear or Wolf in your offhand wheel, then right-click to change form. Each form has its own E, R, Q and H abilities. Shifting preserves your Verdancy, signature energy and cooldowns; changing form is not a cooldown reset."},
-        {"heading": false, "text": "Build across Nature, Guardian and Briarwolf in /class. These are talent trees sharing one budget, so choose the abilities and upgrades that support your intended role. In Dungeon Finder, choose Tank, Healer or DPS according to the build you will actually play."},
-        {"heading": true, "text": "Human Form — Nature healing"},
-        {"heading": false, "text": "E plants a healing spore on the ground you aim at. Its healing needs line of sight from the spore. R applies Renewing Touch to your aimed ally, or yourself; recasting refreshes the effect instead of stacking it. H casts Lifebloom on your aimed ally, or yourself."},
-        {"heading": false, "text": "At full signature energy, Q casts Flourish to heal nearby allies and turn nearby spores into healing bursts. Those spores disappear after blooming. Healing injured allies and landing attacks build signature energy."},
-        {"heading": false, "text": "Keep your character and equipped staff progressing: both contribute to your healing. Nature Staffs are available through Weapon Crafting. Return to Human Form before using gathering tools or planting seeds."},
-        {"heading": true, "text": "Bear Form — Guardian protection"},
-        {"heading": false, "text": "Your basic attacks chain paw strikes and generate tank threat. E sweeps enemies in front of you with Swipe. R taunts nearby enemies and provides defensive protection; talents can change the defensive action. H adds Barkward protection while you remain a bear."},
-        {"heading": false, "text": "Hold your attack for at least 0.6 seconds, then release Oaken Crash. At full signature energy, Q uses Ancient Stand to taunt nearby enemies and improve your protection. Start the fight and establish threat before your damage dealers open up."},
-        {"heading": true, "text": "Wolf Form — Briarwolf damage"},
-        {"heading": false, "text": "Basic attacks chain claws and a bite. Your bite, Pounce and Twin Rend apply Briar Wounds: damage over time with a three-stack cap. Reapplying wounds refreshes their duration, and existing wounds persist when you change form."},
-        {"heading": false, "text": "E uses Pounce toward an aimed enemy and needs a clear path. R uses Prowl to hide; direct attacks, shifting or taking damage reveal you, while existing wounds keep ticking. H uses Crippling Bite to slow your aimed enemy."},
-        {"heading": false, "text": "Hold attack for at least 0.6 seconds, then release Twin Rend. At full signature energy, Q uses Thorn Frenzy to strengthen your existing Briar Wounds. Keep your weapon up to level: equipped weapon progression also improves your animal-form attacks."},
-        {"heading": true, "text": "Managing Verdancy"},
-        {"heading": false, "text": "Verdancy is shared across all three forms and regenerates faster outside combat. Basic attacks and shifting are free. Other abilities spend Verdancy; check the current ability cards for the costs and cooldowns of your build. When the resource runs low, use free attacks while recovering instead of repeatedly attempting an unaffordable ability."},
-        {"heading": false, "text": "E, R, Q and H are the default labels used here. If your controls differ, check Hytale Settings and your saved HUD key labels in /settings."}
+        {
+          "heading": true,
+          "text": "Three forms, one character"
+        },
+        {
+          "heading": false,
+          "text": "Choose Druid during character creation. Nature, Guardian and Briarwolf are forms you can switch between, not permanent subclasses. Click each form in class creation to preview its abilities and transformation before confirming your class."
+        },
+        {
+          "heading": false,
+          "text": "Select Human, Bear or Wolf in your offhand wheel, then right-click to change form. Each form has its own E, R, Q and H abilities. Shifting preserves your Verdancy, signature energy and cooldowns; changing form is not a cooldown reset."
+        },
+        {
+          "heading": false,
+          "text": "Build across Nature, Guardian and Briarwolf in /class. These are talent trees sharing one budget, so choose the abilities and upgrades that support your intended role. In Dungeon Finder, choose Tank, Healer or DPS according to the build you will actually play."
+        },
+        {
+          "heading": true,
+          "text": "Human Form — Nature healing"
+        },
+        {
+          "heading": false,
+          "text": "E plants a healing spore on the ground you aim at. Its healing needs line of sight from the spore. R applies Renewing Touch to your aimed ally, or yourself; recasting refreshes the effect instead of stacking it. H casts Lifebloom on your aimed ally, or yourself."
+        },
+        {
+          "heading": false,
+          "text": "At full signature energy, Q casts Flourish to heal nearby allies and turn nearby spores into healing bursts. Those spores disappear after blooming. Healing injured allies and landing attacks build signature energy."
+        },
+        {
+          "heading": false,
+          "text": "Keep your character and equipped staff progressing: both contribute to your healing. Nature Staffs are available through Weapon Crafting. Return to Human Form before using gathering tools or planting seeds."
+        },
+        {
+          "heading": true,
+          "text": "Bear Form — Guardian protection"
+        },
+        {
+          "heading": false,
+          "text": "Your basic attacks chain paw strikes and generate tank threat. E sweeps enemies in front of you with Swipe. R taunts nearby enemies and provides defensive protection; talents can change the defensive action. H adds Barkward protection while you remain a bear."
+        },
+        {
+          "heading": false,
+          "text": "Hold your attack for at least 0.6 seconds, then release Oaken Crash. At full signature energy, Q uses Ancient Stand to taunt nearby enemies and improve your protection. Start the fight and establish threat before your damage dealers open up."
+        },
+        {
+          "heading": true,
+          "text": "Wolf Form — Briarwolf damage"
+        },
+        {
+          "heading": false,
+          "text": "Basic attacks chain claws and a bite. Your bite, Pounce and Twin Rend apply Briar Wounds: damage over time with a three-stack cap. Reapplying wounds refreshes their duration, and existing wounds persist when you change form."
+        },
+        {
+          "heading": false,
+          "text": "E uses Pounce toward an aimed enemy and needs a clear path. R uses Prowl to hide; direct attacks, shifting or taking damage reveal you, while existing wounds keep ticking. H uses Crippling Bite to slow your aimed enemy."
+        },
+        {
+          "heading": false,
+          "text": "Hold attack for at least 0.6 seconds, then release Twin Rend. At full signature energy, Q uses Thorn Frenzy to strengthen your existing Briar Wounds. Keep your weapon up to level: equipped weapon progression also improves your animal-form attacks."
+        },
+        {
+          "heading": true,
+          "text": "Managing Verdancy"
+        },
+        {
+          "heading": false,
+          "text": "Verdancy is shared across all three forms and regenerates faster outside combat. Basic attacks and shifting are free. Other abilities spend Verdancy; check the current ability cards for the costs and cooldowns of your build. When the resource runs low, use free attacks while recovering instead of repeatedly attempting an unaffordable ability."
+        },
+        {
+          "heading": false,
+          "text": "E, R, Q and H are the default labels used here. If your controls differ, check Hytale Settings and your saved HUD key labels in /settings."
+        }
       ]
     }
   ]
