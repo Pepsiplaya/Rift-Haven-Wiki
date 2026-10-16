@@ -1,6 +1,6 @@
 """Publish the portal with content-versioned assets and direct entry pages."""
 from pathlib import Path
-import hashlib,re,shutil
+import hashlib,re,shutil,json
 
 root=Path(__file__).resolve().parents[1]
 target=root/'_site'
@@ -20,7 +20,14 @@ html=re.sub(r'((?:src|href)=")(/assets/[^"?]+\.(?:js|css))(\")',version_asset,ht
 (target/'index.html').write_text(html,encoding='utf-8')
 # Fixed portal entry points need no 404 redirect. Dynamic player/article paths
 # still restore their original route through the small GitHub Pages fallback.
-for route in ['npcs','status','home','profiles','items','market','market/history','guilds','rankings','dungeons','guide','news']:
+routes=['npcs','status','home','profiles','items','market','market/history','guilds','rankings','dungeons','guide','news']
+for file,section,key in [('news.json','news',None),('guide.json','guide','articles')]:
+    records=json.loads((root/'assets/data'/file).read_text(encoding='utf-8'))
+    for record in records[key] if key else records:
+        # Restrict filesystem paths to known public slugs. Namespaced guide IDs
+        # keep the existing SPA fallback without platform-dependent filenames.
+        if re.fullmatch(r'[a-z0-9_-]+',record['id']):routes.append(section+'/'+record['id'])
+for route in sorted(set(routes)):
     folder=target/route;folder.mkdir(parents=True,exist_ok=True)
     (folder/'index.html').write_text(html,encoding='utf-8')
 version=hashlib.sha256(html.encode()).hexdigest()[:16]
