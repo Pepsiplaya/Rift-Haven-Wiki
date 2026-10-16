@@ -29,8 +29,16 @@ test('plant seeds follow the new creature tiers and conditional brush drops',()=
 
 test('meals and potions describe the current stats, stacking and one-bottle recipes',()=>{
   assert.ok(!items.Food_Egg);assert.ok(!items.RiftCore_Frozen_Time);
-  assert.match(items.RiftCore_MealV3__Beef__Beef__Pork.description,/\+80 Strength/);
-  assert.match(items.RiftCore_MealV3__Beef__Corn__Pork.description,/\+25 Agility/);
+  // Exact combination identities remain available for saved equipment/market
+  // labels, while the browsable compendium contains only base foods.
+  assert.match(metadata.RiftCore_MealV3__Beef__Beef__Pork.description,/\+80 Strength/);
+  assert.match(metadata.RiftCore_MealV3__Beef__Corn__Pork.description,/\+25 Agility/);
+  const meals=Object.entries(items).filter(([id])=>id.startsWith('RiftCore_MealV3__'));
+  assert.equal(meals.length,21);
+  assert.equal(new Set(meals.map(([,item])=>item.name)).size,21);
+  for(const [id,item] of meals){assert.equal(id.split('__').length,2);assert.equal(item.recipes.length,1);assert.equal(item.recipes[0].requiredLevel,1);}
+  assert.ok(!items.RiftCore_MealV3__Beef__Beef__Pork);
+  assert.ok(!items.RiftCore_MealV3__Beef__Corn__Pork);
   assert.match(items.RiftCore_MealV3__Pork.description,/one minute/);
   assert.equal(items.RiftCore_MealV3__Pork.recipes[0].requiredLevel,1);
   for(const item of Object.values(items))for(const recipe of item.recipes.filter(r=>r.profession==='ALCHEMY')){

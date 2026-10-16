@@ -448,6 +448,11 @@ def build():
                         'requiredLevel': recipe['requiredLevel'], 'quantity': recipe['outputQty'],
                         'inputs': recipe['inputs'], 'goldCost': recipe['goldCost']})
         for recipe in catalogs['cooking']:
+            # The compendium lists base foods, not every two/three-ingredient
+            # permutation of the same meal. Cooking combinations belong in the
+            # cooking guide; ingredient names and actual base recipes stay here.
+            if recipe['kind'] == 'DYNAMIC' and len(recipe['ingredientKeys']) != 1:
+                continue
             inputs = [{'acceptedItemIds': i['acceptedItemIds'], 'quantity': i['quantity']}
                       for i in recipe['inputs']]
             ingredient_keys = {i['key'].lower(): i['key'] for i in catalogs['ingredients']}
@@ -550,7 +555,8 @@ def build():
                            'recipeItems': sum(bool(e['recipes']) for e in output.values()),
                            'limitations': ['Live merchant stock and custom server overrides are not included.',
                                            'Dynamic equipment rolls and crafting-talent duration variants are not included.',
-                                           'Recipes with unverified ingredient routes are excluded.']}}
+                                           'Recipes with unverified ingredient routes are excluded.',
+                                           'Food listings show base meals only; mixed and repeated-ingredient combinations are omitted.']}}
     destination = SITE / 'assets/data/discovery-items.json'
     destination.write_text(json.dumps(result, ensure_ascii=False, separators=(',', ':')) + '\n',
                            encoding='utf-8')
