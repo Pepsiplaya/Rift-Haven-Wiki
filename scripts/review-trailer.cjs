@@ -3,7 +3,7 @@ const {chromium} = require('playwright');
 const fs = require('node:fs');
 const path = require('node:path');
 (async () => {
-  const output = path.resolve(__dirname, '../../output/trailer/review/website');
+  const output = path.resolve(__dirname, '../../output/trailer/review/' + (process.env.TRAILER_REVIEW_URL ? 'website-live' : 'website'));
   fs.mkdirSync(output, {recursive:true});
   const browser = await chromium.launch({headless:true,channel:'chrome'});
   const base = process.env.TRAILER_REVIEW_URL || 'http://127.0.0.1:8093/';
@@ -13,7 +13,9 @@ const path = require('node:path');
     const page=await context.newPage();const errors=[],media=[];
     page.on('pageerror', error=>errors.push(error.message));
     page.on('request',request=>{if(request.url().includes('/assets/media/'))media.push(request.url());});
-    await page.goto(base,{waitUntil:'networkidle'});
+    // A looping video and live presence polling are intentionally active. Wait
+    // for the UI/media we inspect rather than requiring all network traffic to stop.
+    await page.goto(base,{waitUntil:'domcontentloaded'});
     await page.locator('[data-watch-trailer]').waitFor();
     if (!reduced) await page.waitForFunction(()=>document.querySelector('.hero-film')?.currentTime>0.2);
     const initial=await page.evaluate(()=>{
