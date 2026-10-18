@@ -2,6 +2,12 @@
 
 The game homepage, community dashboard, profiles, market, guild directory, rankings, guide, and news run on the existing GitHub Pages site. Public records and Discord interactions run on `rift-haven-api.rift-haven-website.workers.dev`.
 
+## Homepage trailer
+
+The welcome hero fills the first viewport below the header. Its muted background uses the accepted trailer's footage and camera transitions without the title cards. Desktop and phone variants are 1080p60 and 720p60; reduced-motion and data-saving preferences keep the poster until the visitor chooses playback. The background pauses offscreen, in another tab, or while the full trailer is open. The full trailer downloads only when requested and includes the music attribution below its player. All source recordings remain in the trailer library.
+
+`node scripts/review-trailer.cjs` checks desktop, phone and reduced-motion playback, viewport sizing, player closure and navigation. It uses the installed Chrome in headless mode and the local preview at port 8093, or `TRAILER_REVIEW_URL`. The project-level `scripts/trailer/build-website-media.py` regenerates the media from the accepted v3 edit and its chapter intermediates. This website-only change needs no gameplay or `/guide` update.
+
 ## Data flow
 
 The game commits economy changes and audit records together in its MySQL transaction. A background publisher forwards pending records over signed HTTPS and publishes public-data snapshots once a minute. Cloudflare D1 stores the snapshots and audit records; no SQL password is stored in Cloudflare. A singleton dispatcher batches Discord messages and respects rate-limit responses. Delivery has stable event references and may duplicate a batch after a lost acknowledgement.

@@ -7,10 +7,13 @@
   <meta name="description" content="Enter Rift Haven, a custom Hytale MMO. Discover your class, follow your adventure, and find your people.">
   <meta property="og:title" content="Rift Haven — Your adventure starts here">
   <meta property="og:description" content="A handcrafted Hytale MMO. Explore the world, your character, and the community.">
-  <meta property="og:image" content="https://rift-haven.com/assets/images/haven.webp">
+  <meta property="og:image" content="https://rift-haven.com/assets/media/rift-haven-trailer-thumbnail.jpg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta name="twitter:card" content="summary_large_image">
   <title>Rift Haven — Your adventure starts here</title>
   <link rel="icon" href="/assets/images/emblem.webp">
-  <link rel="preload" href="/assets/images/haven.webp" as="image">
+  <link rel="preload" href="/assets/media/trailer-poster.webp" as="image">
   <link rel="preload" href="/assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
   <link rel="stylesheet" href="/assets/css/guide.css">
@@ -18,6 +21,7 @@
   <link rel="stylesheet" href="/assets/css/site-search.css">
   <link rel="stylesheet" href="/assets/css/world-tools.css">
   <link rel="stylesheet" href="/assets/css/haven.css">
+  <link rel="stylesheet" href="/assets/css/trailer.css">
   <script defer src="/assets/js/config.js"></script>
   <script defer src="/assets/js/guide-data.js"></script>
   <script defer src="/assets/js/guide-view.js"></script>
@@ -25,6 +29,7 @@
   <script defer src="/assets/js/site-search.js"></script>
   <script defer src="/assets/js/world-tools.js"></script>
   <script defer src="/assets/js/npcs.js"></script>
+  <script defer src="/assets/js/trailer.js"></script>
   <script defer src="/assets/js/app.js"></script>
   <script defer src="/assets/js/haven.js"></script>
 </head>
@@ -52,5 +57,11 @@
   <dialog id="join-dialog" class="join-dialog" aria-labelledby="join-title"><button class="dialog-close" aria-label="Close join instructions">×</button><p class="eyebrow">Your adventure starts here</p><h2 id="join-title">See you in Haven.</h2><p>Open Hytale, choose a server connection, and enter:</p><div class="server-address"><code id="join-address">Play.Rift-Haven.com</code><button data-copy-only aria-label="Copy server address">⧉</button></div><p class="muted">Need a hand? <a href="https://discord.gg/RiftHaven" target="_blank" rel="noopener noreferrer">Our Discord community can help ↗</a></p></dialog>
 <dialog id="item-dialog" class="item-dialog" aria-labelledby="item-title"><button class="item-dialog-close" aria-label="Close item details" onclick="this.closest('dialog').close()">&#215;</button><div id="item-dialog-content"></div></dialog>
 <div id="item-tooltip" class="item-tooltip" hidden></div>
+<dialog id="trailer-dialog" class="trailer-dialog" aria-labelledby="trailer-title">
+  <div class="trailer-dialog-heading"><h2 id="trailer-title">Rift Haven — Gameplay trailer</h2><button class="trailer-close" aria-label="Close trailer">Close <span aria-hidden="true">×</span></button></div>
+  <video controls playsinline preload="none" poster="/assets/media/trailer-poster.webp" aria-label="Rift Haven gameplay trailer"><source data-src="/assets/media/rift-haven-trailer-v3.mp4" type="video/mp4"></video>
+  <p class="trailer-summary">Choose from five classes, follow quests in Haven, prepare a party meal with friends, and face a five-player dungeon boss.</p>
+  <p class="trailer-credit">Music: <a href="https://incompetech.com/music/royalty-free/index.html?Search=Search&amp;isrc=USUAN1100884" target="_blank" rel="noopener noreferrer">Crusade — Kevin MacLeod (incompetech.com)</a>. <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. Excerpt trimmed and faded.</p>
+</dialog>
 </body>
 </html>

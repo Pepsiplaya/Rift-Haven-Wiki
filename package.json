@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/index.js",
     "test": "node --test server/*.test.js",
-    "check": "node --check assets/js/app.js && node --check assets/js/haven.js && node --check assets/js/player-tools.js && node --check assets/js/world-tools.js && node --check server/index.js"
+    "check": "node --check assets/js/app.js && node --check assets/js/haven.js && node --check assets/js/trailer.js && node --check assets/js/player-tools.js && node --check assets/js/world-tools.js && node --check server/index.js"
   },
   "engines": {
     "node": ">=22"

@@ -1,0 +1,61 @@
+/* Full-screen welcome, with the actual trailer footage behind the copy. */
+.hero.hero-cinema {height:auto;min-height:calc(100svh - var(--header-height));max-height:none;text-align:center;background:#0b1418}
+.hero-cinema .hero-landscape {z-index:-2;filter:none;background-image:url('../media/trailer-poster.webp');background-position:center}
+.hero-cinema .hero-landscape:after {z-index:1;background:linear-gradient(180deg,#06101545,#06101530 30%,#06101578 72%,#0c1316 100%),radial-gradient(ellipse at 50% 45%,#06101592,transparent 75%)}
+.hero-film {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .6s;pointer-events:none}
+.hero-film.is-ready {opacity:1}
+.hero-cinema .hero-inner {min-height:inherit;max-width:1000px;justify-content:center;padding:60px 28px 120px}
+.hero-cinema .hero-copy {max-width:660px;width:100%;text-shadow:0 2px 22px #000b}
+.hero-cinema .hero-emblem {display:block;width:100px;height:100px;margin:0 auto 19px;filter:drop-shadow(0 5px 25px #0008)}
+.hero-cinema .hero-copy>.eyebrow {justify-content:center;color:#e1d2b3;letter-spacing:.18em;font-size:10px;margin-bottom:13px}
+.hero-cinema h1 {font-size:clamp(60px,7vw,100px);line-height:1.05;letter-spacing:-.04em;margin:0 0 19px;color:#f6efdf}
+.hero-cinema .hero-tagline {font-size:clamp(21px,2vw,28px);margin:0 0 17px;color:#f3ead9}
+.hero-cinema .hero-description {max-width:470px;margin:0 auto 26px;font-size:15px;color:#d1d9d5;line-height:1.75}
+.hero-cinema .hero-actions {justify-content:center;gap:12px}
+.hero-cinema .hero-actions .button {min-height:48px;padding:13px 24px;font-size:13px}
+.hero-cinema .hero-presence {justify-content:center;text-align:center;margin-top:23px}
+.hero-cinema .hero-address {margin:12px auto 0;display:block;color:#d4d9d3}
+.hero-community {display:inline-block;font-size:12px;margin-top:12px;color:#d4c19d;text-underline-offset:4px}
+.hero-community:hover {text-decoration:underline;color:var(--gold-light)}
+.hero-cinema .hero-bottom {max-width:none;left:32px;right:32px;bottom:27px;margin:0;padding:20px 0 0;display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;border-top:1px solid #d3b6812c}
+.hero-cinema .scroll-cue {justify-content:center;text-transform:none;font-size:11px;letter-spacing:.03em;color:#eee4cf}
+.hero-cinema .hero-guide-link {justify-self:end;color:#c0c9c3;font-size:11px}
+.hero-playback {justify-self:start;display:flex;align-items:center;gap:9px;border:1px solid #c8d9d43d;background:#0b171b99;color:#e1e6df;border-radius:4px;padding:9px 12px;font-size:11px;min-height:40px}
+.hero-playback:hover {border-color:var(--gold);background:#16262bd9}
+.hero-playback span {width:11px;font-size:12px}
+.trailer-dialog {padding:20px 24px 18px;width:min(1120px,calc(100vw - 32px));max-height:calc(100svh - 32px);overflow:auto;border:1px solid #d3b68166;border-radius:8px;background:#0d191e;color:var(--text);box-shadow:0 30px 100px #0009}
+.trailer-dialog::backdrop {background:#02090de8;backdrop-filter:blur(6px)}
+.trailer-dialog-heading {display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.trailer-dialog h2 {font-size:18px;margin:0}
+.trailer-close {border:1px solid var(--line);background:#ffffff06;border-radius:4px;color:var(--text);padding:8px 12px;font-size:12px;display:flex;align-items:center;gap:12px}
+.trailer-close span {font-size:20px;line-height:1}
+.trailer-dialog video {display:block;width:100%;aspect-ratio:16/9;background:#000;border-radius:3px}
+.trailer-summary {font-size:12px;color:#bbc9c5;margin:15px 0 7px}
+.trailer-credit {font-size:10px;color:#94aaa8;margin:0}
+.trailer-credit a {text-decoration:underline;text-underline-offset:3px}
+@media(max-width:800px) {
+  .hero-cinema .hero-inner {padding:45px 24px 110px}
+  .hero-cinema .hero-emblem {width:82px;height:82px;margin-bottom:16px}
+  .hero-cinema .hero-description {font-size:14px;max-width:390px}
+  .hero-cinema .hero-bottom {left:24px;right:24px;grid-template-columns:1fr auto;gap:16px;bottom:22px}
+  .hero-cinema .hero-guide-link {display:none}
+}
+@media(max-width:520px) {
+  .hero-cinema .hero-inner {padding:34px 23px 104px}
+  .hero-cinema .hero-emblem {width:72px;height:72px}
+  .hero-cinema h1 {font-size:clamp(46px,13vw,66px);margin-bottom:15px}
+  .hero-cinema .hero-tagline {font-size:20px;margin-bottom:15px}
+  .hero-cinema .hero-description {max-width:310px;font-size:13px;margin-bottom:22px}
+  .hero-cinema .hero-actions .button {padding:12px 16px;min-height:45px;font-size:12px}
+  .hero-cinema .hero-presence {margin-top:19px}
+  .hero-cinema .hero-bottom {left:23px;right:23px}
+  .hero-cinema .scroll-cue {font-size:10px;gap:8px}
+  .trailer-dialog {padding:16px;width:calc(100vw - 20px);max-height:calc(100svh - 20px)}
+  .trailer-dialog h2 {font-size:14px}
+}
+@media(max-height:700px) and (min-width:801px) {
+  .hero-cinema .hero-inner {padding-top:24px;padding-bottom:100px}
+  .hero-cinema .hero-emblem {width:64px;height:64px;margin-bottom:8px}
+  .hero-cinema h1 {font-size:68px;margin-bottom:12px}
+  .hero-cinema .hero-description {margin-bottom:18px}
+}
